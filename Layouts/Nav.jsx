@@ -9,12 +9,10 @@ export default class Nav extends React.Component {
     }
 
     render() {
-        return <BrowserRouter>
-            <ul>
+        return            <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/DevNewDA">DevNewDA</Link></li>
                 <li><Link to="/about">About</Link></li>
             </ul>
-        </BrowserRouter>
     }
 }

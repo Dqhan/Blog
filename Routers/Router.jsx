@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import {
-    BrowserRouter,
     Route,
-    browserHistory
+    HashRouter,
+    Switch
 } from 'react-router-dom';
 import About from '../JSX/Components/About';
 import DevNewDA from '../JSX/Components/DevNewDA';
 import Home from '../JSX/Components/Home';
 
 const Router = () => {
-    return <BrowserRouter history={browserHistory}>
-        <div>
-            <Route  path="/" component={Home} />
-            <Route  path="/about" component={About} />
-            <Route  path="/DevNewDA" component={DevNewDA} />
-        </div>
-    </BrowserRouter>
+    return <Switch>
+            <Route path="/about" component={About} />
+            <Route path="/DevNewDA" component={DevNewDA} />
+            <Route path="/" component={Home} />
+        </Switch>
 }
 export default Router;
 
