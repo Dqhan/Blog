@@ -1,10 +1,7 @@
 import React from 'react';
 import Router from '../Routers/Router';
-import Layout  from '../Layouts/Index';
 import {
-    Route,
-    HashRouter,
-    Switch
+    HashRouter
 } from 'react-router-dom';
 
 export default class Index extends React.Component{
@@ -14,9 +11,7 @@ export default class Index extends React.Component{
 
     render(){
         return <HashRouter>
-        <Layout>
             <Router />
-        </Layout>
         </HashRouter>
     }
 }

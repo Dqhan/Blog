@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Index from './JSX/Index';
+require("./Contents/index.less");
 
 ReactDOM.render(
     (<Index />),

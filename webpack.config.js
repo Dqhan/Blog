@@ -2,12 +2,15 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+    mode: "development",
     entry: { index: "./app.js" },
     output: {
         path: path.resolve(__dirname, './dist/'),
         filename: "Index.js",
     },
-
+    watchOptions: {
+        aggregateTimeout: 800,
+    },
     devtool: "source-map",
     module: {
         rules: [
@@ -25,6 +28,19 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: "style-loader!css-loader!less-loader"
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg)$/,
+                exclude: /node_modules/,
+                use:  {
+                    loader: 'url-loader',
+                    // options: {
+                    //     limit: 10240,
+                    //     name: "[name].[ext]",
+                    //     mimetype: 'image/png',
+                    //     outputPath: 'images/'
+                    // },
+                }
             }
         ]
     },
