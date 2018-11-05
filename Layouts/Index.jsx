@@ -6,7 +6,7 @@ export default class Layout extends React.Component{
     }
 
     render(){
-        return <div>
+        return <div className='layout-container'>
             <Nav />
             {this.props.children}
         </div>
