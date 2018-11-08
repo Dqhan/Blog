@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import ReactDOM from 'react-dom';
 
 export default class Banner extends React.Component {
@@ -28,6 +28,28 @@ export default class Banner extends React.Component {
         this.banner1 = elements[1];
         this.banner2 = elements[2];
         this.bannerContent = document.getElementsByClassName('banner-content')[0];
+        this.banner2.children[0].classList.add('active');
+        this.bannerContent.addEventListener('transitionend', this.transitionEnd.bind(this));
+    }
+
+    transitionEnd() {
+        switch (this.state.currentIndex) {
+            case 0:
+                this.banner2.children[0].classList.add('active');
+                this.banner0.children[0].classList.remove('active');
+                this.banner1.children[0].classList.remove('active');
+                break;
+            case 1:
+                this.banner1.children[0].classList.add('active');
+                this.banner0.children[0].classList.remove('active');
+                this.banner2.children[0].classList.remove('active');
+                break;
+            case 2:
+                this.banner0.children[0].classList.add('active');
+                this.banner1.children[0].classList.remove('active');
+                this.banner2.children[0].classList.remove('active');
+                break;
+        }
     }
 
     componentWillUnmount() {
@@ -45,18 +67,12 @@ export default class Banner extends React.Component {
     renderBannerByCurrentIndex() {
         switch (this.state.currentIndex) {
             case 0:
-                this.banner2.classList.remove('active');
-                this.banner0.classList.add('active');
                 this.bannerContent.style.transform = `translate3d(${-this.elmentDuration * 2}%,0,0)`;
                 break;
             case 1:
-                this.banner0.classList.remove('active');
-                this.banner1.classList.add('active');
                 this.bannerContent.style.transform = `translate3d(${-this.elmentDuration * 1}%,0,0)`;
                 break;
             case 2:
-                this.banner1.classList.remove('active');
-                this.banner2.classList.add('active');
                 this.bannerContent.style.transform = `translate3d(${-this.elmentDuration * 0}%,0,0)`;
                 break;
         }
@@ -79,22 +95,22 @@ export default class Banner extends React.Component {
             </ol>
             <div className='banner-inner'>
                 <div className='banner-content'>
-                    <div className='banner-item active' data-banneritem='0' style={{ backgroundColor: 'rgb(15, 163, 163)' }}>
-                        <div>
-                            <p></p>
-                            <p></p>
+                    <div className='banner-item'>
+                        <div className='banner-item-inner'>
+                            <p className='title'>程序员</p>
+                            <p className='description'>代码改变世界</p>
                         </div>
                     </div>
-                    <div className='banner-item' data-banneritem='1' style={{ backgroundColor: 'rgb(163, 15, 126)' }}>
-                        <div>
-                            <p></p>
-                            <p></p>
+                    <div className='banner-item'>
+                        <div className='banner-item-inner'>
+                            <p className='title'>世界这么大</p>
+                            <p className='description'>我想去看看</p>
                         </div>
                     </div>
-                    <div className='banner-item' data-banneritem='2' style={{ backgroundColor: 'rgb(202, 120, 12)' }}>
-                        <div>
-                            <p></p>
-                            <p></p>
+                    <div className='banner-item'>
+                        <div className='banner-item-inner'>
+                            <p className='title'>不忘初心</p>
+                            <p className='description'>方得始终</p>
                         </div>
                     </div>
                 </div>

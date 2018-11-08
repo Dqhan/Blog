@@ -1,9 +1,18 @@
 import React from 'react';
-import  {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Banner from '../AUI/Banner';
+
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+
     }
 
     render() {
@@ -24,8 +33,12 @@ export default class Home extends React.Component {
                 </div>
             </header>
             <Banner />
-            <section></section>
-            <footer></footer>
+            <section>
+
+            </section>
+            <footer>
+
+            </footer>
         </div>
     }
 }
