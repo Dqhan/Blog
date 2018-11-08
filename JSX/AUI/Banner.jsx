@@ -14,11 +14,14 @@ export default class Banner extends React.Component {
         this.bannerContent = null;
         this.elmentDuration = 1 / 3 * 100;
         this.indicatorsClick = this.indicatorsClick.bind(this);
+        this.bannerCarousel = this.bannerCarousel.bind(this);
     }
 
     componentDidMount() {
         this.initElement();
-        this.timer = setInterval(this.bannerCarousel.bind(this), 6000);
+        var self = this;
+        setTimeout(function () { self.banner2.children[0].classList.add('active') }, 300);
+        this.timer = setInterval(this.bannerCarousel, 6000);
     }
 
     initElement() {
@@ -28,7 +31,6 @@ export default class Banner extends React.Component {
         this.banner1 = elements[1];
         this.banner2 = elements[2];
         this.bannerContent = document.getElementsByClassName('banner-content')[0];
-        this.banner2.children[0].classList.add('active');
         this.bannerContent.addEventListener('transitionend', this.transitionEnd.bind(this));
     }
 
@@ -57,11 +59,10 @@ export default class Banner extends React.Component {
     }
 
     bannerCarousel() {
-        if (this.banner0.classList.contains('active')) this.state.currentIndex = 1;
-        if (this.banner1.classList.contains('active')) this.state.currentIndex = 2;
-        if (this.banner2.classList.contains('active')) this.state.currentIndex = 0;
+        this.state.currentIndex++;
+        if (this.state.currentIndex > 2) this.state.currentIndex = 0;
         this.renderBannerByCurrentIndex();
-        this.setState(this.state);
+        this.setState(Object.assign(this.state, { currentIndex: this.state.currentIndex }))
     }
 
     renderBannerByCurrentIndex() {
@@ -78,12 +79,13 @@ export default class Banner extends React.Component {
         }
     }
 
-    indicatorsClick(target) {
-        this.state.currentIndex = target;
-        this.setState(this.state);
-        this.renderBannerByCurrentIndex(target);
-        window.clearInterval(this.timer);
-        this.timer = setInterval(this.bannerCarousel.bind(this), 6000);
+    indicatorsClick(targetIndex) {
+        var self = this;
+        self.setState(Object.assign(self.state, { currentIndex: targetIndex }), () => {
+            self.renderBannerByCurrentIndex();
+            window.clearInterval(self.timer);
+            self.timer = setInterval(self.bannerCarousel, 6000);
+        });
     }
 
     render() {
