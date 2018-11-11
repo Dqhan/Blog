@@ -37,21 +37,24 @@ export default class Home extends React.Component {
     }
 
     renderSource() {
-        return this.state.source.length > 0 && this.state.source.map(s => {
-            return <section className='section-item'>
-                <div className='section-item-date'>
-                    <div className='section-item-date-year'>
-                        {s.date.year}
-                    </div>
-                    <div className='section-item-date-others'>
-                        {s.date.others}
+        return this.state.source.length > 0 && this.state.source.map((s, index) => {
+            return <section className='section-item' key={`section-${index}`}>
+                <div>
+                    <div className='section-item-date'>
+                        <div className='section-item-date-year'>
+                            {s.date.year}
+                        </div>
+                        <div className='section-item-date-others'>
+                            {s.date.others}
+                        </div>
                     </div>
                 </div>
                 <div>
                     <div className='section-item-title'>{s.title}</div>
                     <div className='section-item-description'>{s.description}</div>
+                    <RButton text="Read More"></RButton>
                 </div>
-            </section >
+            </section>
         })
     }
 
