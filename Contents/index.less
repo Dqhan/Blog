@@ -12,12 +12,20 @@ body {
 }
 
 #app {
-    font-family: Segoe UI Light;
+    font-weight: inherit;
+    font-style: inherit;
+    font-family: inherit;
 }
 
 h1,h2,h3{
     margin-block-start: 0;
     margin-block-end: 0;
+    cursor: pointer;
+}
+
+p{
+    margin: 0;
+
 }
 
 @-webkit-keyframes common-animation {
@@ -94,12 +102,12 @@ h1,h2,h3{
         margin-right: auto;
         .sections{     
             width: 70%;
-
+            vertical-align: text-top;
             .content-title{
-                border-bottom: 2px solid;
-    
+                border-bottom: 2px solid #eee;
                 h2{
-                    
+                    -webkit-text-fill-color: transparent;
+                    -webkit-animation: common-animation 2s infinite linear;
                 }
             }
             .section-item{
@@ -123,31 +131,15 @@ h1,h2,h3{
                         .section-item-date-year{
                             font-weight: bold;
                             font-size: 33px;
-                            font-style: italic;
-                            font-family: "Times New Roman", Georgia, cursive;
                         }
                         .section-item-date-others{
                             font-weight: bold;
                             font-size: 20px;
-                            font-style: italic;
-                            font-family: "Times New Roman", Georgia, cursive;
-                        }
-                        .details-btn{
-
                         }
                     }
                 }
                 &>div:nth-child(2){
                     width: 85%;
-                    .section-item-title{
-                        color: #000000;
-                        font-family: "Times New Roman", Georgia, cursive;
-                        font-size: 20px;
-                    }
-
-                    .section-item-description{
-                        font-family: "Times New Roman", Georgia, cursive;
-                    }
                 }
             }
         }
@@ -322,12 +314,8 @@ h1,h2,h3{
                         font-weight: bold;
                         color: #fff;
                         font-style: italic;
-                        font-family: cursive;
                     }
                 }
-            }
-
-            .active {
             }
         }
     }

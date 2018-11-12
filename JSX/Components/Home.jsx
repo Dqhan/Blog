@@ -50,8 +50,8 @@ export default class Home extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <div className='section-item-title'>{s.title}</div>
-                    <div className='section-item-description'>{s.description}</div>
+                    <h3 className='section-item-title'>{s.title}</h3>
+                    <p className='section-item-description'>{s.description}</p>
                     <RButton text="Read More"></RButton>
                 </div>
             </section>
@@ -77,13 +77,13 @@ export default class Home extends React.Component {
             </header>
             <Banner />
             <div className='home-body'>
-                <div className='sections'>
+                <div className='sections inline-block'>
                     <div className='content-title'>
                         <h2>最新动态</h2>
                     </div>
                     {this.renderSource()}
                 </div>
-                <div className='summary'>
+                <div className='summary inline-block'>
                     Logo
                 </div>
             </div>
