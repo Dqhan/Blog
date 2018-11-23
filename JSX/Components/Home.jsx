@@ -84,7 +84,7 @@ export default class Home extends React.Component {
                     {this.renderSource()}
                 </div>
                 <div className='summary inline-block'>
-                    Logo
+                    <img src='../../Image/touxiang.jpg' />
                 </div>
             </div>
             <footer>
