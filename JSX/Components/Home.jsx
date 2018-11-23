@@ -84,7 +84,19 @@ export default class Home extends React.Component {
                     {this.renderSource()}
                 </div>
                 <div className='summary inline-block'>
-                    <img src='../../Image/touxiang.jpg' />
+                    <img className='margin' src='../../Image/touxiang.jpg' />
+                    <ul>
+                        <li>
+                            <a href="https://github.com/Dqhan" target="_blank">
+                                <span style={{ backgroundImage: "url(../../Image/git.jpg)" }}></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/moran1992/" target="_blank">
+                                <span style={{ backgroundImage: "url(../../Image/git.jpg)" }}></span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <footer>

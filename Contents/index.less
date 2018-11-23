@@ -17,15 +17,18 @@ body {
     font-family: inherit;
 }
 
-h1,h2,h3{
+h1, h2, h3 {
     margin-block-start: 0;
     margin-block-end: 0;
     cursor: pointer;
 }
 
-p{
-    margin: 0;
+li {
+    list-style: none;
+}
 
+p {
+    margin: 0;
 }
 
 @-webkit-keyframes common-animation {
@@ -96,31 +99,39 @@ p{
             }
         }
     }
-    .home-body{
+
+    .home-body {
         width: 60%;
         margin-left: auto;
         margin-right: auto;
-        .sections{     
+
+        .sections {
             width: 70%;
-            vertical-align: text-top;
-            .content-title{
+            vertical-align: top;
+
+            .content-title {
                 border-bottom: 2px solid #eee;
-                h2{
+
+                h2 {
                     -webkit-text-fill-color: transparent;
                     -webkit-animation: common-animation 2s infinite linear;
                 }
             }
-            .section-item{
+
+            .section-item {
                 padding: 5px;
                 margin-bottom: 10px;
-                &>div{
+
+                & > div {
                     display: inline-block;
                 }
-                &>div:nth-child(1){
+
+                & > div:nth-child(1) {
                     width: 15%;
                     padding-top: 15px;
                     vertical-align: top;
-                    .section-item-date{
+
+                    .section-item-date {
                         background-image: -webkit-linear-gradient(left,#cddc39,#ff9800 25%,#cddc39 50%,#ff9800 75%,#cddc39);
                         -webkit-text-fill-color: transparent;
                         -webkit-animation: common-animation 2s infinite linear;
@@ -128,23 +139,42 @@ p{
                         border-radius: 10px;
                         transition: all 0.6s;
                         cursor: pointer;
-                        .section-item-date-year{
+
+                        .section-item-date-year {
                             font-weight: bold;
                             font-size: 33px;
                         }
-                        .section-item-date-others{
+
+                        .section-item-date-others {
                             font-weight: bold;
                             font-size: 20px;
                         }
                     }
                 }
-                &>div:nth-child(2){
+
+                & > div:nth-child(2) {
                     width: 85%;
                 }
             }
         }
-        .summary{
+
+        .summary {
             width: 30%;
+
+            & > img {
+                margin-top: 30px;
+            }
+
+            li {
+                display: inline-block;
+                margin-right: 20px;
+                & > a > span {
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    background-size: cover;
+                }
+            }
         }
     }
 }
@@ -223,7 +253,7 @@ p{
                 height: 100%;
                 background-repeat: no-repeat;
                 background-size: cover;
-                
+
                 &:nth-child(1) {
                     background-image: url('../Image/banner0.jpg');
 
