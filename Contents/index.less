@@ -23,6 +23,10 @@ h1, h2, h3 {
     cursor: pointer;
 }
 
+h2, h3 {
+    font-size: 16px;
+}
+
 li {
     list-style: none;
 }
@@ -109,51 +113,45 @@ p {
             width: 70%;
             vertical-align: top;
 
-            .content-title {
-                border-bottom: 2px solid #eee;
-
-                h2 {
-                    -webkit-text-fill-color: transparent;
-                    -webkit-animation: common-animation 2s infinite linear;
-                }
+            .sections-content-title {
+                border-bottom: 5px solid #f2b535;
+                padding: 5px;
             }
 
             .section-item {
-                padding: 5px;
+                padding: 5px 5px 20px 5px;
                 margin-bottom: 10px;
+                height: 160px;
+                border-bottom: 1px solid #bbb;
+                font-size: 15px;
 
                 & > div {
                     display: inline-block;
                 }
 
                 & > div:nth-child(1) {
-                    width: 15%;
-                    padding-top: 15px;
+                    width: 20%;
+                    height: 100%;
                     vertical-align: top;
+                    cursor: pointer;
+                    overflow: hidden;
 
-                    .section-item-date {
-                        background-image: -webkit-linear-gradient(left,#cddc39,#ff9800 25%,#cddc39 50%,#ff9800 75%,#cddc39);
-                        -webkit-text-fill-color: transparent;
-                        -webkit-animation: common-animation 2s infinite linear;
-                        transform: translate3d(0,0,0);
-                        border-radius: 10px;
+                    & img {
                         transition: all 0.6s;
-                        cursor: pointer;
 
-                        .section-item-date-year {
-                            font-weight: bold;
-                            font-size: 33px;
-                        }
-
-                        .section-item-date-others {
-                            font-weight: bold;
-                            font-size: 20px;
+                        &:hover {
+                            transform: scale(1.4);
                         }
                     }
                 }
 
                 & > div:nth-child(2) {
-                    width: 85%;
+                    margin-left: 10px;
+                    width: 75%;
+
+                    .section-item-description {
+                        margin-bottom: 10px;
+                    }
                 }
             }
         }
@@ -168,9 +166,10 @@ p {
             li {
                 display: inline-block;
                 margin-right: 20px;
+
                 & > a > span {
-                    width: 20px;
-                    height: 20px;
+                    width: 48px;
+                    height: 48px;
                     display: inline-block;
                     background-size: cover;
                 }
