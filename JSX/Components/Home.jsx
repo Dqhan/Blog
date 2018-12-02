@@ -2,6 +2,7 @@ import React from 'react';
 import Banner from '../AUI/Banner';
 import Header from './Header';
 import Summary from './Summary';
+import Content from './Content';
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -37,32 +38,14 @@ export default class Home extends React.Component {
 
     }
 
-    renderSource() {
-        return this.state.source.length > 0 && this.state.source.map((s, index) => {
-            return <section className='section-item' key={`section-${index}`}>
-                <div>
-                    <img src="../../Image/SectionImage/1.jpg" />
-                </div>
-                <div>
-                    <h3 className='section-item-title'>{s.title}</h3>
-                    <p className='section-item-description'>{s.description}</p>
-                    <RButton text="Read More"></RButton>
-                </div>
-            </section>
-        })
-    }
-
     render() {
         return <div className='home-page'>
             <Header />
             <Banner />
             <div className='home-body'>
-                <div className='sections inline-block'>
-                    <div className='sections-content-title'>
-                        <h2>最新动态</h2>
-                    </div>
-                    {this.renderSource()}
-                </div>
+                <Content
+                    source={this.state.source}
+                />
                 <Summary />
             </div>
             <footer>

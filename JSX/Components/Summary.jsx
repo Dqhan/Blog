@@ -2,9 +2,39 @@ import React from 'react';
 export default class Summary extends React.Component {
     constructor(props) {
         super(props);
+        this.initState().initBind();
     }
+
+    initState() {
+        this.state = {
+            messages: []
+        }
+        return this;
+    }
+
+    initBind() {
+
+    }
+
+    componentDidMount() {
+        this.retrieveLeaveMessage()
+    }
+
+    retrieveLeaveMessage() {
+        
+        this.setState(this.state);
+    }
+
     render() {
         return <div className='summary inline-block'>
+            <section>
+                <h3>账号登录</h3>
+                <input type='text' />
+            </section>
+            <section>
+                <h3>快速搜索</h3>
+                <input type='text' />
+            </section>
             <section>
                 <h3>了解更多</h3>
                 <ul>
@@ -37,6 +67,10 @@ export default class Summary extends React.Component {
                     <span style={{ background: '#0000FF' }}>前端构建</span>
                     <span style={{ background: '#666666' }}>设计模式</span>
                 </div>
+            </section>
+            <section>
+                <h3>最新留言</h3>
+
             </section>
         </div>
     }
