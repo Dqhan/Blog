@@ -7,36 +7,105 @@ export default class Summary extends React.Component {
 
     initState() {
         this.state = {
-            messages: []
+            number: "",
+            password: "",
+            messages: [],
+            comments: []
         }
         return this;
     }
 
     initBind() {
-
+        this.handleNumberChanged = this.handleNumberChanged.bind(this);
     }
 
     componentDidMount() {
-        this.retrieveLeaveMessage()
+        this.retrieveLeaveMessage();
+        this.retrieveNewComment();
     }
 
     retrieveLeaveMessage() {
-        
+        this.state.messages = [
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+        ]
         this.setState(this.state);
+    }
+
+    retrieveNewComment() {
+        this.state.comments = [
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+            { message: '分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面，分手应该体面，谁都不要说抱歉，离开也很体面，认真付出的画面', author: '于文文' },
+        ]
+        this.setState(this.state);
+    }
+
+    renderLeaveMessage() {
+        return this.state.messages.map((m, index) => {
+            return <li key={index}>
+                <div>{m.message}</div>
+                <div>----{m.author}</div>
+                <div className='clear-both'></div>
+            </li>
+        })
+    }
+
+    renderNewComment() {
+        return this.state.comments.map((m, index) => {
+            return <li key={index}>
+                <div>{m.message}</div>
+                <div>----{m.author}</div>
+                <div className='clear-both'></div>
+            </li>
+        })
+    }
+
+    handleNumberChanged(e) {
+        this.setState(Object.assign(this.state, {
+            number: e.target.value
+        }))
+    }
+
+    handlePasswordChanged(e) {
+        this.setState(Object.assign(this.state, {
+            password: e.target.value
+        }))
     }
 
     render() {
         return <div className='summary'>
-            <section>
+            <section className='login'>
                 <h3>账号登录</h3>
-                <input type='text' />
+                <div className='margin-bottom-10 margin-top-10'>
+                    <label>账号：</label>
+                    <input type='text' value={this.state.number} onChange={this.handleNumberChanged} />
+                </div>
+                <div className='margin-bottom-10'>
+                    <label>密码：</label>
+                    <input type='text' value={this.state.password} onChange={this.handlePasswordChanged} />
+                </div>
+                <RButton text='注册' />
+                <RButton text='登录' style={{ marginLeft: '5px' }} />
             </section>
             <section>
                 <h3>快速搜索</h3>
-                <input type='text' />
+                <input className='margin-bottom-10 margin-top-10' type='text' placeholder="文章标题" />
+                <RButton text='确定' style={{ marginLeft: '10px' }} />
             </section>
-            <section>
-                <h3>了解更多</h3>
+            <section className='about-me'>
+                <h3>关于我</h3>
+                <p>姓名：韩德琦</p>
+                <p>年龄：26岁</p>
+                <p>地点：大连市</p>
+                <p>职务：Web前端开发</p>
+                <p>自我简介：我就是个切页面的！</p>
+                <div className='know-more'>了解更多</div>
                 <ul>
                     <li>
                         <a href="https://github.com/Dqhan" target="_blank">
@@ -68,9 +137,21 @@ export default class Summary extends React.Component {
                     <span style={{ background: '#666666' }}>设计模式</span>
                 </div>
             </section>
-            <section>
+            <section className='new-comments'>
+                <h3>最新评论</h3>
+                <ul>
+                    {
+                        this.renderNewComment()
+                    }
+                </ul>
+            </section>
+            <section className='new-leave-message'>
                 <h3>最新留言</h3>
-
+                <ul>
+                    {
+                        this.renderLeaveMessage()
+                    }
+                </ul>
             </section>
         </div>
     }

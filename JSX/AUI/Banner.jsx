@@ -20,8 +20,8 @@ export default class Banner extends React.Component {
     componentDidMount() {
         this.initElement();
         var self = this;
-        //setTimeout(function () { self.banner2.children[0].classList.add('active') }, 300);
-        //this.timer = setInterval(this.bannerCarousel, 6000);
+        setTimeout(function () { self.banner2.children[0].classList.add('active') }, 300);
+        this.timer = setInterval(this.bannerCarousel, 6000);
     }
 
     initElement() {

@@ -6,18 +6,6 @@
         margin-top: 30px;
     }
 
-    li {
-        display: inline-block;
-        margin-right: 20px;
-
-        & > a > span {
-            width: 48px;
-            height: 48px;
-            display: inline-block;
-            background-size: cover;
-        }
-    }
-
     h3 {
         background: #f2b535;
         color: #6C6C6C;
@@ -29,7 +17,7 @@
     section {
         padding: 5px;
         margin: 5px 0;
-        margin-bottom: 50px;
+        margin-bottom: 20px;
     }
 
     .tags {
@@ -41,6 +29,53 @@
             color: #ffffff;
             margin: 5px;
             cursor: pointer;
+        }
+    }
+    .login{
+        font-size: 15px;
+    }
+    .about-me{
+        p{
+            font-size: 15px;
+            padding:2px;
+            padding-bottom: 5px;
+        }
+        ul{
+            padding:0;
+            text-align: center;
+                        li {
+                display: inline-block;
+                margin-right: 20px;
+        
+                & > a > span {
+                    width: 48px;
+                    height: 48px;
+                    display: inline-block;
+                    background-size: cover;
+                }
+            }
+        }
+        .know-more{
+            font-size: 15px;
+            border-bottom: 1px solid #bbb;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+    }
+    .new-leave-message,.new-comments{
+        ul{
+            padding:5px;
+            li{
+                word-wrap: break-word;
+                font-size: 12px;
+                line-height: 24px;
+                margin: 10px 0;
+                padding: 10px;
+                box-shadow: 0 0 5px #aaa;
+                & > div:nth-child(2) {
+                        float:right;
+                }
+            }
         }
     }
 }

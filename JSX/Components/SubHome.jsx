@@ -8,7 +8,7 @@ export default class SubHome extends React.Component {
     }
 
     render() {
-        return <Layout>
+        return <Layout hasHeader={true}>
             <SubRouter />
         </Layout>
     }

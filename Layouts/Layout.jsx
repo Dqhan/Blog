@@ -9,7 +9,7 @@ export default class Layout extends React.Component {
     render() {
         return <div className='layout'>
             {this.props.hasHeader && <Header />}
-            <div className='layout-container'>
+            <div className='layout-container' style={this.props.hasHeader ? { paddingTop: '60px' } : {}}>
                 <div className='content'>
                     {this.props.children}
                 </div>

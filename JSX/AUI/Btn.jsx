@@ -1,12 +1,12 @@
 import React from 'react';
-class Button extends React.Component{
-    constructor(props){
-            super(props);
+class Button extends React.Component {
+    constructor(props) {
+        super(props);
     }
 
-    render(){
+    render() {
         return <React.Fragment>
-            <button className='aui-btn'>{this.props.text}</button>
+            <button className='aui-btn' style={this.props.style} > { this.props.text }</button>
         </React.Fragment>
     }
 }
