@@ -26,7 +26,7 @@ export default class Summary extends React.Component {
     }
 
     render() {
-        return <div className='summary inline-block'>
+        return <div className='summary'>
             <section>
                 <h3>账号登录</h3>
                 <input type='text' />

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Header from '../JSX/Components/Header';
 import Summary from '../JSX/Components/Summary';
 export default class Layout extends React.Component {
@@ -8,13 +8,16 @@ export default class Layout extends React.Component {
 
     render() {
         return <div className='layout'>
-            <Header />
+            {this.props.hasHeader && <Header />}
             <div className='layout-container'>
-                <div className='content inline-block'>
+                <div className='content'>
                     {this.props.children}
                 </div>
                 <Summary />
             </div>
+            <footer>
+                <div>no footer</div>
+            </footer>
         </div>
     }
 }

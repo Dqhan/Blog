@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from '../../Layouts/Layout';
 import Banner from '../AUI/Banner';
 import Header from './Header';
 import Summary from './Summary';
@@ -39,18 +40,16 @@ export default class Home extends React.Component {
     }
 
     render() {
-        return <div className='home-page'>
+        return <div>
             <Header />
             <Banner />
-            <div className='home-body'>
+            <Layout
+                hasHeader={false}
+            >
                 <Content
                     source={this.state.source}
                 />
-                <Summary />
-            </div>
-            <footer>
-                <div>暂时没有</div>
-            </footer>
+            </Layout>
         </div>
     }
 }

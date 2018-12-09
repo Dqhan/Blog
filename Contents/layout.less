@@ -1,11 +1,59 @@
 .layout {
-    .layout-container{
+    .layout-container {
         width: 60%;
         margin-left: auto;
         margin-right: auto;
         padding-top: 60px;
-        .content{
-            width: 70%
+
+        .content {
+            width: 70%;
+            display: inline-block;
+
+            .sections {
+                vertical-align: top;
+
+                .sections-content-title {
+                    border-bottom: 5px solid #f2b535;
+                    padding: 5px;
+                }
+
+                .section-item {
+                    padding: 5px 5px 20px 5px;
+                    margin-bottom: 10px;
+                    height: 160px;
+                    border-bottom: 1px solid #bbb;
+                    font-size: 15px;
+
+                    & > div {
+                        display: inline-block;
+                    }
+
+                    & > div:nth-child(1) {
+                        width: 20%;
+                        height: 100%;
+                        vertical-align: top;
+                        cursor: pointer;
+                        overflow: hidden;
+
+                        & img {
+                            transition: all 0.6s;
+
+                            &:hover {
+                                transform: scale(1.4);
+                            }
+                        }
+                    }
+
+                    & > div:nth-child(2) {
+                        margin-left: 10px;
+                        width: 75%;
+
+                        .section-item-description {
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
         }
     }
 }
