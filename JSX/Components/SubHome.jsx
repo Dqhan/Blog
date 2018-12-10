@@ -1,6 +1,5 @@
 import React from 'react';
 import SubRouter from './../../Routers/SubRouter';
-import Layout from './../../Layouts/Layout';
 
 export default class SubHome extends React.Component {
     constructor(props) {
@@ -8,8 +7,6 @@ export default class SubHome extends React.Component {
     }
 
     render() {
-        return <Layout hasHeader={true}>
-            <SubRouter />
-        </Layout>
+        return <SubRouter />
     }
 }

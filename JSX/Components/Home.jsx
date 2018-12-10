@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../../Layouts/Layout';
 import Banner from '../AUI/Banner';
 import Header from './Header';
-import Summary from './Summary';
 import Content from './Content';
 
 export default class Home extends React.Component {

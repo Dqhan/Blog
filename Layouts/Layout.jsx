@@ -33,10 +33,17 @@ export default class Layout extends React.Component {
         });
     }
 
+    renderLogo() {
+
+    }
+
     render() {
         return <div className='layout'>
             {this.props.hasHeader && <Header headerScrolled={this.state.headerScrolled} />}
-            <div className='layout-container' style={this.props.hasHeader ? { paddingTop: '40px' } : {}}>
+            <div className='layout-container'>
+                {
+                    this.props.hasSummaryLogo && <div className='summary-logo'>{this.props.logo}</div>
+                }
                 <div className='content'>
                     {this.props.children}
                 </div>
