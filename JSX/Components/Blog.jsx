@@ -43,17 +43,18 @@ export default class About extends React.Component {
                 hasHeader={true}
                 hasModuleLogo={true}
                 logo={'博客园'}
-                id={this.props.id}
             >
-                <div className='classify'>
-                    <article></article>
-                    <article></article>
-                    <article></article>
-                    <article></article>
+                <div className='blog'>
+                    <div className='classify'>
+                        <article>Javascript</article>
+                        <article>React</article>
+                        <article>Node</article>
+                        <article>工作笔记</article>
+                    </div>
+                    <Content
+                        source={this.state.blogs}
+                    />
                 </div>
-                <Content
-                    source={this.state.blogs}
-                />
             </Layout>
         </React.Fragment>
     }

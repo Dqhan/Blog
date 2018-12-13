@@ -19,6 +19,7 @@ export default class Layout extends React.Component {
     render() {
         return <div id={this.props.id} className='layout'>
             <div className='layout-container'>
+                <a className='git-link' href="https://github.com/Dqhan" target="_blank" />
                 {
                     this.props.hasModuleLogo &&
                     <div className='summary-logo'>
