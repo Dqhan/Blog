@@ -13,7 +13,7 @@
             position: absolute;
             left: 3%;
             font-family: fantasy;
-            background-image: -webkit-linear-gradient(left,#cddc39,#ff9800 25%,#cddc39 50%,#ff9800 75%,#cddc39);
+            background-image: -webkit-linear-gradient(left,#9D9D9D,#000000 25%,#4F4F4F 50%,#000000 75%,#9D9D9D 100%);
             -webkit-text-fill-color: transparent;
             -webkit-animation: common-animation 2s infinite linear;
         }
@@ -29,20 +29,19 @@
                 margin-right: 20px;
                 border-radius: 5px;
                 padding: 5px;
-                color: #cddc39;
 
                 &:hover {
-                    background-color: #f2b535;
+                    background-color: #9D9D9D;
 
                     & > a {
-                        color: #fff;
+                        color: #ffffff !important;
                     }
                 }
 
                 a {
                     font-weight: 400;
                     font-size: 20px;
-                    color: #f2b535;
+                    color: #ffffff;
                     text-decoration: none;
                 }
             }
@@ -52,4 +51,8 @@
 
 .header-scrolled {
     background: #fff;
+
+    a {
+        color: #9D9D9D !important;
+    }
 }
