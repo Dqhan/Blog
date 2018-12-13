@@ -63,9 +63,7 @@ export default class Home extends React.Component {
         return <div>
             <Header headerScrolled={this.state.headerScrolled} />
             <Banner />
-            <Layout
-                hasHeader={false}
-            >
+            <Layout>
                 <Content
                     source={this.state.source}
                 />

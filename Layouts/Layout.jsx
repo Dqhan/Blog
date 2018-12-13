@@ -1,12 +1,12 @@
 ﻿import React from 'react';
 import Header from '../JSX/Components/Header';
 import Summary from '../JSX/Components/Summary';
+import {
+    Link
+} from 'react-router-dom';
 export default class Layout extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            headerScrolled: false
-        }
     }
 
     componentDidMount() {
@@ -14,35 +14,26 @@ export default class Layout extends React.Component {
     }
 
     initComputed() {
-        this.initScrollComputed();
-    }
-
-    initScrollComputed() {
-        var self = this;
-        window.addEventListener("scroll", function (e) {
-            var t = document.documentElement.scrollTop || document.body.scrollTop;
-            if (t != 0) {
-                self.setState({
-                    headerScrolled: true
-                })
-            } else {
-                self.setState({
-                    headerScrolled: false
-                })
-            }
-        });
-    }
-
-    renderLogo() {
-
     }
 
     render() {
-        return <div className='layout'>
-            {this.props.hasHeader && <Header headerScrolled={this.state.headerScrolled} />}
+        return <div id={this.props.id} className='layout'>
             <div className='layout-container'>
                 {
-                    this.props.hasSummaryLogo && <div className='summary-logo'>{this.props.logo}</div>
+                    this.props.hasModuleLogo &&
+                    <div className='summary-logo'>
+                        <h1>{this.props.logo}</h1>
+                        <nav>
+                            <ul>
+                                <li className='nav-item'><Link to='/'>首页</Link></li>
+                                <li className='nav-item'><Link to='/sub/lifemark'>生活</Link></li>
+                                <li className='nav-item'><Link to='/sub/workmark'>工作</Link></li>
+                                <li className='nav-item'><Link to='/sub/blog'>博客</Link></li>
+                                <li className='nav-item'><Link to='/sub/production'>作品</Link></li>
+                                <li className='nav-item'><Link to='/sub/about'>关于</Link></li>
+                            </ul>
+                        </nav>
+                    </div>
                 }
                 <div className='content'>
                     {this.props.children}

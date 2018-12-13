@@ -41,8 +41,16 @@ export default class About extends React.Component {
         return <React.Fragment>
             <Layout
                 hasHeader={true}
+                hasModuleLogo={true}
                 logo={'博客园'}
+                id={this.props.id}
             >
+                <div className='classify'>
+                    <article></article>
+                    <article></article>
+                    <article></article>
+                    <article></article>
+                </div>
                 <Content
                     source={this.state.blogs}
                 />
