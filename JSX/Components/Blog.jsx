@@ -49,6 +49,7 @@ export default class About extends React.Component {
                         <article>Javascript</article>
                         <article>React</article>
                         <article>Node</article>
+                        <article>Css</article>
                         <article>工作笔记</article>
                     </div>
                     <Content

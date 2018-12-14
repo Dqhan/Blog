@@ -96,14 +96,14 @@ export default class Banner extends React.Component {
                 <div className='banner-content'>
                     <div className='banner-item'>
                         <div className='banner-item-inner'>
-                            <p className='title'>程序员</p>
-                            <p className='description'>代码改变世界</p>
+                            <p className='title'>成熟的人</p>
+                            <p className='description'>谦虚、低调、柔和</p>
                         </div>
                     </div>
                     <div className='banner-item'>
                         <div className='banner-item-inner'>
-                            <p className='title'>世界这么大</p>
-                            <p className='description'>我想去看看</p>
+                            <p className='title'>为人处世</p>
+                            <p className='description'>真诚、善良、正直</p>
                         </div>
                     </div>
                     <div className='banner-item'>
