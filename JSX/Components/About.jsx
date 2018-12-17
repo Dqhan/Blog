@@ -6,6 +6,22 @@ export default class About extends React.Component {
         super(props);
     }
 
+    componentDidMount(){
+        this.retrieve();
+    }
+
+    retrieve(){
+        let option = {
+            url: '',
+            method:'Get'
+        }
+        fetchUtility(option).then(res=>{
+            var a = res;
+        }).catch(e=>{
+            console.log(e)
+        })
+    }
+
     render() {
         return <React.Fragment>
             <Layout
