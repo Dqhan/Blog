@@ -7,8 +7,18 @@ export default class About extends React.Component {
     }
 
     render(){
-        return<Layout hasHeader={true}>
-        "作品"
-        </Layout>
+        return <React.Fragment>
+            <Layout
+                hasHeader={true}
+                hasModuleLogo={true}
+                logo={'作品'}
+            >
+                <div className='product'>
+                    <div className='product-header'>
+                        <img src='../../Image/productHeader.jpg' />
+                    </div>
+                </div>
+            </Layout>
+        </React.Fragment>
     }
 }

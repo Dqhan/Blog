@@ -27,7 +27,6 @@ export default class Layout extends React.Component {
                         <nav>
                             <ul>
                                 <li className='nav-item'><Link to='/'>首页</Link></li>
-                                <li className='nav-item'><Link to='/sub/lifemark'>生活</Link></li>
                                 <li className='nav-item'><Link to='/sub/workmark'>工作</Link></li>
                                 <li className='nav-item'><Link to='/sub/blog'>博客</Link></li>
                                 <li className='nav-item'><Link to='/sub/production'>作品</Link></li>

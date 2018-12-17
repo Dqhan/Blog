@@ -45,12 +45,16 @@ export default class About extends React.Component {
                 logo={'博客园'}
             >
                 <div className='blog'>
+                    <div className='blog-header'>
+                        <img src='../../Image/blogHeader.jpg' />
+                    </div>
                     <div className='classify'>
                         <article>Javascript</article>
                         <article>React</article>
                         <article>Node</article>
                         <article>Css</article>
                         <article>工作笔记</article>
+
                     </div>
                     <Content
                         source={this.state.blogs}
