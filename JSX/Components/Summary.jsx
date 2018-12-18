@@ -104,7 +104,7 @@ export default class Summary extends React.Component {
                 <p>年龄：26岁</p>
                 <p>地点：大连市</p>
                 <p>职务：Web前端开发</p>
-                <p>自我简介：我就是个切页面的！</p>
+                <p>自我简介：人丑嘴不甜，长的磕碜还没钱。PS：我就是个切页面的！</p>
                 <div className='know-more'>了解更多</div>
                 <ul>
                     <li>
