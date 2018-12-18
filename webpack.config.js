@@ -3,9 +3,9 @@ var webpack = require('webpack');
 
 module.exports = {
     mode: "development",
-    entry: { index: "./app.js" },
+    entry: { index: "./app/Index.js" },
     output: {
-        path: path.resolve(__dirname, './dist/'),
+        path: path.resolve(__dirname, './build/'),
         filename: "Index.js",
     },
     watchOptions: {

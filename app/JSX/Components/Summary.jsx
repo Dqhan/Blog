@@ -109,17 +109,17 @@ export default class Summary extends React.Component {
                 <ul>
                     <li>
                         <a href="https://github.com/Dqhan" target="_blank">
-                            <span title='GitHub' style={{ backgroundImage: "url(../../Image/git.png)" }}></span>
+                            <span title='GitHub' style={{ backgroundImage: `url(${require('../../Image/git.png')})` }}></span>
                         </a>
                     </li>
                     <li>
                         <a href="https://www.cnblogs.com/moran1992/" target="_blank">
-                            <span title='博客园' style={{ backgroundImage: "url(../../Image/blog.png)" }}></span>
+                            <span title='博客园' style={{ backgroundImage: `url(${require('../../Image/blog.png')})` }}></span>
                         </a>
                     </li>
                     <li>
                         <a href="https://www.dqhanhouse.com" target="_blank">
-                            <span title='分享' style={{ backgroundImage: "url(../../Image/share.png)" }}></span>
+                            <span title='分享' style={{ backgroundImage: `url(${require('../../Image/share.png')})` }}></span>
                         </a>
                     </li>
                 </ul>

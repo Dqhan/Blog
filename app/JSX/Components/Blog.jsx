@@ -46,7 +46,7 @@ export default class About extends React.Component {
             >
                 <div className='blog'>
                     <div className='blog-header'>
-                        <img src='../../Image/blogHeader.jpg' />
+                        <img src={require('../../Image/blogHeader.jpg')} />
                     </div>
                     <div className='classify'>
                         <article>Javascript</article>

@@ -9,7 +9,7 @@ export default class Content extends React.Component {
         return this.props.source.length > 0 && this.props.source.map((s, index) => {
             return <section className='section-item' key={`section-${index}`}>
                 <div>
-                    <img src="../../Image/SectionImage/1.jpg" />
+                    <img src={require('../../Image/SectionImage/1.jpg')} />
                 </div>
                 <div>
                     <h3 className='section-item-title'>{s.title}</h3>

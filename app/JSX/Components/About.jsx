@@ -31,7 +31,7 @@ export default class About extends React.Component {
             >
                 <div className='about'>
                     <div className='about-header'>
-                        <img src='../../Image/aboutHeader.jpg' />
+                        <img src={require('../../Image/aboutHeader.jpg')} />
                     </div>
                 </div>
             </Layout>

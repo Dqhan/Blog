@@ -15,7 +15,7 @@ export default class About extends React.Component {
             >
                 <div className='work'>
                     <div className='work-header'>
-                        <img src='../../Image/workHeader.jpg' />
+                        <img src={require('../../Image/workHeader.jpg')} />
                     </div>
                 </div>
             </Layout>
