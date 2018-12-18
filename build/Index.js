@@ -599,7 +599,7 @@ var About = function (_React$Component) {
         key: 'retrieve',
         value: function retrieve() {
             var option = {
-                url: './test',
+                url: './api/about/getAbout',
                 method: 'Get'
             };
             fetchUtility(option).then(function (res) {

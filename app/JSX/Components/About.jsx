@@ -12,7 +12,7 @@ export default class About extends React.Component {
 
     retrieve(){
         let option = {
-            url: './test',
+            url: './api/about/getAbout',
             method:'Get'
         }
         fetchUtility(option).then(res=>{
