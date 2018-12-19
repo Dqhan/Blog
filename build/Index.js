@@ -2093,7 +2093,7 @@ window.fetchUtility = function (options, errorFun) {
     //         "CurrentRoleType": request.headers.CurrentRoleType
     //     }
     // }
-    // Object.assign(request, options);
+    Object.assign(request, options);
     // if (options.targetComponent) {
     //     var defaultUrlPrefix = CommonUtil.getTargetUrlPrefix(options.targetComponent);
     //     if (options.url.indexOf("/") == 0) {

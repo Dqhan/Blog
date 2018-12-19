@@ -4,8 +4,7 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "watch": "webpack --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -27,6 +26,7 @@
     "jquery": "3.2.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "mongoose": "^5.4.0",
     "pug-cli": "^1.0.0-alpha6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

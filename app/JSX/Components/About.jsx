@@ -18,7 +18,7 @@ export default class About extends React.Component {
         fetchUtility(option).then(res=>{
             var a = res;
         }).catch(e=>{
-            console.log(e)
+            console.log(e);
         })
     }
 
