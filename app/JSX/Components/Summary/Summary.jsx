@@ -13,7 +13,7 @@ export default class Summary extends React.Component {
 
     initState() {
         this.state = {
-            number: "",
+            userName: "",
             password: "",
             messages: [],
             comments: [],
@@ -23,7 +23,10 @@ export default class Summary extends React.Component {
     }
 
     initBind() {
-        this.handleNumberChanged = this.handleNumberChanged.bind(this);
+        this.handleUserNameChanged = this.handleUserNameChanged.bind(this);
+        this.handlePasswordChanged = this.handlePasswordChanged.bind(this);
+        this.loginHandler = this.loginHandler.bind(this);
+        this.registerHandler = this.registerHandler.bind(this);
     }
 
     componentDidMount() {
@@ -73,9 +76,9 @@ export default class Summary extends React.Component {
         })
     }
 
-    handleNumberChanged(e) {
+    handleUserNameChanged(e) {
         this.setState(Object.assign(this.state, {
-            number: e.target.value
+            userName: e.target.value
         }))
     }
 
@@ -84,23 +87,57 @@ export default class Summary extends React.Component {
             password: e.target.value
         }))
     }
-    
+
+    loginHandler() {
+        let data = {
+            userName: this.state.userName,
+            password: this.state.password
+        }
+        let option = {
+            url: './api/user/login',
+            method: 'Post',
+            data: JSON.stringify(data)
+        }
+        fetchUtility(option).then(res => {
+            var a = res;
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
+    registerHandler() {
+        let data = {
+            userName: this.state.userName,
+            password: this.state.password
+        }
+        let option = {
+            url: './api/user/register',
+            method: 'Post',
+            data: JSON.stringify(data)
+        }
+        fetchUtility(option).then(res => {
+            var a = res;
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
     renderLoginComponent() {
         switch (this.state.loginType) {
             case LoginType.Account:
                 return <React.Fragment>
                     <div className='margin-bottom-10 margin-top-10'>
                         <label>账号：</label>
-                        <input type='text' value={this.state.number} onChange={this.handleNumberChanged} />
+                        <input type='text' value={this.state.number} onChange={this.handleUserNameChanged} />
                     </div>
                     <div className='margin-bottom-10'>
                         <label>密码：</label>
                         <input type='text' value={this.state.password} onChange={this.handlePasswordChanged} />
                     </div>
                     <div className='btn-group'>
-                        <span style={{flexBasis:'inherit'}}><RButton text='登录' /></span>
-                        <span style={{flexBasis:'inherit'}}><RButton text='注册' /></span>
-                        <span style={{flexBasis:'inherit'}}><RButton text='返回' onClick={this.changeLogin.bind(this, LoginType.Default)} /></span>
+                        <span style={{ flexBasis: 'inherit' }}><RButton text='登录' onClick={this.loginHandler} /></span>
+                        <span style={{ flexBasis: 'inherit' }}><RButton text='注册' onClick={this.registerHandler} /></span>
+                        <span style={{ flexBasis: 'inherit' }}><RButton text='返回' onClick={this.changeLogin.bind(this, LoginType.Default)} /></span>
                     </div>
                 </React.Fragment>
             case LoginType.WeChart:

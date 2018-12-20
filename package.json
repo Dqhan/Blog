@@ -5,9 +5,9 @@
   "main": "gulpfile.js",
   "scripts": {
     "watch": "webpack --watch",
-    "server": "nodemon ./Server/server.js",
-    "api": "nodemon ./Server/api/api.js",
-    "pro":"webpack --watch && nodemon ./Server/server.js && nodemon ./Server/api/api.js"
+    "server": "babel-node ./server/server.js && nodemon ./Server/server.js",
+    "api": "babel-node ./server/api/api.js && nodemon ./Server/api/api.js",
+    "pro": "webpack --watch && nodemon ./Server/server.js && nodemon ./Server/api/api.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   "author": "Dqhan",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.24.1",
