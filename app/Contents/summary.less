@@ -8,10 +8,11 @@
     }
 
     h3 {
-        background: #bbb;
-        color: #6C6C6C;
+        background: #6C6C6C;
+        color: #ffffff;
         border-radius: 5px;
         padding: 3px;
+        text-align: center;
     }
 
     section {
@@ -34,6 +35,33 @@
 
     .login {
         font-size: 15px;
+        .login-content{
+            display: -webkit-flex;
+            display: flex;
+            flex-basis: 100%;
+            flex-direction: row;
+            .login-item{
+                flex-basis: inherit;
+                margin-top: 5px;
+                text-align: center;
+                .login-item-font{
+                    font-size: 12px;
+                }
+                .login-item-icon{
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 32px;
+                    height: 32px;
+                    background-size: cover;
+                    cursor: pointer;
+                }
+            }
+        }
+        .btn-group{
+            display: flex;
+            flex-basis: 100%;
+            flex-direction: row;
+        }
     }
 
     .about-me {
@@ -45,21 +73,19 @@
 
         ul {
             padding: 0;
-            text-align: center;
+            display: flex;
+            flex-basis: 100%;
+            flex-direction: row;
 
             li {
-                display: inline-block;
-
+                flex-basis: inherit;
+                text-align: center;
                 & > a > span {
-                    width: 48px;
-                    height: 48px;
+                    width: 32px;
+                    height: 32px;
                     display: inline-block;
                     background-size: cover;
                 }
-            }
-
-            li:nth-child(2) {
-                margin: 0 20px;
             }
         }
 

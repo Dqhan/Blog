@@ -2,7 +2,7 @@ import React from 'react';
 import Content from './Content';
 import Layout from '../../Layouts/Layout';
 
-export default class About extends React.Component {
+export default class Blog extends React.Component {
     constructor(props) {
         super(props);
         this.initState().initBind();

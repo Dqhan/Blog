@@ -6,7 +6,7 @@ class Button extends React.Component {
 
     render() {
         return <React.Fragment>
-            <button className='aui-btn' style={this.props.style} > { this.props.text }</button>
+            <button className='aui-btn' style={this.props.style} onClick={this.props.onClick} > {this.props.text}</button>
         </React.Fragment>
     }
 }

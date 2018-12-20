@@ -4,7 +4,10 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "server": "nodemon ./Server/server.js",
+    "api": "nodemon ./Server/api/api.js",
+    "pro":"webpack --watch && nodemon ./Server/server.js && nodemon ./Server/api/api.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +30,7 @@
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "mongoose": "^5.4.0",
+    "npm-cli": "^0.1.0",
     "pug-cli": "^1.0.0-alpha6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

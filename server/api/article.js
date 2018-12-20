@@ -1,7 +1,7 @@
 var express = require('express');
 const router = express.Router();
 
-router.post('/getAbout',(req,res)=>{
+router.post('/getArticle',(req,res)=>{
     res.send('success!');
 });
 

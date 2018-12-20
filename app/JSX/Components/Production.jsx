@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../Layouts/Layout';
 
-export default class About extends React.Component {
+export default class Production extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -15,7 +15,7 @@ export default class About extends React.Component {
             >
                 <div className='product'>
                     <div className='product-header'>
-                        <img src='../../Image/productHeader.jpg' />
+                        <img src={require('../../Image/productHeader.jpg')} />
                     </div>
                 </div>
             </Layout>

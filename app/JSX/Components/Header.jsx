@@ -10,9 +10,9 @@ export default class Header extends React.Component {
                 <nav className='nav-bar'>
                     <ul>
                         <li className='nav-item'><Link to='/'>首页</Link></li>
-                        <li className='nav-item'><Link to='/sub/workmark'>工作</Link></li>
                         <li className='nav-item'><Link to='/sub/blog'>博客</Link></li>
                         <li className='nav-item'><Link to='/sub/production'>作品</Link></li>
+                        <li className='nav-item'><Link to='/sub/leavemessage'>留言板</Link></li>
                         <li className='nav-item'><Link to='/sub/about'>关于</Link></li>
                     </ul>
                 </nav>

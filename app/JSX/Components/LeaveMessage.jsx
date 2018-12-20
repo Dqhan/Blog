@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../Layouts/Layout';
 
-export default class About extends React.Component {
+export default class LeaveMessage extends React.Component {
     constructor(props) {
         super(props);
     }
