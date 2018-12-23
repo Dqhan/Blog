@@ -95,8 +95,20 @@ export default class Summary extends React.Component {
         }
         let option = {
             url: './api/user/login',
-            method: 'Post',
+            method: 'POST',
             data: JSON.stringify(data)
+        }
+        fetchUtility(option).then(res => {
+            var a = res;
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
+    test(){
+        let option = {
+            url: './api/user/test',
+            method: 'GET'
         }
         fetchUtility(option).then(res => {
             var a = res;
@@ -112,7 +124,7 @@ export default class Summary extends React.Component {
         }
         let option = {
             url: './api/user/register',
-            method: 'Post',
+            method: 'POST',
             data: JSON.stringify(data)
         }
         fetchUtility(option).then(res => {
@@ -135,7 +147,7 @@ export default class Summary extends React.Component {
                         <input type='text' value={this.state.password} onChange={this.handlePasswordChanged} />
                     </div>
                     <div className='btn-group'>
-                        <span style={{ flexBasis: 'inherit' }}><RButton text='登录' onClick={this.loginHandler} /></span>
+                        <span style={{ flexBasis: 'inherit' }}><RButton text='登录' onClick={this.test.bind(this)} /></span>
                         <span style={{ flexBasis: 'inherit' }}><RButton text='注册' onClick={this.registerHandler} /></span>
                         <span style={{ flexBasis: 'inherit' }}><RButton text='返回' onClick={this.changeLogin.bind(this, LoginType.Default)} /></span>
                     </div>

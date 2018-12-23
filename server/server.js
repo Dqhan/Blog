@@ -4,7 +4,7 @@ var httpProxy = require('http-proxy');
 
 // var config = require('../config/config');
 
-import config from '../config/config';
+var config   = require('../config/config');
 
 
 const app = express();

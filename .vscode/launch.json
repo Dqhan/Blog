@@ -7,12 +7,10 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "nodemon",
-            "runtimeExecutable": "nodemon",
-            "program": "${workspaceFolder}/server/api/user.js",
-            "restart": true,
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
+            "port":9222,
+            "runtimeArgs": ["--inspect=9222"],
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/server/server.js"
         }
     ]
 }

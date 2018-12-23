@@ -20,8 +20,12 @@ router.post('/login', (req, res) => {
         })
 });
 
+router.get('/test', (req, res) => {
+    res.send('success!');
+});
+
 router.post('/register', (req, res) => {
-    let { userName, password } = req.body;
+    let { userName, password } = req;
     user.findOne({
         username: 'userName'
     })
