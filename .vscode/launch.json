@@ -6,11 +6,26 @@
     "configurations": [
         {
             "type": "node",
+            "request": "attach",
+            "name": "attach Program",
+            "port": 9222,
+            "protocol": "inspector",
+            "cwd": "${workspaceRoot}/server/server.js", // 需要调试的目录的绝对路
+            "restart": true
+        },
+        {
+            "type": "node",
             "request": "launch",
-            "port":9222,
-            "runtimeArgs": ["--inspect=9222"],
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/server/server.js"
+            "name": "launch Server",
+            "program": "${workspaceFolder}/server\\server.js",
+            "cwd": "${workspaceFolder}/server"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "launch user",
+            "program": "${workspaceFolder}/server/api\\user.js",
+            "cwd": "${workspaceFolder}/server"
         }
     ]
 }

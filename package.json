@@ -5,8 +5,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "watch": "webpack --watch",
-    "server": "babel-node ./server/server.js && nodemon ./Server/server.js",
-    "api": "babel-node ./server/api/api.js && nodemon ./Server/api/api.js",
+    "server": "babel-node ./server/server.js && nodemon --inspect-brc ./Server/server.js",
+    "api": "babel-node ./server/api/api.js && nodemon --inspect-brc ./Server/api/api.js",
     "pro": "webpack --watch && nodemon ./Server/server.js && nodemon ./Server/api/api.js"
   },
   "repository": {
