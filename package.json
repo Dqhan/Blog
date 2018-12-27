@@ -5,9 +5,11 @@
   "main": "gulpfile.js",
   "scripts": {
     "watch": "webpack --watch",
-    "server": "babel-node ./server/server.js && nodemon --inspect-brc ./Server/server.js",
-    "api": "babel-node ./server/api/api.js && nodemon --inspect-brc ./Server/api/api.js",
-    "pro": "webpack --watch && nodemon ./Server/server.js && nodemon ./Server/api/api.js"
+    "server": "babel-node ./server/server.js && node  ./Server/server.js",
+    "api": "babel-node ./server/api/api.js && node ./Server/api/api.js",
+    "pro": "webpack --watch && nodemon ./Server/server.js && nodemon ./Server/api/api.js",
+    "buildapi": "babel-node ./server/api/api.js && cross-env BUILD_TARGET=app node ./Server/api/api.js",
+    "buildserver": "babel-node ./server/server.js && cross-env BUILD_TARGET=app node ./Server/server.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "express": "^4.16.4",
     "file-loader": "^2.0.0",
     "http-proxy": "^1.17.0",
+    "inspect": "0.0.2",
     "jquery": "3.2.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",

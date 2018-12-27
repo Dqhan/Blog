@@ -8,24 +8,31 @@
             "type": "node",
             "request": "attach",
             "name": "attach Program",
+            "port": 9222
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "attach server",
             "port": 9222,
-            "protocol": "inspector",
-            "cwd": "${workspaceRoot}/server/server.js", // 需要调试的目录的绝对路
+            "protocol":"inspector",
+            "cwd": "${workspaceFolder}/server\\server.js",
+            "restart": true
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "attach api",
+            "port": 9222,
+            "protocol":"inspector",
+            "cwd":"${workspaceFolder}/server\\api\\api.js",
             "restart": true
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "launch Server",
-            "program": "${workspaceFolder}/server\\server.js",
-            "cwd": "${workspaceFolder}/server"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "launch user",
-            "program": "${workspaceFolder}/server/api\\user.js",
-            "cwd": "${workspaceFolder}/server"
+            "name": "launch all",
+            "program": "${workspaceFolder}/server/server.js"
         }
     ]
 }

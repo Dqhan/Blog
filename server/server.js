@@ -4,7 +4,7 @@ var httpProxy = require('http-proxy');
 
 // var config = require('../config/config');
 
-var config   = require('../config/config');
+var config = require('../config/config');
 
 
 const app = express();
@@ -12,6 +12,10 @@ const app = express();
 const targetUrl = `http://${config.apiHost}:${config.apiPort}`;
 app.use('/api', (req, res) => {
   proxy.web(req, res, { target: targetUrl })
+});
+
+app.use('/test', (req, res) => {
+  res.send('hello')
 });
 
 app.use('/', express.static(path.join(__dirname, "..", 'build')));
