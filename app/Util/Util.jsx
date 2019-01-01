@@ -1,15 +1,31 @@
+import bodyParser from 'body-parser';
+import axios from 'axios';
+
+function assemble(data) {
+    let ret = '';
+    for (let it in data) {
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+    }
+    return ret
+}
+
 window.fetchUtility = function (options, errorFun) {
     var request = {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
-            "Content-Type": "application/json",
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
+        // headers: {
+        //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        //     'Accept': 'application/json'
+        // },
         cache: 'no-store',
-        body: options.data,
+        // body: assemble(options.data),
         // credentials: "include",
         // isParseJson: true,
         // download: false,
+        // body: assemble(options.data)，
+        body:assemble(options.data)
     };
 
     // if (userInfo) {
@@ -30,7 +46,7 @@ window.fetchUtility = function (options, errorFun) {
     //         "CurrentRoleType": request.headers.CurrentRoleType
     //     }
     // }
-    Object.assign(request, options);
+    // Object.assign(request, options);
     // if (options.targetComponent) {
     //     var defaultUrlPrefix = CommonUtil.getTargetUrlPrefix(options.targetComponent);
     //     if (options.url.indexOf("/") == 0) {
@@ -64,7 +80,7 @@ window.fetchUtility = function (options, errorFun) {
                     window.location.href = "/error/" + response.status;
                 } else if (response.status == 409) {
                     // for simulation
-                    $$.alert(true, { type : "w",  content: "Sorry, currently you are in simulation mode and limited to read only access." });
+                    $$.alert(true, { type: "w", content: "Sorry, currently you are in simulation mode and limited to read only access." });
                     throw new Error("simulation");
                 }
                 else {
@@ -105,3 +121,40 @@ window.fetchUtility = function (options, errorFun) {
             return queryResult;
         });
 };
+
+let config = {
+
+    transformRequest: [
+        function (data) {
+            let ret = '';
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }
+    ],
+    transformResponse: [
+        function (data) {
+            return data
+        }
+    ],
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    },
+    timeout: 10000,
+    responseType: 'json'
+};
+
+axios.interceptors.response.use(function(res){
+    //相应拦截器
+    return res.data;
+});
+
+
+window.axiosGet = function get(url) {
+    return axios.get(url, config)
+}
+
+window.axiosPost = function post(url, data) {
+    return axios.post(url, data, config)
+}

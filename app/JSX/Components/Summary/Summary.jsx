@@ -96,7 +96,7 @@ export default class Summary extends React.Component {
         let option = {
             url: './api/user/login',
             method: 'POST',
-            data: JSON.stringify(data)
+            data: data
         }
         fetchUtility(option).then(res => {
             var a = res;
@@ -105,7 +105,7 @@ export default class Summary extends React.Component {
         })
     }
 
-    test(){
+    test() {
         let option = {
             url: './api/user/test',
             method: 'GET'
@@ -125,13 +125,23 @@ export default class Summary extends React.Component {
         let option = {
             url: './api/user/register',
             method: 'POST',
-            data: JSON.stringify(data)
+            data: data
         }
         fetchUtility(option).then(res => {
             var a = res;
         }).catch(e => {
             console.log(e);
         })
+        // let data = {
+        //     userName: this.state.userName,
+        //     password: this.state.password
+        // },
+        // url = './api/user/register';
+        // axiosPost(url, data).then(res => {
+        //     var a = res;
+        // }).catch(e => {
+        //     console.log(e);
+        // })
     }
 
     renderLoginComponent() {

@@ -1,9 +1,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var config = require('../../config/config');
+var bodyParser  = require('body-parser');
 
 const app = new express();
-
+app.use(bodyParser.urlencoded({extended: true})) 
 app.use('/article', require('./article'))
 app.use('/leavemessage', require('./leavemessage'))
 app.use('/about', require('./about'));

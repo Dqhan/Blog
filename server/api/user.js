@@ -1,10 +1,10 @@
 var express = require('express');
 const router = express.Router();
-var user = require('../../models/user');
+var User = require('../../models/user');
 
 router.post('/login', (req, res) => {
     let { userName, password } = req.body;
-    user.findOne({
+    User.findOne({
         username,
         password
     })
@@ -26,20 +26,20 @@ router.get('/test', (req, res) => {
 
 router.post('/register', (req, res) => {
     let { userName, password } = req;
-    user.findOne({
-        username: 'userName'
+    User.findOne({
+        username: userName
     })
         .then(res => {
             if (res)
                 console.log('user存在');
-            let user = new user({
+            let user = new User({
                 username: userName,
                 password: password,
                 type: 'normal'
             })
             user.save()
                 .then(res => {
-                    user.findOne({
+                    User.findOne({
                         username: userName
                     })
                         .then(res => {
