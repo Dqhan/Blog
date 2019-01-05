@@ -4,6 +4,12 @@ import Layout from '../../Layouts/Layout';
 export default class Editor extends React.Component {
     constructor(props) {
         super(props);
+        this.initBind();
+        this.testEditor = null;
+    }
+
+    initBind() {
+        this.saveArticle = this.saveArticle.bind(this);
     }
 
     componentDidMount() {
@@ -11,9 +17,8 @@ export default class Editor extends React.Component {
     }
 
     initEditer() {
-        var testEditor;
-        testEditor = editormd("test-editormd", {
-            placeholder: '本编辑器支持Markdown编辑，左边编写，右边预览',  //默认显示的文字，这里就不解释了
+        this.testEditor = editormd("write-editormd", {
+            placeholder: '开始',  //默认显示的文字，这里就不解释了
             width: "100%",
             height: 640,
             syncScrolling: "single",
@@ -34,14 +39,20 @@ export default class Editor extends React.Component {
         });
     }
 
+
+    saveArticle() {
+        var a = this.testEditor.getMarkdown();
+    }
+
     render() {
         return <React.Fragment>
             <div id="layout" className="editor">
-                <div id="test-editormd">
+                <div id="write-editormd">
                     <textarea></textarea>
                 </div>
             </div>
             <div style={{ textAlign: ' center' }}>
+                <RButton text="提交" style={{ width: '200px', margin: '0 10px' }} onClick={this.saveArticle}></RButton>
                 <RButton text="返回" style={{ width: '200px' }} onClick={this.props.cancel}></RButton>
             </div>
         </React.Fragment>

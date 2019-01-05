@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../Layouts/Layout';
+import Layout from '../../../Layouts/Layout';
 
 export default class Production extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ export default class Production extends React.Component {
             >
                 <div className='product'>
                     <div className='product-header'>
-                        <img src={require('../../Image/productHeader.jpg')} />
+                        <img src={require('../../../Image/productHeader.jpg')} />
                     </div>
                 </div>
             </Layout>

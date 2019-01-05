@@ -1,7 +1,8 @@
+require('./style/blog.less');
 import React from 'react';
-import Content from './Content';
-import Layout from '../../Layouts/Layout';
-import Editor from '../AUI/Editor';
+import Content from '../Content';
+import Layout from '../../../Layouts/Layout';
+import Editor from '../../AUI/Editor';
 
 const BlogMode = {
     Show: 0,
@@ -70,7 +71,7 @@ export default class Blog extends React.Component {
                 >
                     <div className='blog'>
                         <div className='blog-header'>
-                            <img src={require('../../Image/blogHeader.jpg')} />
+                            <img src={require('../../../Image/blogHeader.jpg')} />
                         </div>
                         <div className='classify'>
                             <article>Javascript</article>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../Layouts/Layout';
+import Layout from '../../../Layouts/Layout';
 
 export default class LeaveMessage extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ export default class LeaveMessage extends React.Component {
             >
                 <div className='work'>
                     <div className='work-header'>
-                        <img src={require('../../Image/workHeader.jpg')} />
+                        <img src={require('../../../Image/workHeader.jpg')} />
                     </div>
                 </div>
             </Layout>

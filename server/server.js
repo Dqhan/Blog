@@ -27,6 +27,6 @@ app.use('/test', (req, res) => {
 app.use('/', express.static(path.join(__dirname, "..", 'build')));
 
 /*端口有上限 */
-app.listen(2999, () => console.log('Example app listening on port 2999!'));
+app.listen(80, () => console.log('Example app listening on port 80!'));
 
 module.exports = app;

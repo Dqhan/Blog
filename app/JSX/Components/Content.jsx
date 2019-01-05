@@ -3,6 +3,10 @@ import React from 'react';
 export default class Content extends React.Component {
     constructor(props) {
         super(props);
+        this.initBind();
+    }
+
+    initBind() {
     }
 
     renderSource() {
@@ -14,11 +18,17 @@ export default class Content extends React.Component {
                 <div>
                     <h3 className='section-item-title'>{s.title}</h3>
                     <p className='section-item-description'>{s.description}</p>
-                    <RButton text="Read More"></RButton>
+                    <RButton text="Read More" onClick={this.handleArticleLink.bind(this, s.id)}></RButton>
                 </div>
             </section>
         })
     }
+
+    handleArticleLink(id) {
+        let path = `/sub/article?id=${id}`;
+        this.props.history.push(path);
+    }
+
     render() {
         return <React.Fragment>
             <div className='sections inline-block'>
