@@ -13,7 +13,7 @@ export default class MarkDown extends React.Component {
     initEditer() {
         var testEditor;
         testEditor = editormd.markdownToHTML("read-editormd", {
-            markdown: $scope.apidetails.content,
+            markdown: 'aasa',
             htmlDecode: "style,script,iframe",  // you can filter tags decode
             emoji: true,
             taskList: true,

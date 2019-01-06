@@ -41,7 +41,22 @@ export default class Editor extends React.Component {
 
 
     saveArticle() {
-        var a = this.testEditor.getMarkdown();
+        var content = this.testEditor.getMarkdown();
+        let data = {
+            title: title,
+            content: content,
+            time: new Date()
+        }
+        let option = {
+            url: './api/article/addArticle',
+            method: 'POST',
+            data: data
+        }
+        fetchUtility(option).then(res => {
+            var a = res;
+        }).catch(e => {
+            console.log(e);
+        })
     }
 
     render() {

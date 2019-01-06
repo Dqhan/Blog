@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import axios from 'axios';
+import crypto from 'crypto';
 
 function assemble(data) {
     let ret = '';
@@ -25,7 +26,7 @@ window.fetchUtility = function (options, errorFun) {
         // isParseJson: true,
         // download: false,
         // body: assemble(options.data)，
-        body:assemble(options.data)
+        body: assemble(options.data)
     };
 
     // if (userInfo) {
@@ -145,7 +146,7 @@ let config = {
     responseType: 'json'
 };
 
-axios.interceptors.response.use(function(res){
+axios.interceptors.response.use(function (res) {
     //相应拦截器
     return res.data;
 });
@@ -157,4 +158,20 @@ window.axiosGet = function get(url) {
 
 window.axiosPost = function post(url, data) {
     return axios.post(url, data, config)
+}
+
+// module.exports = {
+//     MD5_SUFFIX: 'eiowafnajkdlfjsdkfj大姐夫文姐到了困难额我积分那看到你@#￥%……&）（*&……）',
+//     md5: function (pwd) {
+//         let md5 = crypto.createHash('md5');
+//         return md5.update(pwd).digest('hex')
+//     }
+// }
+
+window.responseClient = function (res, httpCode = 500, code = 3, message = '服务端异常', data = {}) {
+    let responseData = {};
+    responseData.code = code;
+    responseData.message = message;
+    responseData.data = data;
+    res.status(httpCode).json(responseData)
 }

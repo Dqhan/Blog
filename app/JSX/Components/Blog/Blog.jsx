@@ -82,6 +82,7 @@ export default class Blog extends React.Component {
 
                         </div>
                         <Content
+                            history={this.props.history}
                             source={this.state.blogs}
                         />
                         <div style={{ textAlign: ' center' }}>

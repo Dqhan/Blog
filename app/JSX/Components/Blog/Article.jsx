@@ -11,20 +11,25 @@ export default class Article extends React.Component {
 
     initState() {
         this.state = {
+            content: ""
         }
         return this;
     }
 
     initBind() {
-
+        this.retrieveArticleCallback = this.retrieveArticleCallback.bind(this);
     }
 
     componentDidMount() {
-        this.retrieveArticle();
+        this.retrieveArticle(this.retrieveArticleCallback);
     }
 
     retrieveArticle() {
+        
+    }
 
+    retrieveArticleCallback(res) {
+        this.state.content = res;
         this.setState(this.state)
     }
 
@@ -39,7 +44,9 @@ export default class Article extends React.Component {
                     <div className='article-header'>
                         <img src={require('../../../Image/blogHeader.jpg')} />
                     </div>
-                    <MarkDown />
+                    <MarkDown
+                        content={this.state.content}
+                    />
                 </div>
             </Layout>
         </React.Fragment>
