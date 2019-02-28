@@ -17,7 +17,7 @@ export default class Content extends React.Component {
                 </div>
                 <div>
                     <h3 className='section-item-title'>{s.title}</h3>
-                    <p className='section-item-description'>{s.description}</p>
+                    <p className='section-item-description'>{s.content}</p>
                     <RButton text="Read More" onClick={this.handleArticleLink.bind(this, s.id)}></RButton>
                 </div>
             </section>

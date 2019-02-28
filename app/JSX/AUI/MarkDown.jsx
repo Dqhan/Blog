@@ -4,6 +4,9 @@ import Layout from '../../Layouts/Layout';
 export default class MarkDown extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            data: props.data
+        }
     }
 
     componentDidMount() {
@@ -13,26 +16,41 @@ export default class MarkDown extends React.Component {
     initEditer() {
         var testEditor;
         testEditor = editormd.markdownToHTML("read-editormd", {
-            markdown: 'aasa',
+            markdown: this.state.data.content,
             htmlDecode: "style,script,iframe",  // you can filter tags decode
             emoji: true,
             taskList: true,
             tex: true,  // 默认不解析
             flowChart: true,  // 默认不解析
             sequenceDiagram: true,  // 默认不解析
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/editorMDUpload",//注意你后端的上传图片服务地址
+            
+            //editorTheme: "pastel-on-dark",//编辑器的主题颜色
+            theme: "gray",//顶部的主题
+            previewTheme: "dark"//显示的主题
         });
         testEditor.getMarkdown();
+    }
+
+    handleCancel(){
+        let path = `/sub/blog`;
+        this.props.history.push(path);
     }
 
     render() {
         return <React.Fragment>
             <div id="layout" className="editor">
+                <div className='title'>
+                    <h2>{this.state.data.title}</h2>
+                </div>
                 <div id="read-editormd">
                     <textarea></textarea>
                 </div>
             </div>
             <div style={{ textAlign: ' center' }}>
-                <RButton text="返回" style={{ width: '200px' }} onClick={this.props.cancel}></RButton>
+                <RButton text="返回" style={{ width: '200px' }} onClick={this.handleCancel.bind(this)}></RButton>
             </div>
         </React.Fragment>
     }

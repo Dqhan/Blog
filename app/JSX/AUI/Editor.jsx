@@ -43,7 +43,7 @@ export default class Editor extends React.Component {
     saveArticle() {
         var content = this.testEditor.getMarkdown();
         let data = {
-            title: title,
+            title: content.split('\n')[0],
             content: content,
             time: new Date()
         }

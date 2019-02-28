@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack --watch",
     "server": "babel-node ./server/server.js && node  ./Server/server.js",
-    "api": "babel-node ./server/api/api.js && node ./Server/api/api.js",
+    "api": "babel-node ./server/api/api.js && node --inspect ./Server/api/api.js",
     "pro": "webpack --watch && nodemon ./Server/server.js && nodemon ./Server/api/api.js",
     "buildapi": "babel-node ./server/api/api.js && cross-env BUILD_TARGET=app node ./Server/api/api.js",
     "buildserver": "babel-node ./server/server.js && cross-env BUILD_TARGET=app node ./Server/server.js"

@@ -1,30 +1,38 @@
 var express = require('express');
 const router = express.Router();
 var Article = require('../../models/article');
+var util  = require('../util')
 
 router.post('/addArticle', function (req, res) {
-    const {
-        title,
-        content,
-        time
-    } = req.body;
+    // var  {
+    //     title,
+    //     content,
+    //     time
+    // } = req.body;
     // const author = req.session.userInfo.username;
-    const author = "Dqhan";
-    const viewCount = 0;
-    const commentCount = 0;
-    let tempArticle = new Article({
+    var title  =req.body.title;
+    var content = req.body.content;
+    var article =req.body.article;
+    var time = req.body.time;
+    var author = "Dqhan";
+    var viewCount = 0;
+    var commentCount = 0;
+    var test = 0;
+    var tempArticle = new Article({
         title,
         content,
+        article,
         viewCount,
         commentCount,
         time,
-        author
+        author,
+        test
     });
     tempArticle.save().then(data=>{
-        responseClient(res,200,0,'保存成功',data)
-    }).cancel(err=>{
+        util.responseClient(res,200,0,'保存成功',data)
+    }).catch(err=>{
         console.log(err);
-        responseClient(res);
+        util.responseClient(res);
     });
 });
 
@@ -32,6 +40,7 @@ router.post('/updateArticle',(req,res)=>{
     const {
         title,
         content,
+        article,
         time,
         tags,
         isPublish,
@@ -40,10 +49,10 @@ router.post('/updateArticle',(req,res)=>{
     Article.update({_id:id},{title,content,time,tags:tags.split(','),isPublish})
         .then(result=>{
             console.log(result);
-            responseClient(res,200,0,'更新成功',result)
-        }).cancel(err=>{
+            util.responseClient(res,200,0,'更新成功',result)
+        }).catch(err=>{
         console.log(err);
-        responseClient(res);
+        util.responseClient(res);
     });
 });
 
@@ -52,54 +61,64 @@ router.get('/delArticle',(req,res)=>{
     Article.remove({_id:id})
         .then(result=>{
             if(result.result.n === 1){
-                responseClient(res,200,0,'删除成功!')
+                util.responseClient(res,200,0,'删除成功!')
             }else{
-                responseClient(res,200,1,'文章不存在');
+                util.responseClient(res,200,1,'文章不存在');
             }
-        }).cancel(err=>{
-            responseClient(res);
+        }).catch(err=>{
+            util.responseClient(res);
     })
 });
+
+// router.get('/getArticleDetail', (req, res) => {
+//     let _id = req.query.id;
+//     Article.findOne({ _id })
+//         .then(data => {
+//             data.viewCount = data.viewCount + 1;
+//             Article.update({ _id }, { viewCount: data.viewCount })
+//                 .then(result => {
+//                     util.responseClient(res, 200, 0, 'success', data);
+//                 }).cancel(err => {
+//                     throw err;
+//                 })
+
+//         }).catch(err => {
+//             util.responseClient(res);
+//         });
+// });
 
 router.get('/getArticleDetail', (req, res) => {
     let _id = req.query.id;
     Article.findOne({ _id })
-        .then(data => {
-            data.viewCount = data.viewCount + 1;
-            Article.update({ _id }, { viewCount: data.viewCount })
-                .then(result => {
-                    responseClient(res, 200, 0, 'success', data);
-                }).cancel(err => {
-                    throw err;
-                })
-
-        }).cancel(err => {
-            responseClient(res);
-        });
+    .then(result => {
+        util.responseClient(res, 200, 0, 'success', result);
+    }).catch(err => {
+        util.responseClient(err);
+    })
 });
 
-router.get('/getAllArticles', function (req, res) {
-    let searchCondition = {};
-    let offset = (req.query.pageNum - 1) < 0 ? 0 : (req.query.pageNum - 1) * 5;
-    let responseData = {
+router.post('/getArticles', function (req, res) {
+    var searchCondition = {};
+    var offset = (req.body.offset - 1) < 0 ? 0 : (req.body.offset - 1) * req.body.limit;
+    var responseData = {
         total: 0,
         list: []
     };
     Article.count(searchCondition)
         .then(count => {
             responseData.total = count;
-            Article.find(searchCondition, '_id title isPublish author viewCount commentCount time coverImg', {
+            Article.find(searchCondition, '_id title content author viewCount commentCount time', {
                 skip: offset,
                 limit: 5
             })
                 .then(result => {
                     responseData.list = result;
-                    responseClient(res, 200, 0, 'success', responseData);
-                }).cancel(err => {
+                    util.responseClient(res, 200, 0, 'success', responseData);
+                }).catch(err => {
                     throw err
                 })
-        }).cancel(err => {
-            responseClient(res);
+        }).catch(err => {
+            util.responseClient(res);
         });
 });
 

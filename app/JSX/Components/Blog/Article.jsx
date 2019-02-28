@@ -11,26 +11,30 @@ export default class Article extends React.Component {
 
     initState() {
         this.state = {
-            content: ""
+            data: {}
         }
         return this;
     }
 
     initBind() {
-        this.retrieveArticleCallback = this.retrieveArticleCallback.bind(this);
     }
 
     componentDidMount() {
-        this.retrieveArticle(this.retrieveArticleCallback);
+        this.retrieveArticle();
     }
 
     retrieveArticle() {
-        
-    }
-
-    retrieveArticleCallback(res) {
-        this.state.content = res;
-        this.setState(this.state)
+        let id = getUrlParamster().id;
+        let option = {
+            url: `./api/article/getArticleDetail?id=${id}`,
+            method: 'GET'
+        }
+        fetchUtility(option).then(res => {
+            this.state.data = res.data;
+            this.setState(this.state);
+        }).catch(e => {
+            console.log(e);
+        })
     }
 
     render() {
@@ -44,9 +48,12 @@ export default class Article extends React.Component {
                     <div className='article-header'>
                         <img src={require('../../../Image/blogHeader.jpg')} />
                     </div>
-                    <MarkDown
-                        content={this.state.content}
-                    />
+                    {
+                        Object.keys(this.state.data).length != 0 && <MarkDown
+                            history={this.props.history}
+                            data={this.state.data}
+                        />
+                    }
                 </div>
             </Layout>
         </React.Fragment>

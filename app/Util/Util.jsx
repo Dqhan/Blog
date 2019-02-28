@@ -14,7 +14,8 @@ window.fetchUtility = function (options, errorFun) {
     var request = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
         },
         // headers: {
         //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -47,7 +48,7 @@ window.fetchUtility = function (options, errorFun) {
     //         "CurrentRoleType": request.headers.CurrentRoleType
     //     }
     // }
-    // Object.assign(request, options);
+    Object.assign(request, options);
     // if (options.targetComponent) {
     //     var defaultUrlPrefix = CommonUtil.getTargetUrlPrefix(options.targetComponent);
     //     if (options.url.indexOf("/") == 0) {
@@ -57,7 +58,7 @@ window.fetchUtility = function (options, errorFun) {
     //         options.url = defaultUrlPrefix + "/" + options.url;
     //     }
     // }
-    if (request.method.toLowerCase() === "get") {
+    if (request.method.toLowerCase() == "get") {
         request.body = null;
     }
     return fetch(options.url, request)
@@ -70,7 +71,7 @@ window.fetchUtility = function (options, errorFun) {
                     return response.text().then(function (dataString) {
                         return {
                             responseStatus: response.status,
-                            responseString: dataString,
+                            responseString: JSON.parse(dataString),
                             isParseJson: request.isParseJson,
                             isPassStatus: request.isPassStatus
                         };
@@ -160,18 +161,15 @@ window.axiosPost = function post(url, data) {
     return axios.post(url, data, config)
 }
 
-// module.exports = {
-//     MD5_SUFFIX: 'eiowafnajkdlfjsdkfj大姐夫文姐到了困难额我积分那看到你@#￥%……&）（*&……）',
-//     md5: function (pwd) {
-//         let md5 = crypto.createHash('md5');
-//         return md5.update(pwd).digest('hex')
-//     }
-// }
-
-window.responseClient = function (res, httpCode = 500, code = 3, message = '服务端异常', data = {}) {
-    let responseData = {};
-    responseData.code = code;
-    responseData.message = message;
-    responseData.data = data;
-    res.status(httpCode).json(responseData)
+window.getUrlParamster = function () {
+    var url = window.location.href;
+    var urlParamster = new Object();
+    if (url.indexOf("?") > 1) {
+        var str = window.location.hash.split("?")[1];
+        str = str.split('&');
+        for (var i = 0; i < str.length; i++) {
+            urlParamster[str[i].split('=')[0]] = unescape(str[i].split('=')[1]);
+        }
+    }
+    return urlParamster;
 }

@@ -33,14 +33,38 @@ export default class Blog extends React.Component {
     }
 
     retrieveBlogs() {
-        this.state.blogs = [
-            { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' },
-            { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' },
-            { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' },
-            { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' },
-            { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' }
-        ]
-        this.setState(this.state)
+        let data = {
+            limit: 5,
+            offset: 1
+        }
+        let option = {
+            url: `./api/article/getArticles`,
+            method: 'POST',
+            data: data
+        }
+        fetchUtility(option).then(res => {
+            this.state.blogs = this.convert(res.data.list);
+            this.setState(this.state);
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
+    convert(res) {
+        let arr = []
+        res.forEach(r => {
+            var temp = {
+                id: r._id,
+                title: r.title,
+                time: r.time,
+                author: r.author,
+                viewCount: r.viewCount,
+                commentCount: r.commentCount,
+                content: r.content
+            }
+            arr.push(temp);
+        })
+        return arr;
     }
 
     handleCancelClick() {
