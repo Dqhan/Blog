@@ -1,12 +1,16 @@
 import React from 'react';
 import Layout from '../../../Layouts/Layout';
+import Content from '../Content';
 
 export default class Production extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            productions: []
+        }
     }
 
-    render(){
+    render() {
         return <React.Fragment>
             <Layout
                 hasHeader={true}
@@ -17,6 +21,10 @@ export default class Production extends React.Component {
                     <div className='product-header'>
                         <img src={require('../../../Image/productHeader.jpg')} />
                     </div>
+                    <Content
+                        history={this.props.history}
+                        source={this.state.productions}
+                    />
                 </div>
             </Layout>
         </React.Fragment>

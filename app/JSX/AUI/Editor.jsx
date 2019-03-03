@@ -53,7 +53,7 @@ export default class Editor extends React.Component {
             data: data
         }
         fetchUtility(option).then(res => {
-            var a = res;
+            this.props.cancel();
         }).catch(e => {
             console.log(e);
         })

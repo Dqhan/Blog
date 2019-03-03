@@ -86,6 +86,11 @@ export default class Blog extends React.Component {
     }
 
     render() {
+        var contentProps = {
+            module: 'blog',
+            history: this.props.history,
+            source: this.state.blogs
+        }
         return <React.Fragment>
             {
                 this.state.mode == BlogMode.Show && <Layout
@@ -105,10 +110,7 @@ export default class Blog extends React.Component {
                             <article>工作笔记</article>
 
                         </div>
-                        <Content
-                            history={this.props.history}
-                            source={this.state.blogs}
-                        />
+                        <Content {...contentProps} />
                         <div style={{ textAlign: ' center' }}>
                             <RButton text="查看更多" style={{ width: '200px', margin: '0 20px' }} onClick={this.handleShowAllBlog.bind(this)}></RButton>
                             <RButton text="写博客" style={{ width: '200px' }} onClick={this.handleWriteBlog.bind(this)}></RButton>
