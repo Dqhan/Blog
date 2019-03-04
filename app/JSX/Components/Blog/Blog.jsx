@@ -55,12 +55,12 @@ export default class Blog extends React.Component {
         res.forEach(r => {
             var temp = {
                 id: r._id,
-                title: r.title,
+                title: r.title.replace(/[# ]/g, ''),
                 time: r.time,
                 author: r.author,
                 viewCount: r.viewCount,
                 commentCount: r.commentCount,
-                content: r.content
+                content: r.content.replace(/[# ]/, '')
             }
             arr.push(temp);
         })
@@ -70,6 +70,8 @@ export default class Blog extends React.Component {
     handleCancelClick() {
         this.setState({
             mode: BlogMode.Show
+        }, () => {
+            this.retrieveBlogs();
         })
     }
 

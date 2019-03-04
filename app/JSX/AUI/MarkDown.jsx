@@ -42,9 +42,6 @@ export default class MarkDown extends React.Component {
     render() {
         return <React.Fragment>
             <div id="layout" className="editor">
-                <div className='title'>
-                    <h2>{this.state.data.title}</h2>
-                </div>
                 <div id="read-editormd">
                     <textarea></textarea>
                 </div>
