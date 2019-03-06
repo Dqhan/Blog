@@ -3910,7 +3910,7 @@
 /*! Pretty printing styles. Used with prettify.js. */
 /* SPAN elements with the classes below are added by prettyprint. */
 .pln {
-  color: #000;
+  color: #8F938F;
 }
 
 /* plain text */
@@ -3921,7 +3921,7 @@
 
   /* string content */
   .kwd {
-    color: #008;
+    color: #ff9900;
   }
 
   /* a keyword */
@@ -3942,7 +3942,7 @@
   /* a literal value */
   /* punctuation, lisp open bracket, lisp close bracket */
   .pun, .opn, .clo {
-    color: #660;
+    color: #8F938F;
   }
 
   .tag {
@@ -3978,7 +3978,7 @@
   }
 
   .kwd {
-    color: #006;
+    color: #ff9900;
     font-weight: bold;
   }
 
@@ -3997,7 +3997,7 @@
   }
 
   .pun, .opn, .clo {
-    color: #440;
+    color: #8F938F;
   }
 
   .tag {
@@ -4021,6 +4021,7 @@ pre.prettyprint {
 
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums {
+  background-color: black;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -4038,13 +4039,13 @@ li.L8 {
 }
 
 /* Alternate shading for lines */
-li.L1,
+/* li.L1,
 li.L3,
 li.L5,
 li.L7,
 li.L9 {
   background: #eee;
-}
+} */
 
 .editormd-preview-container pre.prettyprint, .editormd-html-preview pre.prettyprint {
   padding: 10px;

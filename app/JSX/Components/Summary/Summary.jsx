@@ -225,8 +225,8 @@ export default class Summary extends React.Component {
             <section>
                 <h3>快速搜索</h3>
                 <div className='padding-5'>
-                    <input className='margin-bottom-10 margin-top-10' type='text' placeholder="文章标题" />
-                    <RButton text='确定' style={{ marginLeft: '10px' }} />
+                    <input style={{ width: '95%' }} className='margin-bottom-10 margin-top-10' type='text' placeholder="文章标题" />
+                    <RButton text='确定' style={{marginLeft: '69%'}} />
                 </div>
             </section>
             <section className='about-me'>
