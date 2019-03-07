@@ -13,12 +13,12 @@ import Article from '../JSX/Components/Blog/Article';
 
 const SubRouter = () => {
     return <Switch>
-            <Route path="/sub/lifemark" component={Life} />
-            <Route path="/sub/leavemessage" component={LeaveMessage} />
-            <Route path="/sub/blog" component={Blog} />
-            <Route path="/sub/article" component={Article} />
-            <Route path="/sub/production" component={Production} />
-            <Route path="/sub/about" component={About} />
+            <Route exact path="/sub/lifemark" component={Life} />
+            <Route exact path="/sub/leavemessage" component={LeaveMessage} />
+            <Route exact path="/sub/blog" component={Blog} />
+            <Route exact path="/sub/article" component={Article} />
+            <Route exact path="/sub/production" component={Production} />
+            <Route exact path="/sub/about" component={About} />
         </Switch>
 }
 export default SubRouter;
