@@ -12,13 +12,7 @@ export default class Home extends React.Component {
 
     initState() {
         this.state = {
-            source: [
-                { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' },
-                { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' },
-                { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' },
-                { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' },
-                { title: '最新1', description: '曾有个密友问我，她说：“亲爱的，女生到底是应该嫁给爱情，还是嫁给现实呢？嫁给现实，无非就是自己少奋斗几年。而后用10数年的时间去后悔。不过这么说也算牵强，身边不乏些嫁给现实的朋友，在柴米油盐的生活中不仅慢慢习惯上了对方的存在，那种习惯略带些依赖的味道，并在长此以往的依赖中得了一种病' }
-            ],
+            blogs: [],
             headerScrolled: false
         }
         return this;
@@ -30,6 +24,7 @@ export default class Home extends React.Component {
 
     componentDidMount() {
         this.initComputed()
+        this.retrieveBlogs();
     }
 
     initComputed() {
@@ -52,19 +47,52 @@ export default class Home extends React.Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
+    retrieveBlogs() {
+        let data = {
+            limit: 5,
+            offset: 1
+        }
+        let option = {
+            url: `./api/article/getArticles`,
+            method: 'POST',
+            data: data
+        }
+        fetchUtility(option).then(res => {
+            this.state.blogs = this.convert(res.data.list);
+            this.setState(this.state);
+        }).catch(e => {
+            console.log(e);
+        })
+    }
 
+    convert(res) {
+        let arr = []
+        res.forEach(r => {
+            var temp = {
+                id: r._id,
+                title: r.title.replace(/[# ]/g, ''),
+                time: r.time,
+                author: r.author,
+                viewCount: r.viewCount,
+                comments: r.comments,
+                content: r.content.replace(/[# ]/, '')
+            }
+            arr.push(temp);
+        })
+        return arr;
     }
 
     render() {
+        var contentProps = {
+            module: 'blog',
+            history: this.props.history,
+            source: this.state.blogs
+        }
         return <div>
             <Header headerScrolled={this.state.headerScrolled} />
             <Banner />
             <Layout>
-                <Content
-                    history={this.props.history}
-                    source={this.state.source}
-                />
+                <Content {...contentProps} />
             </Layout>
         </div>
     }

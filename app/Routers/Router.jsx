@@ -8,8 +8,8 @@ import SubHome from '../JSX/Components/SubHome';
 
 const Router = () => {
     return <Switch>
-            <Route exact path="/sub" component={SubHome} />
-            <Route exact path="/" component={Home} />
+            <Route path="/sub" component={SubHome} />
+            <Route path="/" component={Home} />
         </Switch>
 }
 export default Router;
