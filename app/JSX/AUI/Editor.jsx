@@ -36,9 +36,10 @@ export default class Editor extends React.Component {
             toolbarIcons: function () {  //自定义工具栏，后面有详细介绍
                 return editormd.toolbarModes['simple']; // full, simple, mini
             },
+            /**上传图片相关配置如下*/
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "{{url('backend/uploadimage')}}"
+            imageUploadURL:  "./api/document/upload"
         });
     }
 

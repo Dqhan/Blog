@@ -19,11 +19,6 @@ const proxy = httpProxy.createProxyServer({
   target: targetUrl
 });
 
-
-app.use('/test', (req, res) => {
-  res.send('hello')
-});
-
 app.use('/', express.static(path.join(__dirname, "..", 'build')));
 
 /*端口有上限 */
