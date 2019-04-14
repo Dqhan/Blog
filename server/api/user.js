@@ -21,34 +21,37 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-    let { userName, password } = req;
+    let { userName, password } = req.body;
     User.findOne({
         username: userName
     })
         .then(res => {
-            if (res)
+            if (res) {
                 console.log('user存在');
-            let user = new User({
-                username: userName,
-                password: password,
-                type: 'normal'
-            })
-            user.save()
-                .then(res => {
-                    User.findOne({
-                        username: userName
+                return;
+            } else {
+                let user = new User({
+                    username: userName,
+                    password: password,
+                    type: 'normal'
+                })
+                user.save()
+                    .then(res => {
+                        User.findOne({
+                            username: userName
+                        })
+                            .then(res => {
+                                var data = res;
+                                console.log('注册成功');
+                            })
+                            .catch(e => {
+                                console.log(e);
+                            })
                     })
-                        .then(res => {
-                            var data = res;
-                            console.log('注册成功');
-                        })
-                        .catch(e => {
-                            console.log(e);
-                        })
-                })
-                .catch(e => {
-                    console.log(e);
-                })
+                    .catch(e => {
+                        console.log(e);
+                    })
+            };
         })
         .catch(e => {
             console.log(e);

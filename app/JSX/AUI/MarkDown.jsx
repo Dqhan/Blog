@@ -34,20 +34,12 @@ export default class MarkDown extends React.Component {
         testEditor.getMarkdown();
     }
 
-    handleCancel(){
-        let path = `/sub/blog`;
-        this.props.history.push(path);
-    }
-
     render() {
         return <React.Fragment>
             <div id="layout" className="editor">
                 <div id="read-editormd">
                     <textarea></textarea>
                 </div>
-            </div>
-            <div style={{ textAlign: ' center' }}>
-                <RButton text="返回" style={{ width: '200px' }} onClick={this.handleCancel.bind(this)}></RButton>
             </div>
         </React.Fragment>
     }

@@ -148,7 +148,6 @@
                         //     'Content-Type': 'multipart/form-data',
                         //     'Accept': 'application/json'
                         // },
-                        // cache: 'no-store',
                         body: data
                     };
                     fetch(action, request).then(res => {

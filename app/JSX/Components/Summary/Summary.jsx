@@ -164,7 +164,7 @@ export default class Summary extends React.Component {
                 </React.Fragment>
             case LoginType.WeChart:
                 return <React.Fragment>
-                    <div>二维码</div>
+                    <div>没实现！！！</div>
                 </React.Fragment>
             case LoginType.GitHub:
                 return <React.Fragment>
@@ -233,7 +233,7 @@ export default class Summary extends React.Component {
                 <h3>关于我</h3>
                 <div className='padding-5'>
                     <p>姓名：韩德琦</p>
-                    <p>年龄：26岁</p>
+                    <p>年龄：27岁</p>
                     <p>地点：大连市</p>
                     <p>职务：Web前端开发</p>
                     <p>自我简介：人丑嘴不甜，长的磕碜还没钱。PS：我就是个切页面的！</p>
