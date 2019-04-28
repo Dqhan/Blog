@@ -90,7 +90,7 @@ export default class Summary extends React.Component {
 
     loginHandler() {
         let data = {
-            userName: this.state.userName,
+            username: this.state.userName,
             password: this.state.password
         }
         let option = {
@@ -105,17 +105,6 @@ export default class Summary extends React.Component {
         })
     }
 
-    test() {
-        let option = {
-            url: './api/user/test',
-            method: 'GET'
-        }
-        fetchUtility(option).then(res => {
-            var a = res;
-        }).catch(e => {
-            console.log(e);
-        })
-    }
 
     registerHandler() {
         let data = {
@@ -157,7 +146,7 @@ export default class Summary extends React.Component {
                         <input type='text' value={this.state.password} onChange={this.handlePasswordChanged} />
                     </div>
                     <div className='btn-group'>
-                        <span style={{ flexBasis: 'inherit' }}><RButton text='登录' onClick={this.test.bind(this)} /></span>
+                        <span style={{ flexBasis: 'inherit' }}><RButton text='登录' onClick={this.loginHandler} /></span>
                         <span style={{ flexBasis: 'inherit' }}><RButton text='注册' onClick={this.registerHandler} /></span>
                         <span style={{ flexBasis: 'inherit' }}><RButton text='返回' onClick={this.changeLogin.bind(this, LoginType.Default)} /></span>
                     </div>

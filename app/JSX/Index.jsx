@@ -8,6 +8,9 @@ export default class Index extends React.Component {
     constructor(props) {
         super(props);
         this.fooPrototype();
+        this.state = {
+            userInfo: null
+        }
     }
 
     fooPrototype() {
@@ -19,9 +22,27 @@ export default class Index extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.retrieveCurrentUser();
+    }
+
+    retrieveCurrentUser() {
+        let option = {
+            url: `./api/user/userInfo`,
+            method: 'GET'
+        }
+        fetchUtility(option).then(res => {
+            this.setState({
+                userInfo: res
+            })
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
     render() {
         return <HashRouter>
-            <Router />
+            <Router userInfo={this.state.userInfo} />
         </HashRouter>
     }
 }

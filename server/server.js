@@ -8,7 +8,7 @@ var config = require('../config/config');
 
 
 const app = express();
-
+app.set('trust proxy', 1); 
 const targetUrl = `http://${config.apiHost}:${config.apiPort}`;
 app.use('/api', (req, res) => {
   proxy.web(req, res, { target: targetUrl })

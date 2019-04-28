@@ -23,7 +23,7 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.initComputed()
+        this.initComputed();
         this.retrieveBlogs();
     }
 
