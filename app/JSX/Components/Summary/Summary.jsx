@@ -8,7 +8,8 @@ const LoginType = {
 export default class Summary extends React.Component {
     constructor(props) {
         super(props);
-        this.initState().initBind();
+        this.initState()
+            .initBind();
     }
 
     initState() {
@@ -121,16 +122,6 @@ export default class Summary extends React.Component {
         }).catch(e => {
             console.log(e);
         })
-        // let data = {
-        //     userName: this.state.userName,
-        //     password: this.state.password
-        // },
-        // url = './api/user/register';
-        // axiosPost(url, data).then(res => {
-        //     var a = res;
-        // }).catch(e => {
-        //     console.log(e);
-        // })
     }
 
     renderLoginComponent() {
@@ -151,10 +142,6 @@ export default class Summary extends React.Component {
                         <span style={{ flexBasis: 'inherit' }}><RButton text='返回' onClick={this.changeLogin.bind(this, LoginType.Default)} /></span>
                     </div>
                 </React.Fragment>
-            case LoginType.WeChart:
-                return <React.Fragment>
-                    <div>没实现！！！</div>
-                </React.Fragment>
             case LoginType.GitHub:
                 return <React.Fragment>
                     <div className='margin-bottom-10 margin-top-10'>
@@ -172,10 +159,6 @@ export default class Summary extends React.Component {
                     <div className='login-item' onClick={this.changeLogin.bind(this, LoginType.Account)}>
                         <img className='login-item-icon' src={require('./Image/login-account.png')} />
                         <div className='login-item-font'>账号登录</div>
-                    </div>
-                    <div className='login-item' onClick={this.changeLogin.bind(this, LoginType.WeChart)}>
-                        <img className='login-item-icon' src={require('./Image/login-wechart.png')} />
-                        <div className='login-item-font'>微信登录</div>
                     </div>
                     <div className='login-item' onClick={this.changeLogin.bind(this, LoginType.GitHub)}>
                         <img className='login-item-icon' src={require('./Image/login-github.png')} />
@@ -214,8 +197,9 @@ export default class Summary extends React.Component {
             <section>
                 <h3>快速搜索</h3>
                 <div className='padding-5'>
-                    <input style={{ width: '95%' }} className='margin-bottom-10 margin-top-10' type='text' placeholder="文章标题" />
-                    <RButton text='确定' style={{marginLeft: '69%'}} />
+                    <input style={{ width: '100%' }} className='margin-bottom-10 margin-top-10' type='text' placeholder="文章标题" />
+                    <RButton style={{ float: 'right' }} text='搜索' />
+                    <div className='clear-both'></div>
                 </div>
             </section>
             <section className='about-me'>

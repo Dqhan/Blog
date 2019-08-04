@@ -23,11 +23,13 @@ module.exports = {
                         presets: ['es2015', 'react']
 
                     }
-                }
+                },
+                exclude: /node_modules/,
             },
             {
                 test: /\.less$/,
-                loader: "style-loader!css-loader!less-loader"
+                loader: "style-loader!css-loader!less-loader",
+                exclude: /node_modules/,
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,

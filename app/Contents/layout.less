@@ -1,54 +1,57 @@
 .layout {
     .layout-container {
-        width: 70%;
-        margin-left: auto;
+        width       : 70%;
+        margin-left : auto;
         margin-right: auto;
+
         .git-link {
-            z-index: 999;
-            position: fixed;
-            top: 0;
-            right: 0;
-            border: 0;
-            height: 149px;
-            width: 149px;
+            z-index         : 999;
+            position        : fixed;
+            top             : 0;
+            right           : 0;
+            border          : 0;
+            height          : 149px;
+            width           : 149px;
             background-image: url('../Image//github-link.png');
         }
+
         .summary-logo {
-            position: relative;
+            position     : relative;
             margin-bottom: 15px;
-            & > h1 {
-                height: 60px;
+
+            &>h1 {
+                height     : 60px;
                 line-height: 60px;
-                font-size: 35px;
+                font-size  : 35px;
                 font-family: cursive;
             }
 
-            & > nav {
+            &>nav {
                 position: absolute;
-                top: 15px;
-                right: 0;
+                top     : 15px;
+                right   : 0;
 
                 ul {
                     li {
-                        list-style: none;
-                        float: left;
-                        cursor: pointer;
-                        margin-right: 20px;
+                        list-style   : none;
+                        float        : left;
+                        cursor       : pointer;
+                        margin-right : 20px;
                         border-radius: 5px;
-                        padding: 5px;
+                        padding      : 5px;
 
                         &:hover {
                             background-color: #9D9D9D;
 
-                            & > a {
+                            &>a {
                                 color: #ffffff;
                             }
                         }
 
                         a {
-                            color: #9D9D9D;
-                            font-weight: 400;
-                            font-size: 20px;
+                            color          : #9D9D9D;
+                            font-weight    : 400;
+                            font-size      : 20px;
                             text-decoration: none;
                         }
                     }
@@ -57,35 +60,27 @@
         }
 
         .content {
-            width: 70%;
-            display: inline-block;
+            width         : 70%;
+            display       : inline-block;
             vertical-align: top;
 
             .sections {
                 vertical-align: top;
-                width: 100%;
+                width         : 100%;
 
                 .sections-content-title {
                     border-bottom: 5px solid #9D9D9D;
-                    padding: 5px;
+                    padding      : 5px;
                 }
 
                 .section-item {
-                    padding: 5px 5px 20px 5px;
-                    margin-bottom: 10px;
-                    height: 160px;
-                    border-bottom: 1px solid #bbb;
-                    font-size: 15px;
+                    display       : flex;
+                    flex-direction: row;
 
-                    & > div {
-                        height: 100%;
-                        display: inline-block;
-                    }
-
-                    & > div:nth-child(1) {
-                        height: 100%;
-                        vertical-align: top;
-                        cursor: pointer;
+                    &>div:nth-child(1) {
+                        width   : 600px;
+                        height  : 100%;
+                        cursor  : pointer;
                         overflow: hidden;
 
                         & img {
@@ -97,17 +92,20 @@
                         }
                     }
 
-                    & > div:nth-child(2) {
-                        margin-left: 10px;
-                        width: 75%;
+                    &>div:nth-child(2) {
+                        padding: 5px;
+                    }
 
-                        .section-item-description {
-                            height: 60%;
-                            overflow: hidden;
-                            margin-bottom: 10px;
-                            font-size: 12px;
-                            line-height: 24px;
-                        }
+                    h3 {
+                        padding: 5px 0;
+                    }
+
+                    p {
+                        word-break: break-all;
+                    }
+
+                    button {
+                        float: right;
                     }
                 }
             }

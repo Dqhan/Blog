@@ -66,6 +66,7 @@ export default class Banner extends React.Component {
         switch (this.state.currentIndex) {
             case 0:
                 this.bannerContent.style.transform = `translate3d(${-this.elmentDuration * 2}%,0,0)`;
+                this.bannerContent.style.transform = "translate3d(" + -this.elmentDuration * 2 +"%,0,0)";
                 break;
             case 1:
                 this.bannerContent.style.transform = `translate3d(${-this.elmentDuration * 1}%,0,0)`;
