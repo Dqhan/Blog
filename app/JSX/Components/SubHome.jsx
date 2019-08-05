@@ -1,4 +1,3 @@
-import React from 'react';
 import SubRouter from './../../Routers/SubRouter';
 
 export default class SubHome extends React.Component {

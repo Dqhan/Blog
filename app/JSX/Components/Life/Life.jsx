@@ -1,4 +1,3 @@
-import React from 'react';
 import Layout from '../../../Layouts/Layout';
 
 export default class About extends React.Component {

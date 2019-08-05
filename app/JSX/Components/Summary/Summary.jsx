@@ -1,4 +1,3 @@
-import React from 'react';
 const LoginType = {
     Account: 0,
     WeChart: 1,

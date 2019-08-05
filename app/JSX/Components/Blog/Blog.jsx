@@ -1,5 +1,4 @@
 require('./style/blog.less');
-import React from 'react';
 import Content from '../Content';
 import Layout from '../../../Layouts/Layout';
 import Editor from '../../AUI/Editor';

@@ -1,7 +1,4 @@
-﻿import React from 'react';
-import ReactDOM from 'react-dom';
-
-export default class Banner extends React.Component {
+﻿export default class Banner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

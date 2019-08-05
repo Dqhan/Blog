@@ -1,3 +1,14 @@
 {
-  "presets": ["es2015"]
+  "presets": [
+    /*
+      tree shaking.
+    */
+    ["env", {
+      "modules": false
+    }],
+    // "env",
+    "react",
+    "stage-0"
+  ],
+  //"modules": false
 }

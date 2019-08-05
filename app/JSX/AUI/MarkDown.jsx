@@ -1,6 +1,3 @@
-import React from 'react';
-import Layout from '../../Layouts/Layout';
-
 export default class MarkDown extends React.Component {
     constructor(props) {
         super(props);
