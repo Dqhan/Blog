@@ -173,3 +173,222 @@ window.getUrlParamster = function () {
     }
     return urlParamster;
 }
+window.CommonUtil = {};
+window.CommonUtil.formatDateTime = function (date, hasTime, format, hasSecond) {
+    if (hasTime == null) {
+        hasTime = true;
+    }
+    if (typeof date === "string") {
+        if (CommonUtil.isEmptyCSharpDate(date)) {
+            return "";
+        }
+        date = new Date(date);//new Date(date.replace("T", " ").replace(/-/g, "/"));
+    }
+    /* format 等于true时,返回Date类型的数据*/
+    if (format === true) {
+        return new Date(date);
+    }
+    if (hasSecond) {
+        format = SADefaultFormat.DATE + (hasTime ? ' ' + SADefaultFormat.TIME + ':ss' : '');
+    }
+    /*可以设置默认的format*/
+    if (!format) {
+        format = SADefaultFormat.DATE + (hasTime ? ' ' + SADefaultFormat.TIME : '');
+    }
+    var dateStr = gcalendar('toFormatString', { date: date, format: format.replace(/[y]{2}/g, 'y') });
+    return dateStr;
+};
+
+var SADefaultFormat = {
+    DATE: "dd MMM yyyy (DDD)",
+    DATETIME: "dd MMM yyyy (DDD) hh:mm",
+    LANGUAGE: "",
+    TIME: "hh:mm"
+}
+
+var gcalendar = function (type, param) {
+    var value = null;
+    type = type.toLowerCase();
+    switch (type) {
+        case "dayofweek":
+            value = $.extend(value, _dayOfWeek);
+            break;
+        case "view":
+            value = $.extend(value, _view);
+            break;
+        case "constant":
+            value = $.extend(value, _constant);
+            break;
+        case "formatdate":
+            value = formatDate(param);
+            break;
+        case "toformatstring":
+            value = toFormatString(param);
+            break;
+        default:
+            value = {};
+            break;
+    }
+
+    return value;
+};
+
+var middleweeks =["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+var  shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function formatDate(param) {
+    var
+        date = param.date,
+        format = param.iFormat.f,
+        c = format.length,
+        value = '';
+
+    param.iFormat.i = 0;
+
+    if (date) {
+        if (param.useBrowserFormat) {
+            if (param.hasTimePicker) {
+                value = date.toLocaleString();
+            } else {
+                value = date.toLocaleDateString();
+            }
+        } else {
+            for (; param.iFormat.i < c; param.iFormat.i++) {
+                var data = {
+                    match: 'default',
+                    value: 0,
+                    len: 2,
+                    iFormat: param.iFormat
+                };
+                switch (format.charAt(param.iFormat.i)) {
+                    case 'd':
+                        data.match = 'd';
+                        data.value = date.getDate();
+                        value += formatNumber(data);
+                        break;
+                    case 'D':
+                        if (format.indexOf('DDD') != -1) {
+                            value +=  middleweeks[date.getDay()];
+                            param.iFormat.i += 2;
+                        }
+                        break;
+                    case 'M':
+                        if (format.indexOf('MMM') != -1) {
+                            value += shortMonths[date.getMonth()];
+                            param.iFormat.i += 2;
+                        } else {
+                            data.match = 'M';
+                            data.value = date.getMonth() + 1;
+                            value += formatNumber(data);
+                        }
+                        break;
+                    case 'y':
+                        data.match = 'y';
+                        data.value = date.getMonth() + 1;
+                        value += (lookAhead(data) ? date.getFullYear() : (date.getYear() % 100 < 10 ? '0' : '') + date.getYear() % 100);
+                        break;
+                    case 'h':
+                        data.match = 'h';
+
+                        if (format.indexOf('tt') == -1) {
+                            data.value = date.getHours();
+                            value += formatNumber(data);
+                        } else {
+                            data.value = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+                            value += formatNumber(data);
+                        }
+                        break;
+                    case 'm':
+                        data.match = 'm';
+                        data.value = date.getMinutes();
+                        value += formatNumber(data);
+                        break;
+                    case 's':
+                        data.match = 's';
+                        data.value = date.getSeconds();
+                        value += formatNumber(data);
+                        break;
+                    case 't':
+                        if (date.getHours() > 12) {
+                            value += 'PM';
+                        } else {
+                            value += 'AM';
+                        }
+                        param.iFormat.i++;
+                        break;
+                    default:
+                        value += format.charAt(param.iFormat.i);
+                        break;
+                }
+            }
+        }
+    }
+    else {
+        value = '';
+    }
+
+    return value;
+}
+
+function toFormatString(param) {
+    var
+        f,
+        value = '';
+    if (param && isDate(param.date)) {
+        if (typeof param.hasTime != "boolean") {
+            param.hasTime = true;
+        }
+        if (param.hasTime) {
+            f = param.format || "dd/MM/yy hh:mm";
+        } else {
+            f = param.format || "dd/MM/yy";
+        }
+
+        param.iFormat = {
+            f: f
+        }
+
+        value = formatDate(param);
+    }
+
+    return value;
+}
+function formatNumber(param) {
+    var
+        match = param.match,
+        value = param.value,
+        len = param.len,
+        num = '' + value;
+    if (lookAhead({ match: match, iFormat: param.iFormat }))
+        while (num.length < len)
+            num = '0' + num;
+    return num;
+}
+function isDate(date){
+    return getClassBuiltIn(date) == "Date";
+}
+
+function getClassBuiltIn(object){
+    return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
+}
+
+//Check whether a format character is doubled
+function lookAhead(param) {
+    var
+        match = param.match,
+        format = param.iFormat.f,
+        i = param.iFormat.i,
+        matches = (i + 1 < format.length && format.charAt(i + 1) == match);
+
+    if (matches) {
+        param.iFormat.i++;
+    }
+    return matches;
+}
+
+window.CommonUtil.isEmptyCSharpDate = function (date) {
+    if (date.match('0001-01-01T')) {
+        return true;
+    } else {
+        return false;
+    }
+}

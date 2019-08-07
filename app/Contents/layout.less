@@ -59,56 +59,62 @@
             }
         }
 
-        .content {
-            width         : 70%;
-            display       : inline-block;
-            vertical-align: top;
+        .layout-main {
+            display: flex;
 
-            .sections {
-                vertical-align: top;
-                width         : 100%;
+            .content {
+                // width         : 70%;
+                display          : inline-block;
+                vertical-align   : top;
 
-                .sections-content-title {
-                    border-bottom: 5px solid #9D9D9D;
-                    padding      : 5px;
-                }
+                .sections {
+                    vertical-align: top;
+                    width         : 100%;
 
-                .section-item {
-                    display       : flex;
-                    flex-direction: row;
+                    .sections-content-title {
+                        border-bottom: 5px solid #9D9D9D;
+                        padding      : 5px;
+                    }
 
-                    &>div:nth-child(1) {
-                        width   : 600px;
-                        height  : 100%;
-                        cursor  : pointer;
-                        overflow: hidden;
+                    .section-item {
+                        display       : flex;
+                        flex-direction: row;
 
-                        & img {
-                            transition: all 0.6s;
+                        &>div:nth-child(1) {
+                            width   : 600px;
+                            height  : 100%;
+                            cursor  : pointer;
+                            overflow: hidden;
 
-                            &:hover {
-                                transform: scale(1.4);
+                            & img {
+                                transition: all 0.6s;
+
+                                &:hover {
+                                    transform: scale(1.4);
+                                }
                             }
                         }
-                    }
 
-                    &>div:nth-child(2) {
-                        padding: 5px;
-                    }
+                        &>div:nth-child(2) {
+                            padding: 5px;
+                        }
 
-                    h3 {
-                        padding: 5px 0;
-                    }
+                        h3 {
+                            padding: 5px 0;
+                        }
 
-                    p {
-                        word-break: break-all;
-                    }
+                        p {
+                            word-break: break-all;
+                        }
 
-                    button {
-                        float: right;
+                        button {
+                            float: right;
+                        }
                     }
                 }
             }
         }
+
+
     }
 }

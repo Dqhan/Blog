@@ -1,6 +1,7 @@
 var express = require('express');
 const router = express.Router();
 var Article = require('../../models/article');
+var Comment =require('../../models/comment');
 var util  = require('../util')
 
 router.post('/addArticle', function (req, res) {
@@ -121,5 +122,30 @@ router.post('/getArticles', function (req, res) {
             util.responseClient(res);
         });
 });
+router.post('/getComments',function(req,res){
+    var searchCondition = {};
+    var offset = (req.body.offset - 1) < 0 ? 0 : (req.body.offset - 1) * req.body.limit;
+    var responseData = {
+        total: 0,
+        list: []
+    };
+    Comment.count(searchCondition)
+    .then(count=>{
+        responseData.total = count;
+        Comment.find(searchCondition, '_id articleTitle content author time', {
+            skip: offset,
+            limit: 5
+        })
+            .then(result => {
+                responseData.list = result;
+                util.responseClient(res, 200, 0, 'success', responseData);
+            }).catch(err => {
+                throw err
+            })
+    })
+    .catch(e=>{
+        util.responseClient(res);
+    })
+})
 
 module.exports = router;

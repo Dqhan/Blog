@@ -35,10 +35,12 @@ export default class Layout extends React.Component {
                         </nav>
                     </div>
                 }
-                <div className='content'>
-                    {this.props.children}
+                <div className='layout-main'>
+                    <div className='content'>
+                        {this.props.children}
+                    </div>
+                    <Summary />
                 </div>
-                <Summary />
             </div>
             <footer>
                 <div>no footer</div>

@@ -4,35 +4,38 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        // {
+        //     "type": "node",
+        //     "request": "attach",
+        //     "name": "attach Program",
+        //     "port": 9222
+        // },
         {
             "type": "node",
-            "request": "attach",
-            "name": "attach Program",
-            "port": 9222
-        },
-        {
-            "type": "node",
-            "request": "attach",
+            "request": "launch",
             "name": "attach server",
-            "port": 9222,
-            "protocol":"inspector",
-            "cwd": "${workspaceFolder}/server\\server.js",
-            "restart": true
-        },
-        {
-            "type": "node",
-            "request": "attach",
-            "name": "attach api",
-            "port": 9222,
-            "protocol":"inspector",
-            "cwd":"${workspaceFolder}/server\\api\\api.js",
-            "restart": true
+            "program": "${workspaceRoot}/server/server.js",
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "launch server",
-            "program": "${workspaceFolder}/server/server.js"
-        }
+            "name": "attach api",
+            "program": "${workspaceRoot}/server/api/api.js",
+        },
+        // {
+        //     "type": "node",
+        //     "request": "attach",
+        //     "name": "attach api",
+        //     "port": 9222,
+        //     "protocol":"inspector",
+        //     "cwd":"${workspaceFolder}/server\\api\\api.js",
+        //     "restart": true
+        // },
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "name": "launch server",
+        //     "program": "${workspaceFolder}/server/server.js"
+        // }
     ]
 }

@@ -32,6 +32,7 @@ export default class Blog extends React.Component {
     }
 
     retrieveBlogs() {
+        $$.loading(true);
         let data = {
             limit: 5,
             offset: 1
@@ -43,9 +44,15 @@ export default class Blog extends React.Component {
         }
         fetchUtility(option).then(res => {
             this.state.blogs = this.convert(res.data.list);
-            this.setState(this.state);
+            this.setState(this.statem,()=>{
+                $$.loading(false);
+            });
         }).catch(e => {
-            console.log(e);
+            $$.loading(true);
+            $$.conform({
+                message: e,
+                status: 'show'
+            });
         })
     }
 
