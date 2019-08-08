@@ -2,7 +2,11 @@ const LoginType = {
     Account: 0,
     WeChart: 1,
     GitHub: 2,
-    Default: 3
+    Default: 3,
+    Login: 4,
+    Register: 5,
+    RegisterSuccessfully: 6,
+    LoginTimeout: 7
 };
 export default class Summary extends React.Component {
     constructor(props) {
@@ -16,7 +20,8 @@ export default class Summary extends React.Component {
             password: "",
             messages: [],
             comments: [],
-            loginType: LoginType.Default
+            loginType: LoginType.Default,
+            displayUserName: ""
         };
         return this;
     }
@@ -31,6 +36,30 @@ export default class Summary extends React.Component {
     componentDidMount() {
         this.retrieveLeaveMessage();
         this.retrieveNewComment();
+        // this.checkCurrentUserInfo();
+    }
+
+    checkCurrentUserInfo() {
+        let option = {
+            url: `./api/user/userInfo`,
+            method: "GET"
+        };
+        fetchUtility(option)
+            .then(res => {
+                if (res.data.status == 'success') {
+                    this.setState({
+                        loginType: LoginType.LoginSuccessfully,
+                        displayUserName: res.data.userInfo.username
+                    })
+                } else {
+                    this.setState({
+                        loginType: LoginType.LoginTimeout
+                    })
+                }
+            })
+            .catch(e => {
+
+            });
     }
 
     retrieveNewComment() {
@@ -163,12 +192,27 @@ export default class Summary extends React.Component {
             method: "POST",
             data: data
         };
+        $$.loading(true);
         fetchUtility(option)
             .then(res => {
-                var a = res;
+                $$.loading(false);
+                if (res.data.status == 'success')
+                    this.setState({
+                        loginType: LoginType.LoginSuccessfully,
+                        displayUserName: res.data.username
+                    })
+                else
+                    $$.conform({
+                        message: 'Login failed.',
+                        status: "show"
+                    });
             })
             .catch(e => {
-                console.log(e);
+                $$.loading(false);
+                $$.conform({
+                    message: e,
+                    status: "show"
+                });
             });
     }
 
@@ -182,49 +226,116 @@ export default class Summary extends React.Component {
             method: "POST",
             data: data
         };
+        $$.loading(true);
         fetchUtility(option)
             .then(res => {
-                var a = res;
+                $$.loading(false);
+                this.setState({
+                    loginType: LoginType.RegisterSuccessfully
+                })
             })
             .catch(e => {
-                console.log(e);
+                $$.loading(false);
+                $$.conform({
+                    message: e,
+                    status: "show"
+                });
+            });
+    }
+
+    handleLogout() {
+        let option = {
+            url: "./api/user/logout",
+            method: "GET"
+        };
+        $$.loading(true);
+        fetchUtility(option)
+            .then(res => {
+                $$.loading(false);
+                this.setState({
+                    loginType: LoginType.Default
+                })
+            })
+            .catch(e => {
+                $$.loading(false);
+                $$.conform({
+                    message: e,
+                    status: "show"
+                });
             });
     }
 
     renderLoginComponent() {
         switch (this.state.loginType) {
+            case LoginType.Login:
+                return <React.Fragment>
+                    <div className="margin-bottom-10 margin-top-10">
+                        <label>账号：</label>
+                        <input
+                            type="text"
+                            value={this.state.number}
+                            onChange={this.handleUserNameChanged}
+                        />
+                    </div>
+                    <div className="margin-bottom-10">
+                        <label>密码：</label>
+                        <input
+                            type="text"
+                            value={this.state.password}
+                            onChange={this.handlePasswordChanged}
+                        />
+                    </div>
+                    <div className="btn-group">
+                        <RButton text="登录" onClick={this.loginHandler} />
+                        <RButton
+                            text="返回"
+                            onClick={this.changeLogin.bind(this, LoginType.Default)}
+                        />
+                    </div>
+                </React.Fragment>
+            case LoginType.LoginSuccessfully:
+                return <div className='display-userInfo'>
+                    <div>
+                        <label>当前用户:</label>
+                        {this.state.displayUserName}
+                    </div>
+                    <div>
+                        <RButton text="注销" onClick={this.handleLogout.bind(this)} />
+                    </div>
+                </div>
+            case LoginType.Register:
+                return <React.Fragment>
+                    <div className="margin-bottom-10 margin-top-10">
+                        <label>账号：</label>
+                        <input
+                            type="text"
+                            value={this.state.number}
+                            onChange={this.handleUserNameChanged}
+                        />
+                    </div>
+                    <div className="margin-bottom-10">
+                        <label>密码：</label>
+                        <input
+                            type="text"
+                            value={this.state.password}
+                            onChange={this.handlePasswordChanged}
+                        />
+                    </div>
+                    <div className="btn-group">
+                        <RButton text="注册" onClick={this.registerHandler} />
+                        <RButton
+                            text="返回"
+                            onClick={this.changeLogin.bind(this, LoginType.Default)}
+                        />
+                    </div>
+                </React.Fragment>
             case LoginType.Account:
                 return (
                     <React.Fragment>
-                        <div className="margin-bottom-10 margin-top-10">
-                            <label>账号：</label>
-                            <input
-                                type="text"
-                                value={this.state.number}
-                                onChange={this.handleUserNameChanged}
-                            />
-                        </div>
-                        <div className="margin-bottom-10">
-                            <label>密码：</label>
-                            <input
-                                type="text"
-                                value={this.state.password}
-                                onChange={this.handlePasswordChanged}
-                            />
-                        </div>
                         <div className="btn-group">
-                            <span style={{ flexBasis: "inherit" }}>
-                                <RButton text="登录" onClick={this.loginHandler} />
-                            </span>
-                            <span style={{ flexBasis: "inherit" }}>
-                                <RButton text="注册" onClick={this.registerHandler} />
-                            </span>
-                            <span style={{ flexBasis: "inherit" }}>
-                                <RButton
-                                    text="返回"
-                                    onClick={this.changeLogin.bind(this, LoginType.Default)}
-                                />
-                            </span>
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="登录" onClick={this.changeLogin.bind(this, LoginType.Login)} />
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="注册" onClick={this.changeLogin.bind(this, LoginType.Register)} />
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="返回" onClick={this.changeLogin.bind(this, LoginType.Default)} />
                         </div>
                     </React.Fragment>
                 );
@@ -250,6 +361,24 @@ export default class Summary extends React.Component {
                         <RButton text="登录" style={{ marginLeft: "5px" }} />
                     </React.Fragment>
                 );
+            case LoginType.RegisterSuccessfully:
+                return <div className='register-successfully'>
+                    <div>
+                        Register Successfully!
+                    </div>
+                    <div>
+                        <RButton text="登录" onClick={this.changeLogin.bind(this, LoginType.Login)} />
+                    </div>
+                </div>
+            case LoginType.LoginTimeout:
+                return <div className='login-timeout'>
+                    <div>
+                        登录超时！
+                    </div>
+                    <div>
+                        <RButton text="登录" onClick={this.changeLogin.bind(this, LoginType.Login)} />
+                    </div>
+                </div>
             case LoginType.Default:
                 return (
                     <div className="login-content">
@@ -279,21 +408,9 @@ export default class Summary extends React.Component {
     }
 
     changeLogin(type) {
-        switch (type) {
-            case LoginType.Account:
-                this.state.loginType = LoginType.Account;
-                break;
-            case LoginType.WeChart:
-                this.state.loginType = LoginType.WeChart;
-                break;
-            case LoginType.GitHub:
-                this.state.loginType = LoginType.GitHub;
-                break;
-            default:
-                this.state.loginType = LoginType.Default;
-                break;
-        }
-        this.setState(this.state);
+        this.setState({
+            loginType: type
+        });
     }
 
     render() {

@@ -1,0 +1,45 @@
+.leavemessage {
+
+    .leavemessage-header {}
+
+    .leavemessage-content {
+        margin        : 10px 0;
+        display       : flex;
+        flex-direction: column;
+
+        .leavemessage-content-item {
+            padding: 10px;
+            box-shadow: 0px 20px 20px -15px #aaa;
+            margin: 10px 0;
+            background: #aaa;
+            border-radius: 10px;
+            color: #4F4F4F;
+            .leavemessage-content-item-content {
+                word-break: break-all;
+            }
+
+            .leavemessage-content-item-author {
+                text-align: right;
+            }
+        }
+    }
+
+    .leavemessage-pager {
+        text-align: right;
+        padding: 5px 0;
+    }
+
+    .leavemessage-commit {
+        display       : flex;
+        flex-direction: row;
+
+        textarea {
+            width : 100%;
+            height: 100px;
+        }
+    }
+
+    .leavemessage-btn {
+        text-align: center;
+    }
+}

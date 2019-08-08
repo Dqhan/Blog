@@ -7,10 +7,14 @@ export default class LeaveMessage extends React.Component {
         this.state = {
             source: [],
             commit: "",
-            author: ""
+            author: "",
+            pageSize: 10,
+            selectedPage: 1,
+            pageCount: 0
         };
         this.handleCommitClick = this.handleCommitClick.bind(this);
         this.handleCommitChanged = this.handleCommitChanged.bind(this);
+        this.pagerChangedHandler = this.pagerChangedHandler.bind(this);
     }
 
     componentDidMount() {
@@ -20,8 +24,8 @@ export default class LeaveMessage extends React.Component {
     retrieveLeaveMessage() {
         $$.loading(true);
         let data = {
-            limit: 5,
-            offset: 1
+            limit: this.state.pageSize,
+            offset: this.state.selectedPage
         };
         let option = {
             url: `./api/leavemessage/getLeaveMessage`,
@@ -31,7 +35,8 @@ export default class LeaveMessage extends React.Component {
         fetchUtility(option)
             .then(res => {
                 this.setState({
-                    source: res.data.list
+                    source: res.data.list,
+                    pageCount: Math.ceil(res.data.total / this.state.pageSize)
                 })
                 $$.loading(false);
             })
@@ -59,7 +64,9 @@ export default class LeaveMessage extends React.Component {
         };
         fetchUtility(option)
             .then(res => {
-                console.log(res);
+                this.setState({
+                    commit: ""
+                });
                 if (res) {
                     this.retrieveLeaveMessage();
                 } else {
@@ -80,12 +87,12 @@ export default class LeaveMessage extends React.Component {
     }
 
     renderLeaveMessage() {
-        return this.state.source.map(s => {
-            return <div className='leavemessage-content-item'>
-                <div>{s.content}</div>
+        return this.state.source.map((s, index) => {
+            return <div key={'leavemessage-item-' + index} className='leavemessage-content-item'>
+                <p className='leavemessage-content-item-content'>{s.content}</p>
                 <div className='float-right'>
-                    <div>----{s.author}</div>
-                    <div>{s.time ? window.CommonUtil.formatDateTime(new Date(s.time),true) : new Date()}</div>
+                    <div className='leavemessage-content-item-author'>----{s.author}</div>
+                    <div>{s.time ? window.CommonUtil.formatDateTime(new Date(parseInt(s.time)), true) : new Date()}</div>
                 </div>
             </div>
         })
@@ -94,6 +101,14 @@ export default class LeaveMessage extends React.Component {
     handleCommitChanged(e) {
         this.setState({
             commit: e.target.value
+        })
+    }
+
+    pagerChangedHandler(e, args) {
+        this.setState({
+            selectedPage: args.newValue
+        }, () => {
+            this.retrieveLeaveMessage();
         })
     }
 
@@ -112,6 +127,14 @@ export default class LeaveMessage extends React.Component {
                         {
                             this.state.source.length !== 0 && this.renderLeaveMessage()
                         }
+                    </div>
+                    <div className='leavemessage-pager'>
+                        <$$.Pager
+                            pageSize={this.state.pageSize}
+                            pageCount={this.state.pageCount}
+                            selectedPage={this.state.selectedPage}
+                            selectedPageChanged={this.pagerChangedHandler}
+                        />
                     </div>
                     <div className='leavemessage-commit'>
                         <textarea value={this.state.commit} onChange={this.handleCommitChanged}></textarea>
