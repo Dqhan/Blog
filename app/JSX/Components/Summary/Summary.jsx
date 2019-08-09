@@ -36,29 +36,55 @@ export default class Summary extends React.Component {
     componentDidMount() {
         this.retrieveLeaveMessage();
         this.retrieveNewComment();
-        // this.checkCurrentUserInfo();
+        this.getCurrentUserInfo('init');
     }
 
-    checkCurrentUserInfo() {
+    createCheckSessionTimer() {
+        window.sessionTimer = setInterval(this.getCurrentUserInfo.bind(this, 'timer'), 60 * 30 * 1000);
+    }
+
+    destoryCheckSessionTimer() {
+        clearInterval(window.sessionTimer)
+    }
+
+    getCurrentUserInfo(type) {
         let option = {
             url: `./api/user/userInfo`,
             method: "GET"
         };
         fetchUtility(option)
             .then(res => {
-                if (res.data.status == 'success') {
+                if (res.status == 0) {
                     this.setState({
-                        loginType: LoginType.LoginSuccessfully,
-                        displayUserName: res.data.userInfo.username
-                    })
-                } else {
-                    this.setState({
-                        loginType: LoginType.LoginTimeout
-                    })
+                        displayUserName: res.userInfo.username,
+                        loginType: LoginType.LoginSuccessfully
+                    });
+                }
+                if (res.status == 1) {
+                    if (type === 'timer') {
+                        $$.conform({
+                            message: 'Session is timeout.',
+                            status: "show"
+                        });
+                        this.setState({
+                            loginType: LoginType.LoginTimeout
+                        }, () => {
+                            this.destoryCheckSessionTimer();
+                        })
+                    }else{
+                        this.setState({
+                            loginType: LoginType.Default
+                        }, () => {
+                            this.destoryCheckSessionTimer();
+                        })
+                    }
                 }
             })
             .catch(e => {
-
+                $$.conform({
+                    message: e,
+                    status: "show"
+                });
             });
     }
 
@@ -196,10 +222,15 @@ export default class Summary extends React.Component {
         fetchUtility(option)
             .then(res => {
                 $$.loading(false);
-                if (res.data.status == 'success')
+                if (res.data.status == 0)
                     this.setState({
                         loginType: LoginType.LoginSuccessfully,
                         displayUserName: res.data.username
+                    }, () => {
+                        localStorage.setItem('currentUserInfo', JSON.stringify( {
+                            userName: res.data.username
+                        }));
+                        this.createCheckSessionTimer();
                     })
                 else
                     $$.conform({
@@ -254,6 +285,8 @@ export default class Summary extends React.Component {
                 $$.loading(false);
                 this.setState({
                     loginType: LoginType.Default
+                }, () => {
+                    localStorage.setItem('currentUserInfo', null);
                 })
             })
             .catch(e => {

@@ -21,13 +21,13 @@ router.get("/userInfo", (req, res) => {
     res.send({
       userInfo: req.session.userInfo,
       message: "User有效",
-      status: 'success'
+      status: 0
     });
   } else {
     res.send({
       userInfo: null,
       message: "登录超时",
-      status: 'failed'
+      status: 1
     });
   }
 });
@@ -41,13 +41,13 @@ router.post("/login", (req, res) => {
     .then(userInfo => {
       let data = {};
       if (!userInfo) {
-        data["status"] = "failed";
+        data["status"] = 1;
         data["message"] = "user is not exist.";
         responseClient(res, 200, 0, "登录失败", data);
         return;
       }
       data["username"] = userInfo.username;
-      data["status"] = "success";
+      data["status"] = 0;
       let sessionInfo = {
         username: userInfo.username,
         password: userInfo.password
@@ -83,7 +83,7 @@ router.post("/register", (req, res) => {
             })
               .then(findResult => {
                 var data = {
-                  status: "success"
+                  status: 0
                 };
                 responseClient(res, 200, 0, "注册成功", data);
               })
@@ -104,7 +104,7 @@ router.post("/register", (req, res) => {
 router.get("/logout", function(req, res) {
   req.session.destroy();
   var data = {
-    status: "success"
+    status: 0
   };
   responseClient(res, 200, 0, "登出成功", data);
 });

@@ -1,20 +1,32 @@
 require('./style/LeaveMessage.less');
 import Layout from '../../../Layouts/Layout';
 
+var err = [
+    'handleCommitClick',
+    'handleCommitChanged',
+    'pagerChangedHandler'
+];
+
 export default class LeaveMessage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             source: [],
             commit: "",
-            author: "",
-            pageSize: 10,
+            pageSize: 5,
             selectedPage: 1,
             pageCount: 0
         };
-        this.handleCommitClick = this.handleCommitClick.bind(this);
-        this.handleCommitChanged = this.handleCommitChanged.bind(this);
-        this.pagerChangedHandler = this.pagerChangedHandler.bind(this);
+        err.forEach(e => {
+            this[e] = this[e].bind(this);
+        })
+    }
+
+    getCurrentUser() {
+        if (localStorage.getItem('currentUserInfo') && JSON.parse(localStorage.getItem('currentUserInfo')))
+            return JSON.parse(localStorage.getItem('currentUserInfo')).userName;
+        else
+            return "";
     }
 
     componentDidMount() {
@@ -54,7 +66,7 @@ export default class LeaveMessage extends React.Component {
         $$.loading(true);
         let data = {
             content: this.state.commit,
-            author: this.state.author,
+            author: this.getCurrentUser(),
             time: new Date().getTime()
         };
         let option = {

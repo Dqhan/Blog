@@ -7,7 +7,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-var User = require('../../models/user');
 const app = new express();
 
 
@@ -24,12 +23,9 @@ app.use(session({
     cookie: { maxAge: 60 * 1000 * 30 },
     rolling: true,
     store: new MongoStore({
-        url: 'mongodb://localhost:27017/blog',
+        url: 'mongodb://127.0.0.1:27017/blog',
         collection: 'sessions'
-        // db: "blog",
-        // host: "localhost",
-        // port: 27017
-    }),
+    })
 }))
 
 
