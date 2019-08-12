@@ -67,6 +67,9 @@ router.post("/register", (req, res) => {
   })
     .then(findResult => {
       if (findResult) {
+        let data = {
+          status: 0
+        }
         responseClient(res, 200, 0, "User存在", data);
         return;
       } else {
