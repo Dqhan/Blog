@@ -4,7 +4,7 @@ var Article = require("../../models/article");
 var Comment = require("../../models/comment");
 var util = require("../util");
 
-router.post("/addArticle", function(req, res) {
+router.post("/addArticle", function (req, res) {
   // var  {
   //     title,
   //     content,
@@ -99,7 +99,7 @@ router.get("/getArticleDetail", (req, res) => {
     });
 });
 
-router.post("/getArticles", function(req, res) {
+router.post("/getArticles", function (req, res) {
   var searchCondition = {};
   var offset =
     req.body.offset - 1 < 0 ? 0 : (req.body.offset - 1) * req.body.limit;
@@ -131,7 +131,7 @@ router.post("/getArticles", function(req, res) {
     });
 });
 
-router.post("/getCommentsbyArticleId", function(req, res) {
+router.post("/getCommentsbyArticleId", function (req, res) {
   let articleId = req.body.articleId;
   let searchCondition = {
     articleId
@@ -148,6 +148,9 @@ router.post("/getCommentsbyArticleId", function(req, res) {
         "_id articleTitle articleId content author time"
       )
         .then(result => {
+          result.sort(function (pre, next) {
+            return next.time - pre.time;
+          })
           responseData.list = result;
           util.responseClient(res, 200, 0, "success", responseData);
         })
@@ -160,7 +163,7 @@ router.post("/getCommentsbyArticleId", function(req, res) {
     });
 });
 
-router.post("/getComments", function(req, res) {
+router.post("/getComments", function (req, res) {
   let offset = req.body.offset - 1 < 0 ? 0 : req.body.offset - 1;
   let limit = req.body.limit;
   let responseData = {
@@ -185,7 +188,7 @@ router.post("/getComments", function(req, res) {
     });
 });
 
-router.post("/addComment", function(req, res) {
+router.post("/addComment", function (req, res) {
   let content = req.body.content,
     time = req.body.time,
     author = req.body.author || "游客",

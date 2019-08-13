@@ -33,25 +33,25 @@
         }
     }
 
-    .login {
+    .summary-login {
         font-size: 15px;
 
-        .login-content {
+        .summary-login-content {
             display       : -webkit-flex;
             display       : flex;
             flex-basis    : 100%;
             flex-direction: row;
 
-            .login-item {
+            .summary-login-item {
                 flex-basis: inherit;
                 margin-top: 5px;
                 text-align: center;
 
-                .login-item-font {
+                .summary-login-item-font {
                     font-size: 12px;
                 }
 
-                .login-item-icon {
+                .summary-login-item-icon {
                     margin-left    : auto;
                     margin-right   : auto;
                     width          : 32px;
@@ -70,13 +70,49 @@
         }
 
         .display-userInfo,
-        .login-timeout,
+        .summary-login-timeout,
         .register-successfully {
             text-align: center;
 
             div {
                 margin: 10px 0;
             }
+        }
+
+        .display-userInfo {
+            &>div {
+                padding      : 10px;
+                box-shadow   : 0px 20px 20px -15px #aaa;
+                margin       : 10px 0;
+                border-radius: 10px;
+                color        : #4F4F4F;
+            }
+
+            label {
+                margin-right: 15px;
+            }
+        }
+    }
+
+    .summary-search {
+        input {
+            box-shadow: 0px 20px 20px -15px #aaa;
+        }
+
+        .summary-search-input {
+            padding      : 10px;
+            box-shadow   : 0px 20px 20px -15px #aaa;
+            margin       : 10px 0;
+            border-radius: 10px;
+            color        : #4F4F4F;
+        }
+
+        .summary-search-btn-group {
+            padding      : 10px;
+            box-shadow   : 0px 20px 20px -15px #aaa;
+            margin       : 10px 0;
+            border-radius: 10px;
+            color        : #4F4F4F;
         }
     }
 
@@ -85,6 +121,11 @@
             font-size     : 15px;
             padding       : 2px;
             padding-bottom: 5px;
+            padding       : 10px;
+            box-shadow    : 0px 20px 20px -15px #aaa;
+            margin        : 10px 0;
+            border-radius : 10px;
+            color         : #4F4F4F;
         }
 
         ul {

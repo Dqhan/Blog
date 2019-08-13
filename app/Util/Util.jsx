@@ -441,9 +441,7 @@ function getCurrentUserInfo() {
                         footer: true,
                         handleClick: tipConformHandleClick
                     });
-                    localStorage.setItem('currentUserInfo', JSON.stringify({
-                        userName: null
-                    }));
+                    localStorage.setItem('currentUserInfo', null);
                     CommonUtil.destoryCheckSessionTimer();
                 }
             }

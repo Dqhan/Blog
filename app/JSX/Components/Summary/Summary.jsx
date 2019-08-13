@@ -50,9 +50,7 @@ export default class Summary extends React.Component {
                     uRes = res[2];
                 if (uRes.status == 1) {
                     CommonUtil.destoryCheckSessionTimer();
-                    localStorage.setItem('currentUserInfo', JSON.stringify({
-                        userName: null
-                    }));
+                    localStorage.setItem('currentUserInfo', null);
                 };
                 this.setState({
                     messages: this.convert('leavemessage')(lRes.data.list),
@@ -268,9 +266,7 @@ export default class Summary extends React.Component {
         fetchUtility(option)
             .then(res => {
                 $$.loading(false);
-                localStorage.setItem('currentUserInfo', JSON.stringify({
-                    userName: null
-                }));
+                localStorage.setItem('currentUserInfo', null);
                 CommonUtil.destoryCheckSessionTimer();
                 this.setState({
                     loginType: LoginType.Default
@@ -391,7 +387,7 @@ export default class Summary extends React.Component {
                     </div>
                 </div>
             case LoginType.LoginTimeout:
-                return <div className='login-timeout'>
+                return <div className='summary-login-timeout'>
                     <div>
                         登录超时！
                     </div>
@@ -401,26 +397,26 @@ export default class Summary extends React.Component {
                 </div>
             case LoginType.Default:
                 return (
-                    <div className="login-content">
+                    <div className="summary-login-content">
                         <div
-                            className="login-item"
+                            className="summary-login-item"
                             onClick={this.changeLogin.bind(this, LoginType.Account)}
                         >
                             <img
-                                className="login-item-icon"
+                                className="summary-login-item-icon"
                                 src={require("./Image/login-account.png")}
                             />
-                            <div className="login-item-font">账号登录</div>
+                            <div className="summary-login-item-font">账号登录</div>
                         </div>
                         <div
-                            className="login-item"
+                            className="summary-login-item"
                             onClick={this.changeLogin.bind(this, LoginType.GitHub)}
                         >
                             <img
-                                className="login-item-icon"
+                                className="summary-login-item-icon"
                                 src={require("./Image/login-github.png")}
                             />
-                            <div className="login-item-font">GitHub登录</div>
+                            <div className="summary-login-item-font">GitHub登录</div>
                         </div>
                     </div>
                 );
@@ -436,21 +432,25 @@ export default class Summary extends React.Component {
     render() {
         return (
             <div className="summary">
-                <section className="login">
+                <section className="summary-login">
                     <h3>登录方式</h3>
                     <div className="padding-5">{this.renderLoginComponent()}</div>
                 </section>
-                <section>
+                <section className="summary-search">
                     <h3>快速搜索</h3>
                     <div className="padding-5">
-                        <input
-                            style={{ width: "100%" }}
-                            className="margin-bottom-10 margin-top-10"
-                            type="text"
-                            placeholder="文章标题"
-                        />
-                        <RButton style={{ float: "right" }} text="搜索" />
-                        <div className="clear-both" />
+                        <div className="summary-search-input">
+                            <input
+                                style={{ width: "100%" }}
+                                className="margin-bottom-10 margin-top-10"
+                                type="text"
+                                placeholder="文章标题"
+                            />
+                        </div>
+                        <div className="summary-search-btn-group">
+                            <RButton style={{ float: "right" }} text="搜索" />
+                            <div className="clear-both" />
+                        </div>
                     </div>
                 </section>
                 <section className="about-me">
