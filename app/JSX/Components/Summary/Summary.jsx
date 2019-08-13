@@ -34,53 +34,36 @@ export default class Summary extends React.Component {
     }
 
     componentDidMount() {
-        this.retrieveLeaveMessage();
-        this.retrieveNewComment();
-        this.getCurrentUserInfo('init');
+        this.initData();
     }
 
-    createCheckSessionTimer() {
-        window.sessionTimer = setInterval(this.getCurrentUserInfo.bind(this, 'timer'), 60 * 30 * 1000);
-    }
-
-    destoryCheckSessionTimer() {
-        clearInterval(window.sessionTimer)
-    }
-
-    getCurrentUserInfo(type) {
-        let option = {
-            url: `./api/user/userInfo`,
-            method: "GET"
-        };
-        fetchUtility(option)
+    initData() {
+        $$.loading(true);
+        CommonUtil.promiseAll([
+            this.retrieveLeaveMessage(),
+            this.retrieveNewComment(),
+            this.getCurrentUserInfo()
+        ])
             .then(res => {
-                if (res.status == 0) {
-                    this.setState({
-                        displayUserName: res.userInfo.username,
-                        loginType: LoginType.LoginSuccessfully
-                    });
-                }
-                if (res.status == 1) {
-                    if (type === 'timer') {
-                        $$.conform({
-                            message: 'Session is timeout.',
-                            status: "show"
-                        });
-                        this.setState({
-                            loginType: LoginType.LoginTimeout
-                        }, () => {
-                            this.destoryCheckSessionTimer();
-                        })
-                    }else{
-                        this.setState({
-                            loginType: LoginType.Default
-                        }, () => {
-                            this.destoryCheckSessionTimer();
-                        })
-                    }
-                }
+                let lRes = res[0],
+                    cRes = res[1],
+                    uRes = res[2];
+                if (uRes.status == 1) {
+                    CommonUtil.destoryCheckSessionTimer();
+                    localStorage.setItem('currentUserInfo', JSON.stringify({
+                        userName: null
+                    }));
+                };
+                this.setState({
+                    messages: this.convert('leavemessage')(lRes.data.list),
+                    comments: this.convert('comment')(cRes.data.list),
+                    loginType: uRes.status == 0 ? LoginType.LoginSuccessfully : LoginType.Default,
+                    displayUserName: CommonUtil.getCurrentUser()
+                });
+                $$.loading(false);
             })
             .catch(e => {
+                $$.loading(false);
                 $$.conform({
                     message: e,
                     status: "show"
@@ -89,79 +72,82 @@ export default class Summary extends React.Component {
     }
 
     retrieveNewComment() {
-        $$.loading(true);
-        let data = {
-            limit: 5,
-            offset: 1
-        };
-        let option = {
-            url: `./api/article/getComments`,
-            method: "POST",
-            data: data
-        };
-        fetchUtility(option)
-            .then(res => {
-                this.state.comments = this.convert('comment')(res.data.list);
-                $$.loading(false);
-            })
-            .catch(e => {
-                $$.loading(false);
-                $$.conform({
-                    message: e,
-                    status: "show"
+        return new Promise((resolve, reject) => {
+            let data = {
+                limit: 5,
+                offset: 1
+            };
+            let option = {
+                url: `./api/article/getComments`,
+                method: "POST",
+                data: data
+            };
+            fetchUtility(option)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
                 });
-            });
+        })
     }
 
     retrieveLeaveMessage() {
-        $$.loading(true);
-        let data = {
-            limit: 5,
-            offset: 1
-        };
-        let option = {
-            url: `./api/leavemessage/getLeaveMessage`,
-            method: "POST",
-            data: data
-        };
-        fetchUtility(option)
-            .then(res => {
-                this.state.messages = this.convert('leavemessage')(res.data.list);
-                $$.loading(false);
-            })
-            .catch(e => {
-                $$.loading(false);
-                $$.conform({
-                    message: e,
-                    status: "show"
+        return new Promise((resolve, reject) => {
+            let data = {
+                limit: 5,
+                offset: 1
+            };
+            let option = {
+                url: `./api/leavemessage/getLeaveMessage`,
+                method: "POST",
+                data: data
+            };
+            fetchUtility(option)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
                 });
-            });
+        })
+    }
+
+    getCurrentUserInfo() {
+        return new Promise((resolve, reject) => {
+            let option = {
+                url: `./api/user/userInfo`,
+                method: "GET"
+            };
+            fetchUtility(option)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                });
+        })
     }
 
     convert(type) {
-        var self = this;
-        var clr = {
+        let clr = {
             comment: function (list) {
-                self.setState({
-                    comments: list.map(l => {
-                        return {
-                            message: l.content,
-                            author: l.author,
-                            time: l.time,
-                            articleTitle: l.articleTitle
-                        }
-                    })
-                })
+                return list.map(l => {
+                    return {
+                        message: l.content,
+                        author: l.author,
+                        time: l.time,
+                        articleTitle: l.articleTitle
+                    }
+                });
             },
             leavemessage: function (list) {
-                self.setState({
-                    messages: list.map(l => {
-                        return {
-                            message: l.content,
-                            author: l.author,
-                            time: l.time
-                        }
-                    })
+                return list.map(l => {
+                    return {
+                        message: l.content,
+                        author: l.author,
+                        time: l.time
+                    }
                 })
             }
         };
@@ -212,8 +198,7 @@ export default class Summary extends React.Component {
         let data = {
             username: this.state.userName,
             password: this.state.password
-        };
-        let option = {
+        }, option = {
             url: "./api/user/login",
             method: "POST",
             data: data
@@ -222,21 +207,22 @@ export default class Summary extends React.Component {
         fetchUtility(option)
             .then(res => {
                 $$.loading(false);
-                if (res.data.status == 0)
+                if (res.data.status == 0) {
+                    localStorage.setItem('currentUserInfo', JSON.stringify({
+                        userName: res.data.username
+                    }));
+                    CommonUtil.createCheckSessionTimer();
                     this.setState({
                         loginType: LoginType.LoginSuccessfully,
-                        displayUserName: res.data.username
-                    }, () => {
-                        localStorage.setItem('currentUserInfo', JSON.stringify( {
-                            userName: res.data.username
-                        }));
-                        this.createCheckSessionTimer();
+                        displayUserName: CommonUtil.getCurrentUser()
                     })
-                else
+                }
+                else {
                     $$.conform({
                         message: 'Login failed.',
                         status: "show"
                     });
+                }
             })
             .catch(e => {
                 $$.loading(false);
@@ -251,8 +237,7 @@ export default class Summary extends React.Component {
         let data = {
             userName: this.state.userName,
             password: this.state.password
-        };
-        let option = {
+        }, option = {
             url: "./api/user/register",
             method: "POST",
             data: data
@@ -283,11 +268,13 @@ export default class Summary extends React.Component {
         fetchUtility(option)
             .then(res => {
                 $$.loading(false);
+                localStorage.setItem('currentUserInfo', JSON.stringify({
+                    userName: null
+                }));
+                CommonUtil.destoryCheckSessionTimer();
                 this.setState({
                     loginType: LoginType.Default
-                }, () => {
-                    localStorage.setItem('currentUserInfo', null);
-                })
+                });
             })
             .catch(e => {
                 $$.loading(false);

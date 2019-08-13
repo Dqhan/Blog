@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import axios from 'axios';
 import crypto from 'crypto';
+import { resolve } from 'path';
 
 function assemble(data) {
     let ret = '';
@@ -233,8 +234,8 @@ var gcalendar = function (type, param) {
     return value;
 };
 
-var middleweeks =["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-var  shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var middleweeks = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+var shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function formatDate(param) {
     var
         date = param.date,
@@ -267,7 +268,7 @@ function formatDate(param) {
                         break;
                     case 'D':
                         if (format.indexOf('DDD') != -1) {
-                            value +=  middleweeks[date.getDay()];
+                            value += middleweeks[date.getDay()];
                             param.iFormat.i += 2;
                         }
                         break;
@@ -363,11 +364,11 @@ function formatNumber(param) {
             num = '0' + num;
     return num;
 }
-function isDate(date){
+function isDate(date) {
     return getClassBuiltIn(date) == "Date";
 }
 
-function getClassBuiltIn(object){
+function getClassBuiltIn(object) {
     return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
 }
 
@@ -391,4 +392,75 @@ window.CommonUtil.isEmptyCSharpDate = function (date) {
     } else {
         return false;
     }
+}
+
+window.CommonUtil.getCurrentUser = function () {
+    if (localStorage.getItem('currentUserInfo') && JSON.parse(localStorage.getItem('currentUserInfo')))
+        return JSON.parse(localStorage.getItem('currentUserInfo')).userName;
+    else
+        return "";
+}
+
+window.CommonUtil.promiseAll = function (array) {
+    if (!array instanceof Array || array.length == 0)
+        throw new Error('paramseter is error.');
+    // let promiseArray = [];
+    // for (var fn of array) {
+    //     promiseArray.push(new Promise((resolve, reject) => {
+    //         fn(resolve, reject);
+    //     }));
+    // };
+    return Promise.all(array);
+}
+
+window.CommonUtil.createCheckSessionTimer = function () {
+    window.sessionTimer = setInterval(getCurrentUserInfo, 60 * 30 * 1000);
+}
+
+window.CommonUtil.destoryCheckSessionTimer = function () {
+    clearInterval(window.sessionTimer)
+}
+
+function getCurrentUserInfo() {
+    let option = {
+        url: `./api/user/userInfo`,
+        method: "GET"
+    };
+    fetchUtility(option)
+        .then(res => {
+            var statusClr = {
+                0: function () {
+                    localStorage.setItem('currentUserInfo', JSON.stringify({
+                        userName: res.data.username
+                    }));
+                },
+                1: function () {
+                    $$.conform({
+                        message: 'Session is timeout.',
+                        status: "show",
+                        footer: true,
+                        handleClick: tipConformHandleClick
+                    });
+                    localStorage.setItem('currentUserInfo', JSON.stringify({
+                        userName: null
+                    }));
+                    CommonUtil.destoryCheckSessionTimer();
+                }
+            }
+            if (res.status !== 0 && status !== 1)
+                throw new Error('get user info error.');
+            statusClr[res.status]();
+        })
+        .catch(e => {
+
+            $$.conform({
+                message: e,
+                status: "show"
+            });
+        });
+}
+
+
+function tipConformHandleClick() {
+    location.href = location.href;
 }

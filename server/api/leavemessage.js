@@ -5,7 +5,6 @@ let util = require("../util");
 
 router.post("/getLeaveMessage", (req, res) => {
   var searchCondition = {};
-  //   var offset = req.body.offset - 1 < 0 ? 0 : (req.body.offset - 1) * req.body.limit;
   var offset = req.body.offset - 1 < 0 ? 0 : req.body.offset - 1;
   var limit = req.body.limit;
   var responseData = {

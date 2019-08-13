@@ -43,8 +43,9 @@ export default class Blog extends React.Component {
             data: data
         }
         fetchUtility(option).then(res => {
-            this.state.blogs = this.convert(res.data.list);
-            this.setState(this.statem,()=>{
+            this.setState({
+                blogs: this.convert(res.data.list)
+            }, () => {
                 $$.loading(false);
             });
         }).catch(e => {

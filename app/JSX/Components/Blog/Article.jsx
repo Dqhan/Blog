@@ -11,6 +11,7 @@ export default class Article extends React.Component {
     initState() {
         this.state = {
             data: {},
+            title: '',
             comments: []
         }
         return this;
@@ -23,6 +24,7 @@ export default class Article extends React.Component {
 
     componentDidMount() {
         this.retrieveArticle();
+        this.retrieveComments();
     }
 
     retrieveArticle() {
@@ -31,26 +33,46 @@ export default class Article extends React.Component {
             url: `./api/article/getArticleDetail?id=${id}`,
             method: 'GET'
         }
+        $$.loading(true);
         fetchUtility(option).then(res => {
-            this.state.data = res.data;
-            this.setState(this.state);
+            this.setState({
+                data: res.data,
+                title: res.data.title
+            }, () => {
+                $$.loading(false);
+            });
         }).catch(e => {
-            console.log(e);
+            $$.loading(false);
+            $$.conform({
+                message: e,
+                status: "show"
+            });
         })
     }
 
     retrieveComments() {
         let id = getUrlParamster().id;
-        let option = {
-            url: `./api/article/getComments?id=${id}`,
-            method: 'GET'
+        let data = {
+            articleId: id
         }
+        let option = {
+            url: `./api/article/getCommentsbyArticleId`,
+            method: 'POST',
+            data: data
+        }
+        $$.loading(true);
         fetchUtility(option).then(res => {
             this.setState({
-                comments: res.data
+                comments: res.data.list
+            }, () => {
+                $$.loading(false);
             })
         }).catch(e => {
-            console.log(e);
+            $$.loading(false);
+            $$.conform({
+                message: e,
+                status: "show"
+            });
         })
     }
 
@@ -67,8 +89,9 @@ export default class Article extends React.Component {
         let data = {
             articleId: id,
             content: this.state.commit,
-            author: this.getCurrentUser(),
-            time: new Date().getTime()
+            author: CommonUtil.getCurrentUser(),
+            time: new Date().getTime(),
+            articleTitle: this.state.title,
         };
         let option = {
             url: `./api/article/addComment`,
@@ -81,7 +104,7 @@ export default class Article extends React.Component {
                     commit: ""
                 });
                 if (res) {
-                    this.retrieveLeaveMessage();
+                    this.retrieveComments();
                 } else {
                     $$.conform({
                         message: 'Commit Error.',
@@ -97,6 +120,18 @@ export default class Article extends React.Component {
                     status: "show"
                 });
             });
+    }
+
+    renderComments() {
+        return this.state.comments.map((s, index) => {
+            return <div key={'comment-item-' + index} className='comment-content-item'>
+                <p className='comment-content-item-content'>{s.content}</p>
+                <div className='float-right'>
+                    <div className='comment-content-item-author'>----{s.author}</div>
+                    <div>{s.time ? CommonUtil.formatDateTime(new Date(parseInt(s.time)), true) : new Date()}</div>
+                </div>
+            </div>
+        })
     }
 
     render() {
@@ -116,7 +151,11 @@ export default class Article extends React.Component {
                             data={this.state.data}
                         />
                     }
-
+                    <div className='comment-content'>
+                        {
+                            this.renderComments()
+                        }
+                    </div>
                     <div>评论:</div>
                     <div className='article-commit'>
                         <textarea value={this.state.commit} onChange={this.handleCommitChanged}></textarea>
@@ -126,6 +165,6 @@ export default class Article extends React.Component {
                     </div>
                 </div>
             </Layout>
-        </React.Fragment>
+        </React.Fragment >
     }
 }

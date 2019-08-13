@@ -22,13 +22,6 @@ export default class LeaveMessage extends React.Component {
         })
     }
 
-    getCurrentUser() {
-        if (localStorage.getItem('currentUserInfo') && JSON.parse(localStorage.getItem('currentUserInfo')))
-            return JSON.parse(localStorage.getItem('currentUserInfo')).userName;
-        else
-            return "";
-    }
-
     componentDidMount() {
         this.retrieveLeaveMessage();
     }
@@ -66,7 +59,7 @@ export default class LeaveMessage extends React.Component {
         $$.loading(true);
         let data = {
             content: this.state.commit,
-            author: this.getCurrentUser(),
+            author: CommonUtil.getCurrentUser(),
             time: new Date().getTime()
         };
         let option = {
@@ -104,7 +97,7 @@ export default class LeaveMessage extends React.Component {
                 <p className='leavemessage-content-item-content'>{s.content}</p>
                 <div className='float-right'>
                     <div className='leavemessage-content-item-author'>----{s.author}</div>
-                    <div>{s.time ? window.CommonUtil.formatDateTime(new Date(parseInt(s.time)), true) : new Date()}</div>
+                    <div>{s.time ? CommonUtil.formatDateTime(new Date(parseInt(s.time)), true) : new Date()}</div>
                 </div>
             </div>
         })
