@@ -33,7 +33,8 @@ app.use('/article', require('./article'))
 app.use('/leavemessage', require('./leavemessage'))
 app.use('/about', require('./about'));
 app.use('/user', require('./user'));
-app.use('/document', require('./document'))
+app.use('/document', require('./document'));
+app.use('/oauth', require('./oauth'))
 
 mongoose.connect(`mongodb://${config.dbHost}:${config.dbPort}/blog`, function (err) {
     if (err) {

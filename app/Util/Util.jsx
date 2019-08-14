@@ -462,3 +462,16 @@ function getCurrentUserInfo() {
 function tipConformHandleClick() {
     location.href = location.href;
 }
+
+window.CommonUtil.getUrlParamseter = function() {
+    var url = location.search;
+    var urlParamseter = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        str = str.split("&");
+        for (var i = 0; i < str.length; i++) {
+            urlParamseter[str[i].split("=")[0]] = unescape(str[i].split("=")[1]);
+        }
+    }
+    return urlParamseter;
+}

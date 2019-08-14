@@ -281,6 +281,11 @@ export default class Summary extends React.Component {
             });
     }
 
+    handleGitHubLogin(){
+        let clientId = "5f2b3eb585cd289ca088";
+        location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user,public_repo`;
+    },
+
     renderLoginComponent() {
         switch (this.state.loginType) {
             case LoginType.Login:
@@ -355,28 +360,6 @@ export default class Summary extends React.Component {
                         </div>
                     </React.Fragment>
                 );
-            case LoginType.GitHub:
-                return (
-                    <React.Fragment>
-                        <div className="margin-bottom-10 margin-top-10">
-                            <label>账号：</label>
-                            <input
-                                type="text"
-                                value={this.state.number}
-                                onChange={this.handleNumberChanged}
-                            />
-                        </div>
-                        <div className="margin-bottom-10">
-                            <label>密码：</label>
-                            <input
-                                type="text"
-                                value={this.state.password}
-                                onChange={this.handlePasswordChanged}
-                            />
-                        </div>
-                        <RButton text="登录" style={{ marginLeft: "5px" }} />
-                    </React.Fragment>
-                );
             case LoginType.RegisterSuccessfully:
                 return <div className='register-successfully'>
                     <div>
@@ -410,7 +393,7 @@ export default class Summary extends React.Component {
                         </div>
                         <div
                             className="summary-login-item"
-                            onClick={this.changeLogin.bind(this, LoginType.GitHub)}
+                            onClick={this.handleGitHubLogin.bind(this)}
                         >
                             <img
                                 className="summary-login-item-icon"
