@@ -176,8 +176,6 @@ export default class Production extends React.Component {
         return <React.Fragment>
             <Layout
                 history={this.props.history}
-                hasHeader={true}
-                hasModuleLogo={true}
                 logo={'作品'}
             >
                 <div className='product'>

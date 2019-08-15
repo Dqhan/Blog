@@ -1,8 +1,38 @@
 .layout {
+
     .layout-container {
-        width       : 70%;
         margin-left : auto;
         margin-right: auto;
+
+        .layout-header {
+            color           : #ffffff;
+            background-color: #49b1f5;
+            height          : 500px;
+            line-height     : 500px;
+            width           : 100%;
+            text-align      : center;
+        }
+
+        .layout-header-info {
+            position   : absolute;
+            top        : 200px;
+            width      : 100%;
+            text-align : center;
+            color      : #ffffff;
+            text-shadow: 0.1rem 0.1rem 0.2rem #aaa;
+
+            .layout-header-info-main {
+                font-weight: bold;
+                font-size  : 35px;
+            }
+
+            .layout-header-info-sub {
+                font-size: 20px;
+            }
+
+            .layout-header-info-link {
+            }
+        }
 
         .git-link {
             z-index         : 999;
@@ -15,21 +45,23 @@
             background-image: url('../Image//github-link.png');
         }
 
-        .summary-logo {
-            position     : relative;
+        .layout-menus {
+            position     : absolute;
+            width        : 100%;
             margin-bottom: 15px;
+            height       : 60px;
+            line-height  : 60px;
 
             &>h1 {
-                height     : 60px;
-                line-height: 60px;
-                font-size  : 35px;
-                font-family: cursive;
+                display    : inline-block;
+                font-size  : 20px;
+                color      : #ffffff;
+                text-shadow: 0.1rem 0.1rem 0.2rem #aaa;
+                margin-left: 25px;
             }
 
             &>nav {
-                position: absolute;
-                top     : 15px;
-                right   : 0;
+                float: right;
 
                 ul {
                     li {
@@ -42,17 +74,14 @@
 
                         &:hover {
                             background-color: #9D9D9D;
-
-                            &>a {
-                                color: #ffffff;
-                            }
                         }
 
                         a {
-                            color          : #9D9D9D;
+                            color          : #ffffff;
                             font-weight    : 400;
-                            font-size      : 20px;
+                            font-size      : 17px;
                             text-decoration: none;
+                            text-shadow    : 0.1rem 0.1rem 0.2rem #aaa;
                         }
                     }
                 }
@@ -110,8 +139,8 @@
                             display   : block;
                             word-break: break-all;
                             font-size : 14px;
-                            height: 75px;
-                            overflow: hidden;
+                            height    : 75px;
+                            overflow  : hidden;
                         }
 
                         button {

@@ -121,8 +121,6 @@ export default class LeaveMessage extends React.Component {
         return <React.Fragment>
             <Layout
                 history={this.props.history}
-                hasHeader={true}
-                hasModuleLogo={true}
                 logo={'留言板'}
             >
                 <div className='leavemessage'>

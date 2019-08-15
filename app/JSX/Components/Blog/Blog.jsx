@@ -1,30 +1,24 @@
 require('./style/blog.less');
 import Content from '../Content';
 import Layout from '../../../Layouts/Layout';
-import Editor from '../../AUI/Editor';
-
-const BlogMode = {
-    Show: 0,
-    Write: 1,
-    All: 2
-}
 
 export default class Blog extends React.Component {
     constructor(props) {
         super(props);
-        this.initState().initBind();
+        this
+            .initState()
+            .initBind();
     }
 
     initState() {
         this.state = {
-            mode: BlogMode.Show,
             blogs: []
         }
         return this;
     }
 
     initBind() {
-
+        this.handleWriteBlog = this.handleWriteBlog.bind(this);
     }
 
     componentDidMount() {
@@ -74,65 +68,37 @@ export default class Blog extends React.Component {
         return arr;
     }
 
-    handleCancelClick() {
-        this.setState({
-            mode: BlogMode.Show
-        }, () => {
-            this.retrieveBlogs();
-        })
-    }
-
-    handleShowAllBlog() {
-        this.setState({
-            mode: BlogMode.All
-        })
-    }
-
     handleWriteBlog() {
-        this.setState({
-            mode: BlogMode.Write
-        })
+        this.props.history.push('/sub/write');
     }
 
     render() {
-        var contentProps = {
+        let contentProps = {
             module: 'blog',
             history: this.props.history,
             source: this.state.blogs
-        }
+        },
+            layoutProps = {
+                history: this.props.history,
+                logo: "博客园|Dqhan's Blog"
+            };
         return <React.Fragment>
-            {
-                this.state.mode == BlogMode.Show && <Layout
-                    history={this.props.history}
-                    hasHeader={true}
-                    hasModuleLogo={true}
-                    logo={'博客园'}
-                >
-                    <div className='blog'>
-                        <div className='blog-header'>
-                            <img src={require('../../../Image/blogHeader.jpg')} />
-                        </div>
-                        <div className='classify'>
-                            <article>Javascript</article>
-                            <article>React</article>
-                            <article>Node</article>
-                            <article>Css</article>
-                            <article>工作笔记</article>
+            <Layout {...layoutProps} >
+                <div className='blog'>
+                    <div className='classify'>
+                        <article>Javascript</article>
+                        <article>React</article>
+                        <article>Node</article>
+                        <article>Css</article>
+                        <article>工作笔记</article>
 
-                        </div>
-                        <Content {...contentProps} />
-                        <div style={{ textAlign: ' center' }}>
-                            <RButton text="查看更多" style={{ width: '200px', margin: '0 20px' }} onClick={this.handleShowAllBlog.bind(this)}></RButton>
-                            <RButton text="写博客" style={{ width: '200px' }} onClick={this.handleWriteBlog.bind(this)}></RButton>
-                        </div>
                     </div>
-                </Layout>
-            }
-            {
-                this.state.mode == BlogMode.Write && <Editor
-                    cancel={this.handleCancelClick.bind(this)}
-                />
-            }
+                    <Content {...contentProps} />
+                    <div style={{ textAlign: ' center' }}>
+                        <RButton text="写博客" style={{ width: '200px' }} onClick={this.handleWriteBlog}></RButton>
+                    </div>
+                </div>
+            </Layout>
         </React.Fragment>
     }
 }

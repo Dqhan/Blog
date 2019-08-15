@@ -3,8 +3,8 @@ import {
 } from 'react-router-dom';
 export default class Header extends React.Component {
     render() {
-        return <header className={this.props.headerScrolled ? 'header header-scrolled' : 'header'}>
-            <div className='container'>
+        return <header className={this.props.headerScrolled ? 'home-header header-scrolled' : 'home-header'}>
+            <div className='home-header-container'>
                 <h1>Dqhan's Blog</h1>
                 <nav className='nav-bar'>
                     <ul>

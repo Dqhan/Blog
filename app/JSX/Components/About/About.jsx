@@ -25,8 +25,6 @@ export default class About extends React.Component {
         return <React.Fragment>
             <Layout
                 history={this.props.history}
-                hasHeader={true}
-                hasModuleLogo={true}
                 logo={'简介'}
             >
                 <div className='about'>
