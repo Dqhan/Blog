@@ -103,6 +103,7 @@ export default class Blog extends React.Component {
         return <React.Fragment>
             {
                 this.state.mode == BlogMode.Show && <Layout
+                    history={this.props.history}
                     hasHeader={true}
                     hasModuleLogo={true}
                     logo={'博客园'}

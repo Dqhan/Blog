@@ -1,13 +1,12 @@
 export default class oAuthPromisition extends React.Component {
     constructor(props) {
         super(props);
-        this.getGitHubCode();
         this.clientId = "5f2b3eb585cd289ca088";
         this.clientSecret = "281abd4850f451b536416ddede3e3a61ccce07fe";
     }
 
     componentDidMount() {
-        console.log('e')
+        this.getGitHubCode();
     }
 
     getGitHubCode() {
@@ -17,22 +16,26 @@ export default class oAuthPromisition extends React.Component {
     }
 
     getAccessToken() {
-        let url = `https://github.com/login/oauth/access_token?client_id=${this.clientId}&client_secret=${this.clientSecret}&code=${this.code}`;
-
         let data = {
             code: this.code,
             clientId: this.clientId,
             clientSecret: this.clientSecret
         }
         let option = {
-            url: '/oauth/oAuthValidate',
+            url: '/api/oauth/oAuthValidate',
             method: "POST",
             data: data
         };
         $$.loading(true);
         fetchUtility(option)
             .then(res => {
-                var a = res;
+                localStorage.setItem('githubToken', JSON.stringify({
+                    name: res.data.name,
+                    location: res.data.location,
+
+                }));
+                this.gitHubLogin();
+                this.props.history.goBack();
             })
             .catch(e => {
                 $$.conform({
@@ -42,8 +45,34 @@ export default class oAuthPromisition extends React.Component {
             });
     }
 
-    getAccessTokenUserInfo() {
-        let url = `https://api.github.com/user?access_token=xxxxxxxxxxxxxxxxx`;
+    gitHubLogin() {
+        let data = {
+            code: this.code,
+            clientId: this.clientId,
+            clientSecret: this.clientSecret
+        }
+        let option = {
+            url: '/api/oauth/loginGitHub',
+            method: "POST",
+            data: data
+        };
+        $$.loading(true);
+        fetchUtility(option)
+            .then(res => {
+                localStorage.setItem('githubToken', JSON.stringify({
+                    name: res.data.name,
+                    location: res.data.location,
+
+                }));
+                this.gitHubLogin();
+                this.props.history.goBack();
+            })
+            .catch(e => {
+                $$.conform({
+                    message: e,
+                    status: "show"
+                });
+            });
     }
 
     render() {

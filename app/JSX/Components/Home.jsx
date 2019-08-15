@@ -92,7 +92,8 @@ export default class Home extends React.Component {
         var contentProps = {
             module: 'blog',
             history: this.props.history,
-            source: this.state.blogs
+            source: this.state.blogs,
+            history: this.props.history
         }
         return <div>
             <Header headerScrolled={this.state.headerScrolled} />

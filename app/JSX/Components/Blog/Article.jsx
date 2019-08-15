@@ -137,6 +137,7 @@ export default class Article extends React.Component {
     render() {
         return <React.Fragment>
             <Layout
+                history={this.props.history}
                 hasHeader={true}
                 hasModuleLogo={true}
                 logo={"文章"}

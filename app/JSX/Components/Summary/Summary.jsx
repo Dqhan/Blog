@@ -281,10 +281,12 @@ export default class Summary extends React.Component {
             });
     }
 
-    handleGitHubLogin(){
-        let clientId = "5f2b3eb585cd289ca088";
-        location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user,public_repo`;
-    },
+    handleGitHubLogin() {
+        let clientId = "5f2b3eb585cd289ca088",
+            path = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user,public_repo`;
+        // this.props.history.push(path);
+        location.href  =path;
+    }
 
     renderLoginComponent() {
         switch (this.state.loginType) {
