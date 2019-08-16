@@ -1,5 +1,5 @@
 require('./style/blog.less');
-import Content from '../Content';
+import Content from '../Content/Content';
 import Layout from '../../../Layouts/Layout';
 
 export default class Blog extends React.Component {
@@ -74,7 +74,6 @@ export default class Blog extends React.Component {
 
     render() {
         let contentProps = {
-            module: 'blog',
             history: this.props.history,
             source: this.state.blogs
         },

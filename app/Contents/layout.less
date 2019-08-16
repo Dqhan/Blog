@@ -6,16 +6,16 @@
 
         .layout-header {
             color           : #ffffff;
-            background-color: #49b1f5;
-            height          : 500px;
-            line-height     : 500px;
+            background-color: #70c3ff;
+            height          : 550px;
+            line-height     : 550px;
             width           : 100%;
             text-align      : center;
         }
 
         .layout-header-info {
             position   : absolute;
-            top        : 200px;
+            top        : 225px;
             width      : 100%;
             text-align : center;
             color      : #ffffff;
@@ -27,10 +27,20 @@
             }
 
             .layout-header-info-sub {
+                margin   : 1rem 0;
                 font-size: 20px;
             }
 
             .layout-header-info-link {
+                li {
+                    display: inline;
+
+                    a {
+                        &:hover {
+                            color: #EEF;
+                        }
+                    }
+                }
             }
         }
 
@@ -72,16 +82,11 @@
                         border-radius: 5px;
                         padding      : 5px;
 
-                        &:hover {
-                            background-color: #9D9D9D;
-                        }
-
                         a {
-                            color          : #ffffff;
-                            font-weight    : 400;
-                            font-size      : 17px;
-                            text-decoration: none;
-                            text-shadow    : 0.1rem 0.1rem 0.2rem #aaa;
+                            color      : #ffffff;
+                            font-weight: 400;
+                            font-size  : 17px;
+                            text-shadow: 0.1rem 0.1rem 0.2rem #aaa;
                         }
                     }
                 }
@@ -92,65 +97,10 @@
             display        : flex;
             justify-content: center;
 
-            .content {
+            .layout-main-content {
                 flex          : 0 0 auto;
-                width         : 800px;
+                width         : 900px;
                 vertical-align: top;
-
-                .sections {
-                    vertical-align: top;
-                    width         : 100%;
-
-                    .sections-content-title {
-                        border-bottom: 5px solid #9D9D9D;
-                        padding      : 5px;
-                    }
-
-                    .section-item {
-                        display       : flex;
-                        flex-direction: row;
-
-                        &>div:nth-child(1) {
-                            height  : 100%;
-                            cursor  : pointer;
-                            overflow: hidden;
-
-                            & img {
-                                transition: all 0.6s;
-
-                                &:hover {
-                                    transform: scale(1.4);
-                                }
-                            }
-                        }
-
-                        &>div:nth-child(2) {
-                            padding  : 5px;
-                            flex-grow: 1;
-                            position : relative;
-                            width    : min-content;
-                        }
-
-                        h3 {
-                            padding: 5px 0;
-                        }
-
-                        .section-item-description {
-                            display   : block;
-                            word-break: break-all;
-                            font-size : 14px;
-                            height    : 75px;
-                            overflow  : hidden;
-                        }
-
-                        button {
-                            position: absolute;
-                            right   : 0;
-                            bottom  : 0;
-                            margin  : 5px;
-                        }
-                    }
-                }
             }
         }
 

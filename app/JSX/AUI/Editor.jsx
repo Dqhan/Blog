@@ -46,7 +46,7 @@ export default class Editor extends React.Component {
         let data = {
             title: content.split('\n')[0],
             content: content,
-            time: new Date()
+            time: new Date().getTime()
         }
         let option = {
             url: './api/article/addArticle',

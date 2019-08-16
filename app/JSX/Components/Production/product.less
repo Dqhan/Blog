@@ -1,0 +1,48 @@
+﻿.product {
+    color: #70c3ff;
+
+    h3 {
+        font-size  : 1.5rem;
+        font-weight: 400;
+    }
+
+    h4 {
+        font-size  : 1.1rem;
+        font-weight: 400;
+    }
+
+    .production-container {
+        .product-title {
+            text-align: center;
+            position  : relative;
+            margin    : 5px 0;
+
+            &:hover {
+                .light {
+                    transition: all 1.5s ease;
+                    left      : 540px;
+                }
+            }
+
+            & .light {
+                cursor           : pointer;
+                position         : absolute;
+                left             : 160px;
+                top              : 0;
+                width            : 200px;
+                height           : 100%;
+                background-image : -webkit-linear-gradient(0deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, 1.5), hsla(0, 0%, 100%, 0));
+                transform        : skewx(-25deg);
+                -o-transform     : skewx(-25deg);
+                -moz-transform   : skewx(-25deg);
+                -webkit-transform: skewx(-25deg);
+            }
+        }
+
+        section {
+            margin       : 10px 0;
+            border-bottom: 1px dashed #70c3ff;
+            padding      : 10px 0px;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import Layout from '../../Layouts/Layout';
 import Banner from '../AUI/Banner';
 import Header from './Header';
-import Content from './Content';
+import Content from './Content/Content';
 
 export default class Home extends React.Component {
     constructor(props) {
