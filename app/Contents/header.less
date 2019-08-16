@@ -9,13 +9,21 @@
         height     : 60px;
         line-height: 60px;
 
-        h1 {
+        .homeTitle {
             display                : inline-block;
             margin-left            : 25px;
             font-family            : fantasy;
             background-image       : -webkit-linear-gradient(left, #9D9D9D, #000000 25%, #4F4F4F 50%, #000000 75%, #9D9D9D 100%);
             -webkit-text-fill-color: transparent;
             -webkit-animation      : common-animation 2s infinite linear;
+        }
+
+        .subTitle {
+            display    : inline-block;
+            font-size  : 20px;
+            color      : #ffffff;
+            text-shadow: 0.1rem 0.1rem 0.2rem #aaa;
+            margin-left: 25px;
         }
 
         .nav-bar {
@@ -31,9 +39,10 @@
                 padding     : 5px;
 
                 a {
-                    font-weight    : 400;
-                    font-size      : 17px;
-                    color          : #ffffff;
+                    color      : #ffffff;
+                    font-weight: 400;
+                    font-size  : 17px;
+                    text-shadow: 0.1rem 0.1rem 0.2rem #aaa;
                 }
             }
         }

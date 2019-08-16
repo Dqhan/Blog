@@ -121,12 +121,9 @@ export default class LeaveMessage extends React.Component {
         return <React.Fragment>
             <Layout
                 history={this.props.history}
-                logo={'留言板'}
+                logo="留言板|Dqhan's Blog"
             >
                 <div className='leavemessage'>
-                    <div className='leavemessage-header'>
-                        <img src={require('../../../Image/workHeader.jpg')} />
-                    </div>
                     <div className='leavemessage-content'>
                         {
                             this.state.source.length !== 0 && this.renderLeaveMessage()

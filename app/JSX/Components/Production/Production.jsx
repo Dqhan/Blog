@@ -36,12 +36,7 @@ export default class Production extends React.Component {
     }
 
     componentDidMount() {
-        var banner = new window.banner.Banner({
-            pDom: document.getElementById("demo"),
-            dom: document.getElementById("banner")
-        });
-        banner.init();
-        banner.render();
+
     }
 
     dialogCloseHandler() {
@@ -90,14 +85,6 @@ export default class Production extends React.Component {
 
     tabSelectChangedHandler(e, args) {
         console.log(args);
-    }
-
-    showBanner() {
-        $("#demo").css("display", "");
-    }
-
-    hideBanner() {
-        $("#demo").css("display", "none");
     }
 
     pagerChangedHandler(e, args) {
@@ -187,9 +174,7 @@ export default class Production extends React.Component {
                             <h4>Loading</h4>
                             <pre>
                                 <code>
-                                tipConformHandleClick() {
-        var self = this;
-    }
+
                                 </code>
                             </pre>
                             <button
@@ -204,14 +189,6 @@ export default class Production extends React.Component {
                             >
                                 hide
                                  </button>
-                        </section>
-                        <section>
-                            <h4>Banner</h4>
-                            <button onClick={this.showBanner.bind(this)}>show</button>
-                            <button onClick={this.hideBanner.bind(this)}>hide</button>
-                            <div id="demo" style={{ display: "none" }}>
-                                <div id="banner" />
-                            </div>
                         </section>
                         <section>
                             <h4>Dialog</h4>

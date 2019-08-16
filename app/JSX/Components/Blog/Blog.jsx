@@ -79,7 +79,7 @@ export default class Blog extends React.Component {
         },
             layoutProps = {
                 history: this.props.history,
-                logo: "博客园|Dqhan's Blog"
+                logo: "博客|Dqhan's Blog"
             };
         return <React.Fragment>
             <Layout {...layoutProps} >

@@ -25,7 +25,7 @@ export default class About extends React.Component {
         return <React.Fragment>
             <Layout
                 history={this.props.history}
-                logo={'简介'}
+                logo="个人简介|Dqhan's Blog"
             >
                 <div className='about'>
                     <div className='about-header'>

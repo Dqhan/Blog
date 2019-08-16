@@ -1,5 +1,4 @@
 import Layout from '../../Layouts/Layout';
-import Banner from '../AUI/Banner';
 import Header from './Header';
 import Content from './Content/Content';
 
@@ -22,28 +21,7 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.initComputed();
         this.retrieveBlogs();
-    }
-
-    initComputed() {
-        this.initScrollComputed();
-    }
-
-    initScrollComputed() {
-        var self = this;
-        window.addEventListener("scroll", function (e) {
-            var t = document.documentElement.scrollTop || document.body.scrollTop;
-            if (t != 0) {
-                self.setState({
-                    headerScrolled: true
-                })
-            } else {
-                self.setState({
-                    headerScrolled: false
-                })
-            }
-        });
     }
 
     retrieveBlogs() {
@@ -59,7 +37,7 @@ export default class Home extends React.Component {
         }
         fetchUtility(option).then(res => {
             this.state.blogs = this.convert(res.data.list);
-            this.setState(this.state,()=>{
+            this.setState(this.state, () => {
                 $$.loading(false);
             });
         }).catch(e => {
@@ -96,9 +74,24 @@ export default class Home extends React.Component {
             history: this.props.history
         }
         return <div>
-            <Header headerScrolled={this.state.headerScrolled} />
-            <Banner />
-            <Layout>
+            <Header isHome={true} />
+            <$$.Banner
+                bannerList={[
+                    {
+                        leftText: "成熟的人",
+                        rightText: "谦虚、低调、柔和"
+                    },
+                    {
+                        leftText: "为人处世",
+                        rightText: "真诚、善良、正直"
+                    },
+                    {
+                        leftText: "不忘初心",
+                        rightText: "方得始终"
+                    }
+                ]}
+            />
+            <Layout isHome={true}>
                 <Content {...contentProps} />
             </Layout>
         </div>
