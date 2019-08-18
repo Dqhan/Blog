@@ -178,6 +178,7 @@ export default class Production extends React.Component {
                             >
                                 hide
                                  </button>
+                                 <hr></hr>
                         </section>
                         <section>
                             <h4>Dialog</h4>
@@ -237,6 +238,7 @@ export default class Production extends React.Component {
                                 />
                             </div>
                             <button onClick={this.dialogShowHandler}>Dialog</button>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>Combobox</h4>
@@ -327,6 +329,7 @@ export default class Production extends React.Component {
                                     rowTempate={ParamseterRowTempate}
                                 />
                             </div>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>TabControl</h4>
@@ -377,6 +380,7 @@ export default class Production extends React.Component {
                                     rowTempate={ParamseterRowTempate}
                                 />
                             </div>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>Pager</h4>
@@ -426,6 +430,7 @@ export default class Production extends React.Component {
                                     rowTempate={ParamseterRowTempate}
                                 />
                             </div>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>MessageBar</h4>
@@ -498,6 +503,7 @@ export default class Production extends React.Component {
                                     rowTempate={ParamseterRowTempate}
                                 />
                             </div>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>PeoplePicker</h4>
@@ -543,9 +549,11 @@ export default class Production extends React.Component {
                                     rowTempate={ParamseterRowTempate}
                                 />
                             </div>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>Processer</h4>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>Table</h4>
@@ -677,6 +685,7 @@ class RowTempate extends $$.DataGridRow {
                                     rowTempate={ParamseterRowTempate}
                                 />
                             </div>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>TipConform</h4>
@@ -715,9 +724,11 @@ class RowTempate extends $$.DataGridRow {
                                     rowTempate={ParamseterRowTempate}
                                 />
                             </div>
+                            <hr></hr>
                         </section>
                         <section>
                             <h4>Validation</h4>
+                            <hr></hr>
                         </section>
                     </div>
                 </div>

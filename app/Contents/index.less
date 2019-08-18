@@ -48,7 +48,8 @@ h4 {
 }
 
 ul {
-    margin: 0;
+    margin : 0;
+    padding: 0;
 }
 
 li {
@@ -95,9 +96,41 @@ p {
 }
 
 hr {
+    position  : relative;
     height    : 1px;
     border    : none;
-    border-top: 1px dashed #70c3ff;
+    border-top: 2px dashed #70c3ff;
+    overflow  : visible;
+    margin    : 20px 0;
+
+    &::before {
+        position          : absolute;
+        top               : -10px;
+        left              : 3%;
+        z-index           : 1;
+        color             : #49b1f5;
+        content           : "\f0c4";
+        font              : normal normal normal 14px/1 FontAwesome;
+        font-size         : 20px;
+        -webkit-transition: all 1s ease-in-out;
+        -moz-transition   : all 1s ease-in-out;
+        -o-transition     : all 1s ease-in-out;
+        -ms-transition    : all 1s ease-in-out;
+        transition        : all 1s ease-in-out;
+    }
+
+    &:hover {
+        &::before {
+            position : absolute;
+            top      : -10px;
+            left     : 97%;
+            z-index  : 1;
+            color    : #49b1f5;
+            content  : "\f0c4";
+            font     : normal normal normal 14px/1 FontAwesome;
+            font-size: 20px;
+        }
+    }
 }
 
 @import "./layout.less";

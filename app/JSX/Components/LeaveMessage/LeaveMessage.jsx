@@ -99,6 +99,8 @@ export default class LeaveMessage extends React.Component {
                     <div className='leavemessage-content-item-author'>----{s.author}</div>
                     <div>{CommonUtil.formatDateTime(new Date(parseInt(s.time)), true)}</div>
                 </div>
+                <div className="clear-both"></div>
+                <hr></hr>
             </div>
         })
     }
