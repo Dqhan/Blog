@@ -39,13 +39,13 @@ export default class Layout extends React.Component {
                             <div className="layout-header-info-link">
                                 <ui>
                                     <li>
-                                        <a className="icon iconfont icon-github" href="https://github.com/Dqhan" target="_blank"></a>
+                                        <a className="font-icon iconfont icon-github" href="https://github.com/Dqhan" target="_blank"></a>
                                     </li>
                                     <li>
-                                        <a className="icon iconfont icon-CN_cnblogs" href="https://www.cnblogs.com/moran1992/" target="_blank"></a>
+                                        <a className="font-icon iconfont icon-CN_cnblogs" href="https://www.cnblogs.com/moran1992/" target="_blank"></a>
                                     </li>
                                     <li>
-                                        <a className="icon iconfont icon-weixin" href="https://www.dqhanhouse.com" target="_blank"></a>
+                                        <a className="font-icon iconfont icon-weixin" href="https://www.dqhanhouse.com" target="_blank"></a>
                                     </li>
                                 </ui>
                             </div>

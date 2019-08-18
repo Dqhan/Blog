@@ -463,7 +463,7 @@ function tipConformHandleClick() {
     location.href = location.href;
 }
 
-window.CommonUtil.getUrlParamseter = function() {
+window.CommonUtil.getUrlParamseter = function () {
     var url = location.search;
     var urlParamseter = new Object();
     if (url.indexOf("?") != -1) {
