@@ -15,6 +15,28 @@ export default class oAuthPromisition extends React.Component {
         this.getAccessToken();
     }
 
+    // getAccessToken() {
+    //     let { clientId, clientSecret, code } = this,
+    //         url = `https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`,
+    //         option = {
+    //             method: "GET",
+    //             mode: "cors",
+    //         };
+    //     fetch(url, option)
+    //         .then(res => {
+    //             return res.json();
+    //         })
+    //         .then(res => {
+    //             var a = res;
+    //         })
+    //         .catch(e => {
+    //             $$.conform({
+    //                 message: e,
+    //                 status: "show"
+    //             });
+    //         })
+    // }
+
     getAccessToken() {
         let data = {
             code: this.code,
@@ -29,12 +51,7 @@ export default class oAuthPromisition extends React.Component {
         $$.loading(true);
         fetchUtility(option)
             .then(res => {
-                localStorage.setItem('githubToken', JSON.stringify({
-                    name: res.data.name,
-                    location: res.data.location,
-
-                }));
-                this.gitHubLogin();
+                localStorage.setItem('githubToken',res);
                 this.props.history.goBack();
             })
             .catch(e => {
@@ -45,35 +62,35 @@ export default class oAuthPromisition extends React.Component {
             });
     }
 
-    gitHubLogin() {
-        let data = {
-            code: this.code,
-            clientId: this.clientId,
-            clientSecret: this.clientSecret
-        }
-        let option = {
-            url: '/api/oauth/loginGitHub',
-            method: "POST",
-            data: data
-        };
-        $$.loading(true);
-        fetchUtility(option)
-            .then(res => {
-                localStorage.setItem('githubToken', JSON.stringify({
-                    name: res.data.name,
-                    location: res.data.location,
+    // gitHubLogin() {
+    //     let data = {
+    //         code: this.code,
+    //         clientId: this.clientId,
+    //         clientSecret: this.clientSecret
+    //     }
+    //     let option = {
+    //         url: '/api/oauth/loginGitHub',
+    //         method: "POST",
+    //         data: data
+    //     };
+    //     $$.loading(true);
+    //     fetchUtility(option)
+    //         .then(res => {
+    //             localStorage.setItem('githubToken', JSON.stringify({
+    //                 name: res.data.name,
+    //                 location: res.data.location,
 
-                }));
-                this.gitHubLogin();
-                this.props.history.goBack();
-            })
-            .catch(e => {
-                $$.conform({
-                    message: e,
-                    status: "show"
-                });
-            });
-    }
+    //             }));
+    //             this.gitHubLogin();
+    //             this.props.history.goBack();
+    //         })
+    //         .catch(e => {
+    //             $$.conform({
+    //                 message: e,
+    //                 status: "show"
+    //             });
+    //         });
+    // }
 
     render() {
         return <div></div>
