@@ -1,7 +1,4 @@
-import bodyParser from 'body-parser';
 import axios from 'axios';
-import crypto from 'crypto';
-import { resolve } from 'path';
 
 function assemble(data) {
     let ret = '';
@@ -12,53 +9,23 @@ function assemble(data) {
 }
 
 window.fetchUtility = function (options, errorFun) {
-    var request = {
+    let request = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json'
         },
-        // headers: {
-        //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        //     'Accept': 'application/json'
-        // },
         cache: 'no-store',
-        // body: assemble(options.data),
-        // credentials: "include",
-        // isParseJson: true,
-        // download: false,
-        // body: assemble(options.data)，
         body: assemble(options.data)
     };
-
-    // if (userInfo) {
-    //     request.headers["Authorization"] = "Bearer " + userProfileManager.getAccessToken();
-    //     request.headers["IsSimulated"] = CommonUtil.isSimulated();
-    //     if (window.localStorage.getItem("CurrentRoleType") !== null) {
-    //         request.headers["CurrentRoleType"] = window.localStorage.getItem("CurrentRoleType");
-    //     }
-    // } else {
-    //     if (userManager) {
-    //         userManager.signinRedirect();
-    //     }
-    // }
-    // if (options.import) {
-    //     options.headers = {
-    //         "Authorization": request.headers.Authorization,
-    //         "IsSimulated": request.headers.IsSimulated,
-    //         "CurrentRoleType": request.headers.CurrentRoleType
-    //     }
+    let accessToken = localStorage.getItem('github_api_oauth_token');
+    if (accessToken) {
+        request.headers["Authorization"] = "Bearer " + accessToken;
+    }
+    //  else {
+    //     location.href = "http://10.2.118.52/#/403";
     // }
     Object.assign(request, options);
-    // if (options.targetComponent) {
-    //     var defaultUrlPrefix = CommonUtil.getTargetUrlPrefix(options.targetComponent);
-    //     if (options.url.indexOf("/") == 0) {
-    //         options.url = defaultUrlPrefix + options.url;
-    //     }
-    //     else {
-    //         options.url = defaultUrlPrefix + "/" + options.url;
-    //     }
-    // }
     if (request.method.toLowerCase() == "get") {
         request.body = null;
     }

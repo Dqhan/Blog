@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
+const jwt = require("jsonwebtoken");
 
 function responseClient(
   res,
@@ -23,7 +24,6 @@ router.post("/oAuthValidate", (req, res) => {
     url:
       "https://github.com/login/oauth/access_token?" +
       `client_id=${clientId}&` +
-      
       `client_secret=${clientSecret}&` +
       `code=${code}`,
     headers: {
@@ -49,22 +49,15 @@ function getGitHubToken(accessToken, res) {
     }
   })
     .then(result => {
-      let data = result.data;
-      responseClient(res, 200, 0, "获取github token成功", data);
+      let token = jwt.sign(result.data, "my_token", { expiresIn: "0.5h" });
+      responseClient(res, 200, 0, "获取github token成功", {
+        accessToken: token,
+        profileInfo: result.data
+      });
     })
     .catch(e => {
       console.log(e);
     });
 }
-
-router.post("/loginGitHub", function(req, res) {
-  let {name}  = req.body;
-  let sessionInfo = {
-    username: name,
-    password: userInfo.password
-  };
-  req.session.userInfo = sessionInfo;
-  responseClient(res, 200, 0, "登录成功", data);
-});
 
 module.exports = router;

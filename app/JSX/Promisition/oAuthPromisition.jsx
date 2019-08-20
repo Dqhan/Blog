@@ -42,16 +42,16 @@ export default class oAuthPromisition extends React.Component {
             code: this.code,
             clientId: this.clientId,
             clientSecret: this.clientSecret
-        }
-        let option = {
-            url: '/api/oauth/oAuthValidate',
-            method: "POST",
-            data: data
-        };
-        $$.loading(true);
+        },
+            option = {
+                url: '/api/oauth/oAuthValidate',
+                method: "POST",
+                data: data
+            };
         fetchUtility(option)
             .then(res => {
-                localStorage.setItem('githubToken',res);
+                localStorage.setItem('github_api_oauth_token', res.data.accessToken);
+                localStorage.setItem('github_api_oauth_profile_info', JSON.stringify(res.data.profileInfo));
                 this.props.history.goBack();
             })
             .catch(e => {
@@ -61,36 +61,6 @@ export default class oAuthPromisition extends React.Component {
                 });
             });
     }
-
-    // gitHubLogin() {
-    //     let data = {
-    //         code: this.code,
-    //         clientId: this.clientId,
-    //         clientSecret: this.clientSecret
-    //     }
-    //     let option = {
-    //         url: '/api/oauth/loginGitHub',
-    //         method: "POST",
-    //         data: data
-    //     };
-    //     $$.loading(true);
-    //     fetchUtility(option)
-    //         .then(res => {
-    //             localStorage.setItem('githubToken', JSON.stringify({
-    //                 name: res.data.name,
-    //                 location: res.data.location,
-
-    //             }));
-    //             this.gitHubLogin();
-    //             this.props.history.goBack();
-    //         })
-    //         .catch(e => {
-    //             $$.conform({
-    //                 message: e,
-    //                 status: "show"
-    //             });
-    //         });
-    // }
 
     render() {
         return <div></div>

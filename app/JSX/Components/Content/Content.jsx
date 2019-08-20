@@ -36,8 +36,8 @@ export default class Content extends React.Component {
     }
 
     renderTag() {
-        return this.state.tags.map(t => {
-            return <div className='article-tag-item fi-page-edit-a'>
+        return this.state.tags.map((t, index) => {
+            return <div key={`tag-${index}`} className='article-tag-item fi-page-edit-a'>
                 {t}
             </div>
         })

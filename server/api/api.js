@@ -1,14 +1,14 @@
-var express = require("express");
-var mongoose = require("mongoose");
-var config = require("../../config/config");
-var bodyParser = require("body-parser");
-var busboy = require("connect-busboy");
-var cookieParser = require("cookie-parser");
-var session = require("express-session");
-var MongoStore = require("connect-mongo")(session);
+const express = require("express");
+const mongoose = require("mongoose");
+const config = require("../../config/config");
+const bodyParser = require("body-parser");
+const busboy = require("connect-busboy");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+const jwt = require('jsonwebtoken');
 
 const app = new express();
-
 
 app.use(busboy());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,6 +26,23 @@ app.use(
     })
   })
 );
+
+// app.use((req, res, next) => {
+//   return next().catch(err => {
+//     if (err.status === 401) {
+//       res.status = 401;
+
+//     } else {
+//       throw new err;
+//     }
+//   });
+// });
+
+// app.use(koajwt({
+// 	secret: 'my_token'
+// }).unless({
+// 	path: [/\/user\/login/]
+// }));
 
 app.use("/article", require("./article"));
 app.use("/leavemessage", require("./leavemessage"));
