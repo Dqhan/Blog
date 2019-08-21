@@ -2,20 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-
-function responseClient(
-  res,
-  httpCode = 500,
-  code = 3,
-  message = "服务端异常",
-  data = {}
-) {
-  let responseData = {};
-  responseData.code = code;
-  responseData.message = message;
-  responseData.data = data;
-  res.status(httpCode).json(responseData);
-}
+let util = require("../util");
 
 router.post("/oAuthValidate", (req, res) => {
   let { clientId, clientSecret, code } = req.body;
@@ -49,8 +36,8 @@ function getGitHubToken(accessToken, res) {
     }
   })
     .then(result => {
-      let token = jwt.sign(result.data, "my_token", { expiresIn: "0.5h" });
-      responseClient(res, 200, 0, "获取github token成功", {
+      let token = jwt.sign(result.data, "my_token", { expiresIn: "1h" });
+      util.responseClient(res, 200, 0, "获取github token成功", {
         accessToken: token,
         profileInfo: result.data
       });

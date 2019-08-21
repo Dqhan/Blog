@@ -42,10 +42,7 @@ export default class Home extends React.Component {
             });
         }).catch(e => {
             $$.loading(false);
-            $$.conform({
-                message: e,
-                status: 'show'
-            });
+            console.log(e);
         })
     }
 

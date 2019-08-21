@@ -47,11 +47,9 @@ window.fetchUtility = function (options, errorFun) {
                 }
             } else {
                 if (response.status == 403) {
-                    window.location.href = "/error/" + response.status;
+                    window.location.href = "/#/403"
                 } else if (response.status == 409) {
-                    // for simulation
-                    $$.alert(true, { type: "w", content: "Sorry, currently you are in simulation mode and limited to read only access." });
-                    throw new Error("simulation");
+                    console.log('http error 409')
                 }
                 else {
                     if (errorFun) {
@@ -86,7 +84,7 @@ window.fetchUtility = function (options, errorFun) {
                 }
             }
             catch (ex) {
-                $$.error("An error happened while fetching information. Error:", ex);
+                throw new Error(ex);
             }
             return queryResult;
         });

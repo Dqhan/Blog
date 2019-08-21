@@ -6,8 +6,8 @@ const busboy = require("connect-busboy");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const jwt = require('jsonwebtoken');
-
+const expressjwt = require("express-jwt");
+let util = require("../util");
 const app = new express();
 
 app.use(busboy());
@@ -27,26 +27,35 @@ app.use(
   })
 );
 
-// app.use((req, res, next) => {
-//   return next().catch(err => {
-//     if (err.status === 401) {
-//       res.status = 401;
+app.use(
+  expressjwt({
+    secret: "my_token",
+    credentialsRequired: false,
+    getToken: function fromHeaderOrQuerystring(req) {
+      if (
+        req.headers.authorization &&
+        req.headers.authorization.split(" ")[0] === "Bearer"
+      ) {
+        var token = req.headers.authorization.split(" ")[1];
+        return token;
+      } else if (req.query && req.query.token) {
+        return req.query.token;
+      }
+      return null;
+    }
+  }).unless({
+    path: util.whiteList
+  })
+);
 
-//     } else {
-//       throw new err;
-//     }
-//   });
-// });
-
-// app.use(koajwt({
-// 	secret: 'my_token'
-// }).unless({
-// 	path: [/\/user\/login/]
-// }));
+app.use(function(err, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    util.responseClient(res, 403, 0, "invalid token...", {});
+  }
+});
 
 app.use("/article", require("./article"));
 app.use("/leavemessage", require("./leavemessage"));
-app.use("/about", require("./about"));
 app.use("/user", require("./user"));
 app.use("/document", require("./document"));
 app.use("/oauth", require("./oauth"));

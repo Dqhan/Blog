@@ -5,12 +5,6 @@ var Comment = require("../../models/comment");
 var util = require("../util");
 
 router.post("/addArticle", function (req, res) {
-  // var  {
-  //     title,
-  //     content,
-  //     time
-  // } = req.body;
-  // const author = req.session.userInfo.username;
   var title = req.body.title;
   var content = req.body.content;
   var article = req.body.article;

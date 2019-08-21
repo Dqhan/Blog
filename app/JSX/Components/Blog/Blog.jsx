@@ -44,10 +44,7 @@ export default class Blog extends React.Component {
             });
         }).catch(e => {
             $$.loading(true);
-            $$.conform({
-                message: e,
-                status: 'show'
-            });
+            console.log(e);
         })
     }
 

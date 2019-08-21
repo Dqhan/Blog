@@ -43,10 +43,7 @@ export default class Article extends React.Component {
             });
         }).catch(e => {
             $$.loading(false);
-            $$.conform({
-                message: e,
-                status: "show"
-            });
+            console.log(e);
         })
     }
 
@@ -69,10 +66,7 @@ export default class Article extends React.Component {
             })
         }).catch(e => {
             $$.loading(false);
-            $$.conform({
-                message: e,
-                status: "show"
-            });
+            console.log(e);
         })
     }
 
@@ -115,10 +109,7 @@ export default class Article extends React.Component {
             })
             .catch(e => {
                 $$.loading(false);
-                $$.conform({
-                    message: e,
-                    status: "show"
-                });
+                console.log(e);
             });
     }
 
