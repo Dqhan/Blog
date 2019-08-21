@@ -93,6 +93,50 @@ export default class About extends React.Component {
                         </div>
                         <hr></hr>
                     </section>
+                    <section>
+                        <div className="about-item-title">
+                            <span className="fi-page-placeholder-a"></span>
+                            欢迎打扰
+                            <i className="light"></i>
+                        </div>
+                        <div className="about-item-contain">
+                            <ul>
+                                <li className="fi-page-hand-over-packed-bags-a">
+                                    <div>电话</div>
+                                    <div>18640926184</div>
+                                </li>
+                                <li className="fi-page-hand-over-packed-bags-a">
+                                    <div>邮箱</div>
+                                    <div>291927006@qq.com</div>
+                                </li>
+                                <li className="fi-page-hand-over-packed-bags-a">
+                                    <div>微信</div>
+                                    <div>18640926184</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr></hr>
+                    </section>
+                    <section>
+                        <div className="about-item-title">
+                            <span className="fi-page-placeholder-a"></span>
+                            更多信息
+                            <i className="light"></i>
+                        </div>
+                        <div className="about-item-contain">
+                            <ul>
+                                <li className="fi-page-hand-over-packed-bags-a">
+                                    <div>Github</div>
+                                    <div>https://github.com/Dqhan</div>
+                                </li>
+                                <li className="fi-page-hand-over-packed-bags-a">
+                                    <div>CNblogs</div>
+                                    <div>https://www.cnblogs.com/moran1992</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr></hr>
+                    </section>
                 </div>
             </Layout>
         </React.Fragment>

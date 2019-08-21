@@ -440,3 +440,21 @@ window.CommonUtil.getUrlParamseter = function () {
     }
     return urlParamseter;
 }
+
+window.CommonUtil.throttle = function (fn, delay, time) {
+    let timer = null,
+        start = new Date();
+    return function () {
+        let current = new Date(),
+            args = arguments;
+        clearTimeout(timer);
+        if (current - start >= time) {
+            fn.apply(this, args);
+            start = current;
+        } else {
+            let timer = setTimeout(() => {
+                fn.apply(this, args)
+            }, delay);
+        }
+    }
+}
