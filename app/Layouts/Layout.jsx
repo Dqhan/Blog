@@ -2,11 +2,22 @@
 import Header from '../JSX/Components/Header';
 import LoginDialog from '../JSX/AUI/LoginDialog';
 
+const LoginType = {
+    Account: 0,
+    WeChart: 1,
+    GitHub: 2,
+    Default: 3,
+    Login: 4,
+    Register: 5,
+    RegisterSuccessfully: 6,
+};
+
 export default class Layout extends React.Component {
     constructor(props) {
         super(props);
         this.initState()
             .initBind();
+        this.loginType =  localStorage.getItem('login_type')||LoginType.Account;
     }
 
     initState() {
@@ -64,9 +75,39 @@ export default class Layout extends React.Component {
     }
 
     HandleConformClick() {
-        localStorage.deleteItem('github_api_oauth_profile_info');
-        localStorage.deleteItem('github_api_oauth_token');
-        this.setState(this.state);
+        this.logout().then(res => {
+            this.setState(this.state);
+            localStorage.removeItem('login_type');
+            localStorage.removeItem('github_api_oauth_profile_info');
+            localStorage.removeItem('github_api_oauth_token');
+            $$.loading(false);
+        }).catch(e => {
+            console.log(e);
+            $$.loading(false);
+        })
+    }
+
+    logout() {
+        let clr = {
+            [LoginType.Account]: function () {
+
+            },
+            [LoginType.GitHub]: function () {
+                let authorizationId = JSON.parse(localStorage.getItem('github_api_oauth_profile_info')).id;
+                // let authorizationId  = localStorage.getItem('github_api_oauth_tokenId');
+                return `./api/oauth/logoutWithGithub/${authorizationId}`;
+            },
+            [LoginType.WeChart]: function () {
+
+            }
+        };
+        var url = clr[ this.loginType](),
+            option = {
+                url: url,
+                method: "DELETE"
+            };
+        $$.loading(true);
+        return fetchUtility(option);
     }
 
     render() {

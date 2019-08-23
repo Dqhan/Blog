@@ -7,11 +7,15 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const expressjwt = require("express-jwt");
+const axios = require("axios");
 let util = require("../util");
 const app = new express();
 
+let passport  = require('./passport');
+
 app.use(busboy());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cookieParser("express_react_cookie"));
 app.use(
   session({
@@ -27,35 +31,70 @@ app.use(
   })
 );
 
-app.use(
-  expressjwt({
-    secret: "my_token",
-    credentialsRequired: false,
-    getToken: function fromHeaderOrQuerystring(req) {
-      if (
-        req.headers.authorization &&
-        req.headers.authorization.split(" ")[0] === "Bearer"
-      ) {
-        var token = req.headers.authorization.split(" ")[1];
-        return token;
-      } else if (req.query && req.query.token) {
-        return req.query.token;
-      }
-      return null;
-    }
-  }).unless({
-    path: util.whiteList
-  })
-);
+// app.use(
+//   expressjwt({
+//     secret: "my_token",
+//     credentialsRequired: true, //如果false  则authoriaztion为空时也通过。
+//     getToken: function fromHeaderOrQuerystring(req) {
+//       if (
+//         req.headers.authorization &&
+//         req.headers.authorization.split(" ")[0] === "Bearer"
+//       ) {
+//         var token = req.headers.authorization.split(" ")[1];
+//         return token;
+//       } else if (req.query && req.query.token) {
+//         return req.query.token;
+//       }
+//       return null;
+//     }
+//   }).unless({
+//     path: util.whiteList
+//   })
+// );
 
-app.use(function(err, req, res, next) {
-  if (err.name === "UnauthorizedError") {
-    util.responseClient(res, 403, 0, "invalid token...", {});
+// function checkPromisition(req, res, next) {
+//   let clientId = "5f2b3eb585cd289ca088",
+//     accessToken;
+//   if (req.headers.authorization) {
+//     accessToken = req.headers.authorization.split(" ")[1];
+//   }
+//   axios({
+//     method: "get",
+//     url: `https://api.github.com/applications/:${clientId}/tokens/:${accessToken}`,
+//     headers: {
+//       accept: "application/json"
+//     }
+//   })
+//     .then(result => {
+//       var a = result;
+//       return next();
+//     })
+//     .catch(e => {
+//       return next();
+//       // util.responseClient(res, 500, 0, "delete github token failed.", {
+//       //   log: "delete github token failed with http code 401."
+//       // });
+//     });
+// }
+
+// app.use(function(err, req, res, next) {
+//   if (err.name === "UnauthorizedError") {
+//     util.responseClient(res, 403, 0, "invalid token...", {});
+//   }
+// });
+
+app.use(passport.initialize());
+
+function *authed(next){
+  if (this.req.isAuthenticated()){
+    yield next;
+  } else {
+    this.redirect('/auth/github');
   }
-});
+}
 
 app.use("/article", require("./article"));
-app.use("/leavemessage", require("./leavemessage"));
+app.use("/leavemessage", authed,require("./leavemessage"));
 app.use("/user", require("./user"));
 app.use("/document", require("./document"));
 app.use("/oauth", require("./oauth"));

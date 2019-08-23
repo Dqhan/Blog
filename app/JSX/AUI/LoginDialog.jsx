@@ -32,7 +32,9 @@ export default class LoginDialog extends React.Component {
         this.setState({
             loginType: type
         }, () => {
+            localStorage.setItem('login_type', type);
             if (this.state.loginType == LoginType.WeChart) this.initWeChat();
+            if (this.state.loginType == LoginType.GitHub) this.handleGitHubLogin();
         });
     }
 
@@ -176,7 +178,7 @@ export default class LoginDialog extends React.Component {
                             <div>Account</div>
                             <i className="light"></i>
                         </div>
-                        <div onClick={this.handleGitHubLogin}>
+                        <div onClick={this.changeLogin.bind(this, LoginType.GitHub)}>
                             <div className="font-icon iconfont icon-github"></div>
                             <div>GitHub</div>
                             <i className="light"></i>

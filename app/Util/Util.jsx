@@ -19,6 +19,7 @@ window.fetchUtility = function (options, errorFun) {
         body: assemble(options.data)
     };
     let accessToken = localStorage.getItem('github_api_oauth_token');
+    // let accessToken  = localStorage.getItem('github_api_oauth_tokenId');
     if (accessToken) {
         request.headers["Authorization"] = "Bearer " + accessToken;
     }

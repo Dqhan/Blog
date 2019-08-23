@@ -24,6 +24,27 @@
         }
     }
 
-    return new Events();
+    function Variables() {
+        this.__variablesC__ = {
+
+        };
+    }
+
+    Variables.prototype = {
+        add: function (key, value) {
+            this.__variablesC__[key] = value;
+        },
+        remove: function (key) {
+            delete this.__variablesC__[key];
+        },
+        get: function (key) {
+            return this.__variablesC__[key];
+        }
+    }
+
+    return {
+        Events: new Events(),
+        Variables: new Variables()
+    }
 
 }, '$Scope');

@@ -52,6 +52,7 @@ export default class oAuthPromisition extends React.Component {
             .then(res => {
                 localStorage.setItem('github_api_oauth_token', res.data.accessToken);
                 localStorage.setItem('github_api_oauth_profile_info', JSON.stringify(res.data.profileInfo));
+                localStorage.setItem('github_api_oauth_tokenId', res.data.tokenId);
                 this.props.history.goBack();
             })
             .catch(e => {

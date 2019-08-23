@@ -35,7 +35,7 @@ module.exports = {
     "/article/getComments",
     "/article/addComment",
     "/document/upload",
-    "/leavemessage/getLeaveMessage",
-    "/leavemessage/addLeaveMessage"
+    // "/leavemessage/getLeaveMessage",
+    // "/leavemessage/addLeaveMessage"
   ]
 };
