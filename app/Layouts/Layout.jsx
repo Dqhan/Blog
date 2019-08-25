@@ -17,7 +17,7 @@ export default class Layout extends React.Component {
         super(props);
         this.initState()
             .initBind();
-        this.loginType =  localStorage.getItem('login_type')||LoginType.Account;
+        this.loginType = localStorage.getItem('login_type') || LoginType.Account;
     }
 
     initState() {
@@ -68,6 +68,7 @@ export default class Layout extends React.Component {
 
     handleLogout() {
         $$.conform({
+            status: "show",
             message: 'Are you sure to logout',
             footer: true,
             handleClick: this.HandleConformClick
@@ -75,16 +76,13 @@ export default class Layout extends React.Component {
     }
 
     HandleConformClick() {
-        this.logout().then(res => {
-            this.setState(this.state);
+        this.setState({
+            dialogStatus: false
+        }, () => {
             localStorage.removeItem('login_type');
             localStorage.removeItem('github_api_oauth_profile_info');
             localStorage.removeItem('github_api_oauth_token');
-            $$.loading(false);
-        }).catch(e => {
-            console.log(e);
-            $$.loading(false);
-        })
+        });
     }
 
     logout() {
@@ -93,15 +91,13 @@ export default class Layout extends React.Component {
 
             },
             [LoginType.GitHub]: function () {
-                let authorizationId = JSON.parse(localStorage.getItem('github_api_oauth_profile_info')).id;
-                // let authorizationId  = localStorage.getItem('github_api_oauth_tokenId');
-                return `./api/oauth/logoutWithGithub/${authorizationId}`;
+
             },
             [LoginType.WeChart]: function () {
 
             }
         };
-        var url = clr[ this.loginType](),
+        var url = clr[this.loginType](),
             option = {
                 url: url,
                 method: "DELETE"

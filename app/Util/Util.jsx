@@ -19,7 +19,6 @@ window.fetchUtility = function (options, errorFun) {
         body: assemble(options.data)
     };
     let accessToken = localStorage.getItem('github_api_oauth_token');
-    // let accessToken  = localStorage.getItem('github_api_oauth_tokenId');
     if (accessToken) {
         request.headers["Authorization"] = "Bearer " + accessToken;
     }
@@ -457,5 +456,13 @@ window.CommonUtil.throttle = function (fn, delay, time) {
                 fn.apply(this, args)
             }, delay);
         }
+    }
+}
+
+window.CommonUtil.Config = {
+    github: {
+        client_id: "5f2b3eb585cd289ca088",
+        redirect_uri: escape("http://localhost/#/oAuthPromisition"),
+        client_secret: "281abd4850f451b536416ddede3e3a61ccce07fe"
     }
 }

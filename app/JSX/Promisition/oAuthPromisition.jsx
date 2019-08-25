@@ -15,34 +15,13 @@ export default class oAuthPromisition extends React.Component {
         this.getAccessToken();
     }
 
-    // getAccessToken() {
-    //     let { clientId, clientSecret, code } = this,
-    //         url = `https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`,
-    //         option = {
-    //             method: "GET",
-    //             mode: "cors",
-    //         };
-    //     fetch(url, option)
-    //         .then(res => {
-    //             return res.json();
-    //         })
-    //         .then(res => {
-    //             var a = res;
-    //         })
-    //         .catch(e => {
-    //             $$.conform({
-    //                 message: e,
-    //                 status: "show"
-    //             });
-    //         })
-    // }
-
     getAccessToken() {
-        let data = {
-            code: this.code,
-            clientId: this.clientId,
-            clientSecret: this.clientSecret
-        },
+        let { client_id, client_secret } = CommonUtil.Config.github,
+            data = {
+                code: this.code,
+                clientId: client_id,
+                clientSecret: client_secret
+            },
             option = {
                 url: '/api/oauth/oAuthValidate',
                 method: "POST",
@@ -52,8 +31,8 @@ export default class oAuthPromisition extends React.Component {
             .then(res => {
                 localStorage.setItem('github_api_oauth_token', res.data.accessToken);
                 localStorage.setItem('github_api_oauth_profile_info', JSON.stringify(res.data.profileInfo));
-                localStorage.setItem('github_api_oauth_tokenId', res.data.tokenId);
-                this.props.history.goBack();
+                // this.props.history.goBack();
+                this.props.history.push('/');
             })
             .catch(e => {
                 $$.conform({

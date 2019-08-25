@@ -77,8 +77,7 @@ export default class LoginDialog extends React.Component {
     }
 
     handleGitHubLogin() {
-        let clientId = "5f2b3eb585cd289ca088",
-            path = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user,public_repo`;
+        let path = `https://github.com/login/oauth/authorize?response_type=code&redirect_uri=${CommonUtil.Config.github.redirect_uri}&scope=user%2Crepo&client_id=${CommonUtil.Config.github.client_id}`;
         location.href = path;
     }
 

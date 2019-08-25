@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 let util = require("../util");
-let passport = require("./passport");
+// let passport = require("./passport");
 
 router.post("/oAuthValidate", (req, res) => {
   let { clientId, clientSecret, code } = req.body;
@@ -37,10 +37,10 @@ function getGitHubToken(accessToken, res) {
     }
   })
     .then(result => {
-      // let token = jwt.sign(result.data, "my_token", { expiresIn: "1h" });
+      let token = jwt.sign(result.data, "my_token", { expiresIn: "1h" });
       util.responseClient(res, 200, 0, "获取github token成功", {
         profileInfo: result.data,
-        accessToken: accessToken
+        accessToken: token
       });
     })
     .catch(e => {
@@ -50,45 +50,32 @@ function getGitHubToken(accessToken, res) {
     });
 }
 
-router.get(
-  "/auth/github",
-  passport.authenticate("github", { scope: ["user", "repo"] })
-);
+// router.get(
+//   "/github",
+//   passport.authenticate("github", { scope: ["user", "repo"] })
+// );
 
-router.get(
-  "/auth/github/callback",
-  passport.authenticate("github", {
-    successRedirect: "/",
-    failureRedirect: "/"
-  })
-);
+// router.get(
+//   "/github/callback",
+//   // "/#/oAuthPromisition",
+//   passport.authenticate("github", {
+//     // successRedirect: "/api/auth/successcallback",
+//     failureRedirect: "/api/auth/failedcallback"
+//   }), function (req, res) {
+//     var a = req;
+//     var b = res;
 
+//   }
+// );
 
+// router.get('/successcallback', function (req, res) {
+//   var a = req;
+//   var b = res;
+// });
 
-// router.delete("/logoutWithGithub/:authorizationId", function(req, res) {
-//   let authorizationId = req.params.authorizationId;
-//   let clientId = "5f2b3eb585cd289ca088";
-//   let clientSecret = "281abd4850f451b536416ddede3e3a61ccce07fe";
-//   axios({
-//     method: "delete",
-//     // url: `https://api.github.com/:${clientId}/tokens/:${authorizationId}`,
-//     url: `https://api.github.com/authorizations/:${authorizationId}`,
-//     // headers: {
-//     //   accept: "application/json"
-//     // }
-//     body:JSON.stringify({
-//       username: clientId,
-//       password : clientSecret
-//     })
-//   })
-//     .then(result => {
-//       var a = result;
-//     })
-//     .catch(e => {
-//       util.responseClient(res, 500, 0, "delete github token failed.", {
-//         log: "delete github token failed with http code 401."
-//       });
-//     });
+// router.get('/failedcallback', function (req, res) {
+//   var a = req;
+//   var b = res;
 // });
 
 module.exports = router;

@@ -6,7 +6,7 @@ passport.use(
     {
       clientID: "5f2b3eb585cd289ca088",
       clientSecret: "281abd4850f451b536416ddede3e3a61ccce07fe",
-      callbackURL: "http://10.2.118.52/#/oAuthPromisition", //第三方应用申请页面填写的回调地址
+      callbackURL: "http://localhost/api/oauth/github/callback", //第三方应用申请页面填写的回调地址
       passReqToCallback: true //会传输req对象
     },
     function(req, accessToken, refreshToken, profile, done) {
