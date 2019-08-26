@@ -1,13 +1,3 @@
-const LoginType = {
-    Account: 0,
-    WeChart: 1,
-    GitHub: 2,
-    Default: 3,
-    Login: 4,
-    Register: 5,
-    RegisterSuccessfully: 6,
-};
-
 export default class LoginDialog extends React.Component {
     constructor(props) {
         super(props);
@@ -17,7 +7,7 @@ export default class LoginDialog extends React.Component {
 
     initState() {
         this.state = {
-            loginType: LoginType.Default
+            loginType: Util.LOGIN_TYPE.Default
         }
         return this;
     };
@@ -26,6 +16,7 @@ export default class LoginDialog extends React.Component {
         this.handleUserNameChanged = this.handleUserNameChanged.bind(this);
         this.handlePasswordChanged = this.handlePasswordChanged.bind(this);
         this.registerHandler = this.registerHandler.bind(this);
+        this.loginHandler = this.loginHandler.bind(this);
     };
 
     changeLogin(type) {
@@ -33,8 +24,8 @@ export default class LoginDialog extends React.Component {
             loginType: type
         }, () => {
             localStorage.setItem('login_type', type);
-            if (this.state.loginType == LoginType.WeChart) this.initWeChat();
-            if (this.state.loginType == LoginType.GitHub) this.handleGitHubLogin();
+            if (this.state.loginType == Util.LOGIN_TYPE.WeChart) this.initWeChat();
+            if (this.state.loginType == Util.LOGIN_TYPE.GitHub) this.handleGitHubLogin();
         });
     }
 
@@ -52,7 +43,7 @@ export default class LoginDialog extends React.Component {
 
     registerHandler() {
         let data = {
-            userName: this.state.userName,
+            name: this.state.userName,
             password: this.state.password
         }, option = {
             url: "./api/user/register",
@@ -64,14 +55,13 @@ export default class LoginDialog extends React.Component {
             .then(res => {
                 $$.loading(false);
                 this.setState({
-                    loginType: LoginType.RegisterSuccessfully
+                    loginType: Util.LOGIN_TYPE.RegisterSuccessfully
                 })
             })
             .catch(e => {
                 $$.loading(false);
                 $$.conform({
-                    message: e,
-                    status: "show"
+                    message: e
                 });
             });
     }
@@ -97,15 +87,46 @@ export default class LoginDialog extends React.Component {
         );
     }
 
+    loginHandler() {
+        let data = {
+            name: this.state.userName,
+            password: this.state.password
+        }, option = {
+            url: "./api/user/login",
+            method: "POST",
+            data: data
+        };
+        $$.loading(true);
+        fetchUtility(option)
+            .then(res => {
+                $$.loading(false);
+                if (res.data.status == 0) {
+                    localStorage.setItem('access_token', res.data.accessToken);
+                    localStorage.setItem('profile_info', JSON.stringify(res.data.profileInfo));
+                    localStorage.setItem('login_type', Util.LOGIN_TYPE.Account);
+                    location.href = `http://${CommonUtil.Config.HOST}`;
+                }
+                else {
+                    $$.conform({
+                        message: 'Login failed.',
+                    });
+                }
+            })
+            .catch(e => {
+                $$.loading(false);
+                console.log(e);
+            });
+    }
+
     renderLoginComponent() {
         switch (this.state.loginType) {
-            case LoginType.Login:
+            case Util.LOGIN_TYPE.Login:
                 return <React.Fragment>
                     <div className="">
                         <label>账号：</label>
                         <input
                             type="text"
-                            value={this.state.number}
+                            value={this.state.userName}
                             onChange={this.handleUserNameChanged}
                         />
                     </div>
@@ -119,13 +140,13 @@ export default class LoginDialog extends React.Component {
                     </div>
                     <RButton text="登录" onClick={this.loginHandler} />
                 </React.Fragment>
-            case LoginType.Register:
+            case Util.LOGIN_TYPE.Register:
                 return <React.Fragment>
                     <div className="">
                         <label>账号：</label>
                         <input
                             type="text"
-                            value={this.state.number}
+                            value={this.state.userName}
                             onChange={this.handleUserNameChanged}
                         />
                     </div>
@@ -141,48 +162,48 @@ export default class LoginDialog extends React.Component {
                         <RButton text="注册" onClick={this.registerHandler} />
                         <RButton
                             text="返回"
-                            onClick={this.changeLogin.bind(this, LoginType.Default)}
+                            onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)}
                         />
                     </div>
                 </React.Fragment>
-            case LoginType.Account:
+            case Util.LOGIN_TYPE.Account:
                 return (
                     <React.Fragment>
                         <div className="">
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="登录" onClick={this.changeLogin.bind(this, LoginType.Login)} />
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="注册" onClick={this.changeLogin.bind(this, LoginType.Register)} />
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="返回" onClick={this.changeLogin.bind(this, LoginType.Default)} />
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="登录" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)} />
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="注册" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Register)} />
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="返回" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)} />
                         </div>
                     </React.Fragment>
                 );
-            case LoginType.RegisterSuccessfully:
+            case Util.LOGIN_TYPE.RegisterSuccessfully:
                 return <div className=''>
                     <div>
                         Register Successfully!
                     </div>
                     <div>
-                        <RButton text="登录" onClick={this.changeLogin.bind(this, LoginType.Login)} />
+                        <RButton text="登录" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)} />
                     </div>
                 </div>
-            case LoginType.WeChart:
+            case Util.LOGIN_TYPE.WeChart:
                 return <div id="wechat_login_container">
                     <div></div>
                 </div>
-            case LoginType.Default:
+            case Util.LOGIN_TYPE.Default:
                 return <React.Fragment>
                     <label>选择登陆方式</label>
                     <div>
-                        <div onClick={this.changeLogin.bind(this, LoginType.Account)}>
+                        <div onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Account)}>
                             <div className="font-icon iconfont icon-user"></div>
                             <div>Account</div>
                             <i className="light"></i>
                         </div>
-                        <div onClick={this.changeLogin.bind(this, LoginType.GitHub)}>
+                        <div onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.GitHub)}>
                             <div className="font-icon iconfont icon-github"></div>
                             <div>GitHub</div>
                             <i className="light"></i>
                         </div>
-                        <div onClick={this.changeLogin.bind(this, LoginType.WeChart)}>
+                        <div onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.WeChart)}>
                             <div className="font-icon iconfont icon-weixin"></div>
                             <div>WeChat</div>
                             <i className="light"></i>

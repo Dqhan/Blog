@@ -29,10 +29,10 @@ export default class oAuthPromisition extends React.Component {
             };
         fetchUtility(option)
             .then(res => {
-                localStorage.setItem('github_api_oauth_token', res.data.accessToken);
-                localStorage.setItem('github_api_oauth_profile_info', JSON.stringify(res.data.profileInfo));
-                // this.props.history.goBack();
-                this.props.history.push('/');
+                localStorage.setItem('access_token', res.data.accessToken);
+                localStorage.setItem('profile_info', JSON.stringify(res.data.profileInfo));
+                localStorage.setItem('login_type', Util.LOGIN_TYPE.GitHub);
+                location.href = `http://${CommonUtil.Config.HOST}`;
             })
             .catch(e => {
                 $$.conform({

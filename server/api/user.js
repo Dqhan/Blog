@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../../models/user");
+const jwt = require("jsonwebtoken");
 
 function responseClient(
   res,
@@ -16,26 +17,10 @@ function responseClient(
   res.status(httpCode).json(responseData);
 }
 
-router.get("/userInfo", (req, res) => {
-  if (req.session.userInfo) {
-    res.send({
-      userInfo: req.session.userInfo,
-      message: "User有效",
-      status: 0
-    });
-  } else {
-    res.send({
-      userInfo: null,
-      message: "登录超时",
-      status: 1
-    });
-  }
-});
-
 router.post("/login", (req, res) => {
-  let { username, password } = req.body;
+  let { name, password } = req.body;
   User.findOne({
-    username,
+    name,
     password
   })
     .then(userInfo => {
@@ -46,13 +31,17 @@ router.post("/login", (req, res) => {
         responseClient(res, 200, 0, "登录失败", data);
         return;
       }
-      data["username"] = userInfo.username;
       data["status"] = 0;
-      let sessionInfo = {
-        username: userInfo.username,
-        password: userInfo.password
+      data["profileInfo"] = {
+        name: userInfo.name,
+        email: userInfo.email
       };
-      req.session.userInfo = sessionInfo;
+      data["accessToken"] = jwt.sign(data, "my_token", { expiresIn: "1h" });
+      // let sessionInfo = {
+      //   username: userInfo.username,
+      //   password: userInfo.password
+      // };
+      // req.session.userInfo = sessionInfo;
       responseClient(res, 200, 0, "登录成功", data);
     })
     .catch(e => {
@@ -61,20 +50,20 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  let { userName, password } = req.body;
+  let { name, password } = req.body;
   User.findOne({
-    username: userName
+    name: name
   })
     .then(findResult => {
       if (findResult) {
         let data = {
           status: 0
-        }
+        };
         responseClient(res, 200, 0, "User存在", data);
         return;
       } else {
         let user = new User({
-          username: userName,
+          name: name,
           password: password,
           type: "normal"
         });
@@ -82,7 +71,7 @@ router.post("/register", (req, res) => {
           .save()
           .then(saveResult => {
             User.findOne({
-              username: userName
+              name: name
             })
               .then(findResult => {
                 var data = {

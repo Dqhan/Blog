@@ -18,7 +18,7 @@ window.fetchUtility = function (options, errorFun) {
         cache: 'no-store',
         body: assemble(options.data)
     };
-    let accessToken = localStorage.getItem('github_api_oauth_token');
+    let accessToken = localStorage.getItem('access_token');
     if (accessToken) {
         request.headers["Authorization"] = "Bearer " + accessToken;
     }
@@ -360,8 +360,8 @@ window.CommonUtil.isEmptyCSharpDate = function (date) {
 }
 
 window.CommonUtil.getCurrentUser = function () {
-    if (localStorage.getItem('currentUserInfo') && JSON.parse(localStorage.getItem('currentUserInfo')))
-        return JSON.parse(localStorage.getItem('currentUserInfo')).userName;
+    if (localStorage.getItem('profile_info') && JSON.parse(localStorage.getItem('profile_info')))
+        return JSON.parse(localStorage.getItem('profile_info')).name;
     else
         return "";
 }
@@ -462,7 +462,22 @@ window.CommonUtil.throttle = function (fn, delay, time) {
 window.CommonUtil.Config = {
     github: {
         client_id: "5f2b3eb585cd289ca088",
-        redirect_uri: escape("http://localhost/#/oAuthPromisition"),
+        redirect_uri: escape("http://10.2.118.52/#/oAuthPromisition"),
         client_secret: "281abd4850f451b536416ddede3e3a61ccce07fe"
+    },
+    HOST: "10.2.118.52"
+}
+
+var Util = {};
+
+window.Util = Util = {
+    LOGIN_TYPE: {
+        Account: 0,
+        WeChart: 1,
+        GitHub: 2,
+        Default: 3,
+        Login: 4,
+        Register: 5,
+        RegisterSuccessfully: 6
     }
 }

@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const config = require("../../config/config");
 const bodyParser = require("body-parser");
 const busboy = require("connect-busboy");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
+// const MongoStore = require("connect-mongo")(session);
 const expressjwt = require("express-jwt");
-const axios = require("axios");
+// const axios = require("axios");
 let util = require("../util");
 const app = new express();
 

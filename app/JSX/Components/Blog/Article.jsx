@@ -132,9 +132,6 @@ export default class Article extends React.Component {
                 logo={"文章"}
             >
                 <div className='article'>
-                    <div className='article-header'>
-                        <img src={require('../../../Image/blogHeader.jpg')} />
-                    </div>
                     {
                         Object.keys(this.state.data).length != 0 && <MarkDown
                             history={this.props.history}

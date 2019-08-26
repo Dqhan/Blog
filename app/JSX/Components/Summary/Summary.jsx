@@ -1,4 +1,4 @@
-const LoginType = {
+const Util.LOGIN_TYPE = {
     Account: 0,
     WeChart: 1,
     GitHub: 2,
@@ -20,7 +20,7 @@ export default class Summary extends React.Component {
             password: "",
             messages: [],
             comments: [],
-            loginType: LoginType.Default,
+            loginType: Util.LOGIN_TYPE.Default,
             displayUserName: ""
         };
         return this;
@@ -55,7 +55,7 @@ export default class Summary extends React.Component {
                 this.setState({
                     messages: this.convert('leavemessage')(lRes.data.list),
                     comments: this.convert('comment')(cRes.data.list),
-                    loginType: uRes.status == 0 ? LoginType.LoginSuccessfully : LoginType.Default,
+                    loginType: uRes.status == 0 ? Util.LOGIN_TYPE.LoginSuccessfully : Util.LOGIN_TYPE.Default,
                     displayUserName: CommonUtil.getCurrentUser()
                 });
                 $$.loading(false);
@@ -211,7 +211,7 @@ export default class Summary extends React.Component {
                     }));
                     CommonUtil.createCheckSessionTimer();
                     this.setState({
-                        loginType: LoginType.LoginSuccessfully,
+                        loginType: Util.LOGIN_TYPE.LoginSuccessfully,
                         displayUserName: CommonUtil.getCurrentUser()
                     })
                 }
@@ -245,7 +245,7 @@ export default class Summary extends React.Component {
             .then(res => {
                 $$.loading(false);
                 this.setState({
-                    loginType: LoginType.RegisterSuccessfully
+                    loginType: Util.LOGIN_TYPE.RegisterSuccessfully
                 })
             })
             .catch(e => {
@@ -269,7 +269,7 @@ export default class Summary extends React.Component {
                 localStorage.setItem('currentUserInfo', null);
                 CommonUtil.destoryCheckSessionTimer();
                 this.setState({
-                    loginType: LoginType.Default
+                    loginType: Util.LOGIN_TYPE.Default
                 });
             })
             .catch(e => {
@@ -290,7 +290,7 @@ export default class Summary extends React.Component {
 
     renderLoginComponent() {
         switch (this.state.loginType) {
-            case LoginType.Login:
+            case Util.LOGIN_TYPE.Login:
                 return <React.Fragment>
                     <div className="margin-bottom-10 margin-top-10">
                         <label>账号：</label>
@@ -312,11 +312,11 @@ export default class Summary extends React.Component {
                         <RButton text="登录" onClick={this.loginHandler} />
                         <RButton
                             text="返回"
-                            onClick={this.changeLogin.bind(this, LoginType.Default)}
+                            onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)}
                         />
                     </div>
                 </React.Fragment>
-            case LoginType.LoginSuccessfully:
+            case Util.LOGIN_TYPE.LoginSuccessfully:
                 return <div className='display-userInfo'>
                     <div>
                         <label>当前用户:</label>
@@ -326,7 +326,7 @@ export default class Summary extends React.Component {
                         <RButton text="注销" onClick={this.handleLogout.bind(this)} />
                     </div>
                 </div>
-            case LoginType.Register:
+            case Util.LOGIN_TYPE.Register:
                 return <React.Fragment>
                     <div className="margin-bottom-10 margin-top-10">
                         <label>账号：</label>
@@ -348,44 +348,44 @@ export default class Summary extends React.Component {
                         <RButton text="注册" onClick={this.registerHandler} />
                         <RButton
                             text="返回"
-                            onClick={this.changeLogin.bind(this, LoginType.Default)}
+                            onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)}
                         />
                     </div>
                 </React.Fragment>
-            case LoginType.Account:
+            case Util.LOGIN_TYPE.Account:
                 return (
                     <React.Fragment>
                         <div className="btn-group">
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="登录" onClick={this.changeLogin.bind(this, LoginType.Login)} />
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="注册" onClick={this.changeLogin.bind(this, LoginType.Register)} />
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="返回" onClick={this.changeLogin.bind(this, LoginType.Default)} />
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="登录" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)} />
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="注册" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Register)} />
+                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="返回" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)} />
                         </div>
                     </React.Fragment>
                 );
-            case LoginType.RegisterSuccessfully:
+            case Util.LOGIN_TYPE.RegisterSuccessfully:
                 return <div className='register-successfully'>
                     <div>
                         Register Successfully!
                     </div>
                     <div>
-                        <RButton text="登录" onClick={this.changeLogin.bind(this, LoginType.Login)} />
+                        <RButton text="登录" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)} />
                     </div>
                 </div>
-            case LoginType.LoginTimeout:
+            case Util.LOGIN_TYPE.LoginTimeout:
                 return <div className='summary-login-timeout'>
                     <div>
                         登录超时！
                     </div>
                     <div>
-                        <RButton text="登录" onClick={this.changeLogin.bind(this, LoginType.Login)} />
+                        <RButton text="登录" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)} />
                     </div>
                 </div>
-            case LoginType.Default:
+            case Util.LOGIN_TYPE.Default:
                 return (
                     <div className="summary-login-content">
                         <div
                             className="summary-login-item"
-                            onClick={this.changeLogin.bind(this, LoginType.Account)}
+                            onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Account)}
                         >
                             <img
                                 className="summary-login-item-icon"

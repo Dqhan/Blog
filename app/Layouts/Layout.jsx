@@ -2,22 +2,11 @@
 import Header from '../JSX/Components/Header';
 import LoginDialog from '../JSX/AUI/LoginDialog';
 
-const LoginType = {
-    Account: 0,
-    WeChart: 1,
-    GitHub: 2,
-    Default: 3,
-    Login: 4,
-    Register: 5,
-    RegisterSuccessfully: 6,
-};
-
 export default class Layout extends React.Component {
     constructor(props) {
         super(props);
         this.initState()
             .initBind();
-        this.loginType = localStorage.getItem('login_type') || LoginType.Account;
     }
 
     initState() {
@@ -50,15 +39,31 @@ export default class Layout extends React.Component {
     }
 
     renderInfo() {
-        let profile = localStorage.getItem('github_api_oauth_profile_info');
+        let profile = localStorage.getItem('profile_info'),
+            loginType = localStorage.getItem('login_type');
         profile = JSON.parse(profile);
         if (profile) return <React.Fragment>
-            <img onClick={this.handleLogout} className="layout-user-info-pic" src={`${profile.avatar_url}`}></img>
-            <ul className="layout-user-info-desc">
-                <li>{profile.name}</li>
-                <li>{profile.company}</li>
-                <li>{profile.location}</li>
-            </ul>
+            {
+                loginType == Util.LOGIN_TYPE.GitHub && <React.Fragment>
+                    <img onClick={this.handleLogout} className="layout-user-info-pic" src={`${profile.avatar_url}`}></img>
+                    <ul className="layout-user-info-desc">
+                        <li>{profile.name}</li>
+                        <li>{profile.company}</li>
+                        <li>{profile.location}</li>
+                    </ul>
+                </React.Fragment>
+            }
+            {
+                loginType == Util.LOGIN_TYPE.WeChat && <React.Fragment>
+
+                </React.Fragment>
+            }
+            {
+                loginType == Util.LOGIN_TYPE.Account && <React.Fragment>
+                    <span onClick={this.handleLogout} className="fi-page-user-a layout-user-info-pic"></span>
+                    <span className="layout-user-info-desc account">{profile.name}</span>
+                </React.Fragment>
+            }
         </React.Fragment>
         else return <React.Fragment>
             <span className="fi-page-arrow-right-b"></span>
@@ -68,32 +73,30 @@ export default class Layout extends React.Component {
 
     handleLogout() {
         $$.conform({
-            status: "show",
-            message: 'Are you sure to logout',
+            message: 'Are you sure to logout?',
             footer: true,
             handleClick: this.HandleConformClick
         });
     }
 
     HandleConformClick() {
+        localStorage.removeItem('login_type');
+        localStorage.removeItem('profile_info');
+        localStorage.removeItem('access_token');
         this.setState({
             dialogStatus: false
-        }, () => {
-            localStorage.removeItem('login_type');
-            localStorage.removeItem('github_api_oauth_profile_info');
-            localStorage.removeItem('github_api_oauth_token');
         });
     }
 
     logout() {
         let clr = {
-            [LoginType.Account]: function () {
+            [Util.LOGIN_TYPE.Account]: function () {
 
             },
-            [LoginType.GitHub]: function () {
+            [Util.LOGIN_TYPE.GitHub]: function () {
 
             },
-            [LoginType.WeChart]: function () {
+            [Util.LOGIN_TYPE.WeChart]: function () {
 
             }
         };
