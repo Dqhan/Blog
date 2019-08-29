@@ -13,6 +13,33 @@ export default class Content extends React.Component {
     initBind() {
     }
 
+    componentWillReceiveProps() {
+
+    }
+
+    componentDidMount() {
+        this.initEvent();
+    }
+
+    initEvent() {
+        function lazyload() {
+            let i = 0,
+                articles_els = $('.article-item'),
+                len = articles_els.length,
+                scollTop = document.body.scrollTop || document.documentElement.scrollTop,
+                winTop = window.innerHeight;
+            for (; i < len; i++) {
+                if (articles_els[i].offsetTop < scollTop + winTop) {
+                    if (articles_els[i].classList.contains('article-item-visible'))
+                        continue;
+                    else
+                        articles_els[i].classList.add('article-item-visible');
+                }
+            }
+        }
+        window.onscroll = CommonUtil.throttle(lazyload, this, 300, 600);
+    }
+
     renderSource() {
         return this.props.source.length > 0 && this.props.source.map((s, index) => {
             return <section className='article-item' key={`section-${index}`}>
@@ -44,15 +71,7 @@ export default class Content extends React.Component {
     }
 
     handleArticleLink(id) {
-        let path = '';
-        switch (this.props.module) {
-            case 'blog':
-                path = `#/sub/article?id=${id}`;
-                break;
-            case 'production':
-                path = `#/sub/production?id=${id}`;
-                break;
-        }
+        let path = `#/sub/article?id=${id}`;
         window.open(path);
     }
 

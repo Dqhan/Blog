@@ -441,7 +441,7 @@ window.CommonUtil.getUrlParamseter = function () {
     return urlParamseter;
 }
 
-window.CommonUtil.throttle = function (fn, delay, time) {
+window.CommonUtil.throttle = function (fn, context, delay, time) {
     let timer = null,
         start = new Date();
     return function () {
@@ -449,11 +449,11 @@ window.CommonUtil.throttle = function (fn, delay, time) {
             args = arguments;
         clearTimeout(timer);
         if (current - start >= time) {
-            fn.apply(this, args);
+            fn.apply(context, args);
             start = current;
         } else {
             let timer = setTimeout(() => {
-                fn.apply(this, args)
+                fn.apply(context, args)
             }, delay);
         }
     }

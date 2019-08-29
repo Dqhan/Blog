@@ -65,27 +65,16 @@ export default class Home extends React.Component {
 
     render() {
         var contentProps = {
-            module: 'blog',
             history: this.props.history,
-            source: this.state.blogs,
-            history: this.props.history
+            source: this.state.blogs
         }
         return <div>
             <Header isHome={true} />
             <$$.Banner
                 bannerList={[
-                    {
-                        leftText: "成熟的人",
-                        rightText: "谦虚、低调、柔和"
-                    },
-                    {
-                        leftText: "为人处世",
-                        rightText: "真诚、善良、正直"
-                    },
-                    {
-                        leftText: "不忘初心",
-                        rightText: "方得始终"
-                    }
+                    { leftText: "成熟的人", rightText: "谦虚、低调、柔和" },
+                    { leftText: "为人处世", rightText: "真诚、善良、正直" },
+                    { leftText: "不忘初心", rightText: "方得始终" }
                 ]}
             />
             <Layout isHome={true}>

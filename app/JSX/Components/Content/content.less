@@ -1,6 +1,8 @@
 .article {
     .article-item {
-        margin: 20px 0;
+        margin-top: 65px;
+        visibility: hidden;
+        transition: all 0.5s ease;
 
         .article-item-title {
             position     : relative;
@@ -57,6 +59,13 @@
         .article-item-description {
             color        : #5B5B5B;
             margin-bottom: 10px;
+            height       : 120px;
+            overflow     : hidden;
         }
+    }
+
+    .article-item-visible {
+        visibility: visible;
+        margin    : 20px 0;
     }
 }

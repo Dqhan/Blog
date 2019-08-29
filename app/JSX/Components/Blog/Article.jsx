@@ -129,7 +129,7 @@ export default class Article extends React.Component {
         return <React.Fragment>
             <Layout
                 history={this.props.history}
-                logo={"文章"}
+                logo="文章|Dqhan's Blog"
             >
                 <div className='article'>
                     {
