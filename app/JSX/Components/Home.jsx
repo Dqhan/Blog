@@ -56,7 +56,8 @@ export default class Home extends React.Component {
                 author: r.author,
                 viewCount: r.viewCount,
                 comments: r.comments,
-                content: r.content.replace(/[# ]/, '')
+                content: r.content.replace(/[# ]/, ''),
+                tags: r.tags
             }
             arr.push(temp);
         })

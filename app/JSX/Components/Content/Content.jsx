@@ -3,8 +3,6 @@ export default class Content extends React.Component {
         super(props);
         this.state = {
             tags: [
-                'javascript',
-                '设计模式'
             ]
         }
         this.initBind();
@@ -52,7 +50,7 @@ export default class Content extends React.Component {
                         <div className="article-tag-item fi-page-exam-date-a">
                             {CommonUtil.formatDateTime(new Date(parseInt(s.time)), true)}
                         </div>
-                        {this.renderTag()}
+                        {this.renderTag(s.tags)}
                     </div>
                     <p className='article-item-description'>{s.content}</p>
                     <RButton text="Read More" target="_blank" onClick={this.handleArticleLink.bind(this, s.id)}></RButton>
@@ -62,12 +60,25 @@ export default class Content extends React.Component {
         })
     }
 
-    renderTag() {
-        return this.state.tags.map((t, index) => {
+    renderTag(tags) {
+        return tags.map((t, index) => {
             return <div key={`tag-${index}`} className='article-tag-item fi-page-edit-a'>
-                {t}
+                {this.assembleTagItem(t)}
             </div>
         })
+    }
+
+    assembleTagItem(enumTag) {
+        let clr = {
+            [Util.TAG_TYPE.Javascript]: "Javascript",
+            [Util.TAG_TYPE.Css]: "CSS",
+            [Util.TAG_TYPE.SJModule]: "设计模式",
+            [Util.TAG_TYPE.Webpack]: "Webpack",
+            [Util.TAG_TYPE.Node]: "Node",
+            [Util.TAG_TYPE.React]: "React",
+            [Util.TAG_TYPE.Web]: "Web",
+        };
+        return clr[enumTag];
     }
 
     handleArticleLink(id) {

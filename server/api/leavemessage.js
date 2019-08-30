@@ -11,7 +11,7 @@ router.post("/getLeaveMessage", (req, res) => {
     total: 0,
     list: []
   };
-  LeaveMessage.find(searchCondition, "_id content author time")
+  LeaveMessage.find(searchCondition, "_id content author time viewCount tags")
     .then(result => {
       responseData.total = result.length;
       result.sort((pre, next) => {

@@ -39,9 +39,8 @@ export default class Blog extends React.Component {
         fetchUtility(option).then(res => {
             this.setState({
                 blogs: this.convert(res.data.list)
-            }, () => {
-                $$.loading(false);
             });
+            $$.loading(false);
         }).catch(e => {
             $$.loading(true);
             console.log(e);
@@ -58,7 +57,8 @@ export default class Blog extends React.Component {
                 author: r.author,
                 viewCount: r.viewCount,
                 commentCount: r.commentCount,
-                content: r.content.replace(/[# ]/, '')
+                content: r.content.replace(/[# ]/, ''),
+                tags: r.tags
             }
             arr.push(temp);
         })

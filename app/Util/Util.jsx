@@ -13,10 +13,12 @@ window.fetchUtility = function (options, errorFun) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            // 'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
         cache: 'no-store',
         body: assemble(options.data)
+        // body: JSON.stringify(options.data)
     };
     let accessToken = localStorage.getItem('access_token');
     if (accessToken) {
@@ -479,5 +481,14 @@ window.Util = Util = {
         Login: 4,
         Register: 5,
         RegisterSuccessfully: 6
+    },
+    TAG_TYPE: {
+        Javascript: 0,
+        Css: 1,
+        SJModule: 2,
+        Webpack: 3,
+        Node: 4,
+        React: 5,
+        Web: 6
     }
 }

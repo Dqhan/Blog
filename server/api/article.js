@@ -4,24 +4,19 @@ var Article = require("../../models/article");
 var Comment = require("../../models/comment");
 var util = require("../util");
 
-router.post("/addArticle", function (req, res) {
-  var title = req.body.title;
-  var content = req.body.content;
-  var article = req.body.article;
-  var time = req.body.time;
-  var author = "Dqhan";
-  var viewCount = 0;
-  var commentCount = 0;
-  var test = 0;
+router.post("/addArticle", function(req, res) {
+  let { title, content, time, viewCount, author, tags } = req.body;
+  if (tags instanceof Array === false)
+    tags = tags.split(",").map(t => {
+      return parseInt(t);
+    });
   var tempArticle = new Article({
     title,
     content,
-    article,
     viewCount,
-    commentCount,
     time,
     author,
-    test
+    tags
   });
   tempArticle
     .save()
@@ -93,10 +88,10 @@ router.get("/getArticleDetail", (req, res) => {
     });
 });
 
-router.post("/getArticles", function (req, res) {
-  var searchCondition = {};
-  var offset =
-    req.body.offset - 1 < 0 ? 0 : (req.body.offset - 1) * req.body.limit;
+router.post("/getArticles", function(req, res) {
+  let searchCondition = {},
+    limit = req.body.limit,
+    offset = req.body.offset - 1 < 0 ? 0 : req.body.offset - 1;
   var responseData = {
     total: 0,
     list: []
@@ -106,14 +101,16 @@ router.post("/getArticles", function (req, res) {
       responseData.total = count;
       Article.find(
         searchCondition,
-        "_id title content author viewCount commentCount time",
-        {
-          skip: offset,
-          limit: 5
-        }
+        "_id title content author viewCount time tags"
       )
         .then(result => {
-          responseData.list = result;
+          result = result.sort(function(pre, next) {
+            return next.time - pre.time;
+          });
+          responseData.list = result.slice(
+            offset * limit,
+            (offset + 1) * limit
+          );
           util.responseClient(res, 200, 0, "success", responseData);
         })
         .catch(err => {
@@ -125,7 +122,7 @@ router.post("/getArticles", function (req, res) {
     });
 });
 
-router.post("/getCommentsbyArticleId", function (req, res) {
+router.post("/getCommentsbyArticleId", function(req, res) {
   let articleId = req.body.articleId;
   let searchCondition = {
     articleId
@@ -142,9 +139,9 @@ router.post("/getCommentsbyArticleId", function (req, res) {
         "_id articleTitle articleId content author time"
       )
         .then(result => {
-          result.sort(function (pre, next) {
+          result.sort(function(pre, next) {
             return next.time - pre.time;
-          })
+          });
           responseData.list = result;
           util.responseClient(res, 200, 0, "success", responseData);
         })
@@ -157,7 +154,7 @@ router.post("/getCommentsbyArticleId", function (req, res) {
     });
 });
 
-router.post("/getComments", function (req, res) {
+router.post("/getComments", function(req, res) {
   let offset = req.body.offset - 1 < 0 ? 0 : req.body.offset - 1;
   let limit = req.body.limit;
   let responseData = {
@@ -182,7 +179,7 @@ router.post("/getComments", function (req, res) {
     });
 });
 
-router.post("/addComment", function (req, res) {
+router.post("/addComment", function(req, res) {
   let content = req.body.content,
     time = req.body.time,
     author = req.body.author || "游客",
