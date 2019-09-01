@@ -26,15 +26,10 @@ export default class Home extends React.Component {
 
     retrieveBlogs() {
         $$.loading(true);
-        let data = {
-            limit: 5,
-            offset: 1
-        }
         let option = {
             url: `./api/article/getArticles`,
-            method: 'POST',
-            data: data
-        }
+            method: 'GET'
+        };
         fetchUtility(option).then(res => {
             this.state.blogs = this.convert(res.data.list);
             this.setState(this.state, () => {

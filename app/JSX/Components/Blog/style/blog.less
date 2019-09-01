@@ -1,40 +1,40 @@
 .blog {
     .blog-header {
-        width: 100%;
-        height: 200px;
+        width   : 100%;
+        height  : 200px;
         overflow: hidden;
-        cursor: pointer;
+        cursor  : pointer;
 
         img {
-            width: 100%;
-            height: 200px;
+            width     : 100%;
+            height    : 200px;
             transition: all 0.6s;
-            /*&:hover {
+            /*&       :hover {
                 transform: scale(1.2);
             }*/
         }
     }
 
     .classify {
-        display: -webkit-flex;
-        display: flex;
-        flex-basis: 100%;
+        display       : -webkit-flex;
+        display       : flex;
+        flex-basis    : 100%;
         flex-direction: row;
-        height: 100px;
+        height        : 100px;
 
-        & > article {
-            flex-basis: inherit;
-            margin: 20px;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all .4s ease-in-out;
+        &>article {
+            flex-basis        : inherit;
+            margin            : 20px;
+            width             : 50px;
+            height            : 50px;
+            text-align        : center;
+            line-height       : 50px;
+            border-radius     : 5px;
+            cursor            : pointer;
+            transition        : all .4s ease-in-out;
             -webkit-transition: all .4s ease-in-out;
-            font-weight: bold;
-            color: #ffffff;
+            font-weight       : bold;
+            color             : #ffffff;
 
             &:hover {
                 box-shadow: 0px 19px 13px -12px #6C6C6C;
@@ -59,6 +59,14 @@
 
             &:nth-child(5) {
                 background: rgb(255, 153, 0);
+            }
+
+            &:nth-child(6) {
+                background: rgb(16, 215, 230);
+            }
+
+            &:nth-child(7) {
+                background: rgb(224, 53, 240);
             }
         }
     }

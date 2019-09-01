@@ -10,6 +10,7 @@ import About from '../JSX/Components/About/About';
 import Production from '../JSX/Components/Production/Production';
 import Article from '../JSX/Components/Blog/Article';
 import Write from '../JSX/Components/Blog/Write';
+import Overview from '../JSX/Components/Overview/Overview';
 const SubRouter = () => {
     return <Switch>
         <Route path="/sub/lifemark" component={Life} />
@@ -19,6 +20,7 @@ const SubRouter = () => {
         <Route path="/sub/production" component={Production} />
         <Route path="/sub/about" component={About} />
         <Route path="/sub/write" component={Write} />
+        <Route path="/sub/overview" component={Overview} />
     </Switch>
 }
 export default SubRouter;

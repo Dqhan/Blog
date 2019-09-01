@@ -3,7 +3,7 @@ var crypto = require("crypto");
 module.exports = {
   MD5_SUFFIX:
     "eiowafnajkdlfjsdkfj大姐夫文姐到了困难额我积分那看到你@#￥%……&）（*&……）",
-  md5: function(pwd) {
+  md5: function (pwd) {
     let md5 = crypto.createHash("md5");
     return md5.update(pwd).digest("hex");
   },
@@ -34,7 +34,9 @@ module.exports = {
     "/article/getCommentsbyArticleId",
     "/article/getComments",
     "/article/addComment",
-    "/document/upload",
+    "/article/getArticlesByTag",
+    "/article/retrieveoverview",
+    "/document/upload"
     // "/leavemessage/getLeaveMessage",
     // "/leavemessage/addLeaveMessage"
   ]

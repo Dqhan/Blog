@@ -48,6 +48,7 @@ export default class Header extends React.Component {
                     <ul>
                         <li className='nav-item'><Link to='/'>首页</Link></li>
                         <li className='nav-item'><Link to='/sub/blog'>博客</Link></li>
+                        <li className='nav-item'><Link to='/sub/overview'>总览</Link></li>
                         <li className='nav-item'><Link to='/sub/production'>UI Framework</Link></li>
                         <li className='nav-item'><Link to='/sub/leavemessage'>留言板</Link></li>
                         <li className='nav-item'><Link to='/sub/about'>关于我</Link></li>

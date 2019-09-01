@@ -19,6 +19,7 @@ export default class Blog extends React.Component {
 
     initBind() {
         this.handleWriteBlog = this.handleWriteBlog.bind(this);
+        this.handleClassifyClick = this.handleClassifyClick.bind(this);
     }
 
     componentDidMount() {
@@ -27,15 +28,10 @@ export default class Blog extends React.Component {
 
     retrieveBlogs() {
         $$.loading(true);
-        let data = {
-            limit: 5,
-            offset: 1
-        }
         let option = {
             url: `./api/article/getArticles`,
-            method: 'POST',
-            data: data
-        }
+            method: 'GET'
+        };
         fetchUtility(option).then(res => {
             this.setState({
                 blogs: this.convert(res.data.list)
@@ -69,6 +65,57 @@ export default class Blog extends React.Component {
         this.props.history.push('/sub/write');
     }
 
+    handleClassifyClick(e) {
+        let self = this,
+            clr = {
+                "Javascript": function () {
+                    self.retrieveBlogsByTag("Javascript");
+                },
+                "React": function () {
+                    self.retrieveBlogsByTag("React");
+                },
+                "Node": function () {
+                    self.retrieveBlogsByTag("Node");
+                },
+                "Css": function () {
+                    self.retrieveBlogsByTag("Css");
+                },
+                "Webpack": function () {
+                    self.retrieveBlogsByTag("Webpack");
+                },
+                "设计模式": function () {
+                    self.retrieveBlogsByTag("SJModule");
+                },
+                "Web知识": function () {
+                    self.retrieveBlogsByTag("Web")
+                },
+            };
+        clr[e.target.textContent]();
+    }
+
+    retrieveBlogsByTag(tag) {
+        let data = {
+            tag: tag
+        },
+            options = {
+                url: `./api/article/getArticlesByTag`,
+                method: 'POST',
+                data: data
+            };
+        $$.loading(true);
+        fetchUtility(options)
+            .then(res => {
+                this.setState({
+                    blogs: this.convert(res.data.list)
+                });
+                $$.loading(false);
+            })
+            .catch(e => {
+                $$.loading(false);
+                console.log(e);
+            });
+    }
+
     render() {
         let contentProps = {
             history: this.props.history,
@@ -81,13 +128,14 @@ export default class Blog extends React.Component {
         return <React.Fragment>
             <Layout {...layoutProps} >
                 <div className='blog'>
-                    <div className='classify'>
+                    <div className='classify' onClick={this.handleClassifyClick}>
                         <article>Javascript</article>
                         <article>React</article>
                         <article>Node</article>
                         <article>Css</article>
-                        <article>工作笔记</article>
-
+                        <article>Webpack</article>
+                        <article>设计模式</article>
+                        <article>Web知识</article>
                     </div>
                     <Content {...contentProps} />
                     <div style={{ textAlign: ' center' }}>
