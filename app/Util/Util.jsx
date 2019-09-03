@@ -484,11 +484,12 @@ window.Util = Util = {
     },
     TAG_TYPE: {
         Javascript: 0,
-        Css: 1,
-        SJModule: 2,
-        Webpack: 3,
-        Node: 4,
-        React: 5,
-        Web: 6
+        Typescript: 1,
+        Es6: 2,
+        SJModule: 3,
+        Webpack: 4,
+        Node: 5,
+        React: 6,
+        Web: 7
     }
 }

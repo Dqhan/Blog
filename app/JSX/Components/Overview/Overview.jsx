@@ -1,8 +1,6 @@
 require('./overview.less');
-
 import Layout from '../../../Layouts/Layout';
-
-var err = [
+let err = [
     'handleRowDataChanged',
     'pagerChangedHandler'
 ];
@@ -40,7 +38,12 @@ export default class Overview extends React.Component {
     }
 
     componentDidMount() {
+        this.createEChart();
         this.retrieveTotalBlogs()
+    }
+
+    createEChart() {
+        this.overviewEChart = echarts.init(document.getElementById('overview-chart'));
     }
 
     retrieveTotalBlogs() {
@@ -59,6 +62,8 @@ export default class Overview extends React.Component {
                 this.setState({
                     source: res.data.list,
                     pageCount: Math.ceil(res.data.total / this.state.pageSize)
+                }, () => {
+                    this.renderPie();
                 })
                 $$.loading(false);
             })
@@ -66,6 +71,57 @@ export default class Overview extends React.Component {
                 $$.loading(false);
                 console.log(e);
             });
+    }
+
+    renderPie() {
+        let
+            option = {
+                title: {
+                    text: 'Blog分类统计',
+                    x: 'center',
+                    textStyle: {
+                        color: '#5B5B5B',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    bottom: 'bottom',
+                    data: ['Javascript', 'React', 'Node', 'Typescript', 'Es6', 'Webpack', '设计模式', 'Web知识体系']
+                },
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [
+                            { value: 335, name: 'Javascript' },
+                            { value: 310, name: 'React' },
+                            { value: 234, name: 'Node' },
+                            { value: 135, name: 'Typescript' },
+                            { value: 1548, name: 'Es6' },
+                            { value: 135, name: 'Webpack' },
+                            { value: 1548, name: '设计模式' },
+                            { value: 1548, name: 'Web知识体系' }
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+        this.overviewEChart.setOption(option);
     }
 
     pagerChangedHandler(e, args) {
@@ -88,6 +144,7 @@ export default class Overview extends React.Component {
             >
                 <div className='overview'>
                     <div className='overview-content'>
+                        <div id="overview-chart" style={{ width: "100%", height: "400px" }}></div>
                         <$$.Table
                             columns={this.columns}
                             items={this.state.source}

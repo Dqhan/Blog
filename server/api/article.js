@@ -4,7 +4,7 @@ var Article = require("../../models/article");
 var Comment = require("../../models/comment");
 var util = require("../util");
 
-router.post("/addArticle", function (req, res) {
+router.post("/addArticle", function(req, res) {
   let { title, content, time, viewCount, author, tags } = req.body;
   if (tags instanceof Array === false)
     tags = tags.split(",").map(t => {
@@ -71,7 +71,7 @@ router.get("/getArticleDetail", (req, res) => {
     });
 });
 
-router.get("/getArticles", function (req, res) {
+router.get("/getArticles", function(req, res) {
   let searchCondition = {},
     responseData = {
       total: 0,
@@ -85,7 +85,7 @@ router.get("/getArticles", function (req, res) {
         "_id title content author viewCount time tags"
       )
         .then(result => {
-          result = result.sort(function (pre, next) {
+          result = result.sort(function(pre, next) {
             return next.time - pre.time;
           });
           responseData.list = result;
@@ -100,7 +100,7 @@ router.get("/getArticles", function (req, res) {
     });
 });
 
-router.post("/retrieveoverview", function (req, res) {
+router.post("/retrieveoverview", function(req, res) {
   let searchCondition = {},
     limit = req.body.limit,
     offset = req.body.offset - 1 < 0 ? 0 : req.body.offset - 1;
@@ -116,7 +116,7 @@ router.post("/retrieveoverview", function (req, res) {
         "_id title content author viewCount time tags"
       )
         .then(result => {
-          result = result.sort(function (pre, next) {
+          result = result.sort(function(pre, next) {
             return next.time - pre.time;
           });
           responseData.list = result.slice(
@@ -132,13 +132,11 @@ router.post("/retrieveoverview", function (req, res) {
     .catch(err => {
       util.responseClient(res);
     });
-})
+});
 
-router.post("/getArticlesByTag", function (req, res) {
-  let tag = req.body.tag,
-    searchCondition = {
-      tag: tag
-    };
+router.post("/getArticlesByTag", function(req, res) {
+  let tag = parseInt(req.body.tag),
+    searchCondition = {};
   var responseData = {
     total: 0,
     list: []
@@ -151,10 +149,18 @@ router.post("/getArticlesByTag", function (req, res) {
         "_id title content author viewCount time tags"
       )
         .then(result => {
-          result = result.sort(function (pre, next) {
+          let arr = [];
+          result = result.sort(function(pre, next) {
             return next.time - pre.time;
           });
-          responseData.list = result;
+          result.map(r => {
+            if (r.tags.includes(tag)) {
+              arr.push(r);
+            }
+            return arr;
+          });
+          responseData.list = arr;
+          responseData.total = arr.length;
           util.responseClient(res, 200, 0, "success", responseData);
         })
         .catch(err => {
@@ -166,7 +172,7 @@ router.post("/getArticlesByTag", function (req, res) {
     });
 });
 
-router.post("/getCommentsbyArticleId", function (req, res) {
+router.post("/getCommentsbyArticleId", function(req, res) {
   let articleId = req.body.articleId;
   let searchCondition = {
     articleId
@@ -183,7 +189,7 @@ router.post("/getCommentsbyArticleId", function (req, res) {
         "_id articleTitle articleId content author time"
       )
         .then(result => {
-          result.sort(function (pre, next) {
+          result.sort(function(pre, next) {
             return next.time - pre.time;
           });
           responseData.list = result;
@@ -198,7 +204,7 @@ router.post("/getCommentsbyArticleId", function (req, res) {
     });
 });
 
-router.post("/getComments", function (req, res) {
+router.post("/getComments", function(req, res) {
   let offset = req.body.offset - 1 < 0 ? 0 : req.body.offset - 1;
   let limit = req.body.limit;
   let responseData = {
@@ -223,7 +229,7 @@ router.post("/getComments", function (req, res) {
     });
 });
 
-router.post("/addComment", function (req, res) {
+router.post("/addComment", function(req, res) {
   let content = req.body.content,
     time = req.body.time,
     author = req.body.author || "游客",

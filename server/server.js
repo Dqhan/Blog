@@ -17,7 +17,7 @@ const proxy = httpProxy.createProxyServer({
   target: targetUrl
 });
 
-app.use('/', express.static(path.join(__dirname, "..", 'build')));
+app.use('/', express.static(path.join(__dirname, "..")));
 
 /*端口有上限 */
 app.listen(80, () => console.log('Example app listening on port 80!'));

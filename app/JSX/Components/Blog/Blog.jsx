@@ -69,25 +69,28 @@ export default class Blog extends React.Component {
         let self = this,
             clr = {
                 "Javascript": function () {
-                    self.retrieveBlogsByTag("Javascript");
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Javascript);
                 },
                 "React": function () {
-                    self.retrieveBlogsByTag("React");
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.React);
                 },
                 "Node": function () {
-                    self.retrieveBlogsByTag("Node");
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Node);
                 },
-                "Css": function () {
-                    self.retrieveBlogsByTag("Css");
+                "Typescript": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Typescript);
+                },
+                "Es6": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Es6);
                 },
                 "Webpack": function () {
-                    self.retrieveBlogsByTag("Webpack");
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Webpack);
                 },
                 "设计模式": function () {
-                    self.retrieveBlogsByTag("SJModule");
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.SJModule);
                 },
-                "Web知识": function () {
-                    self.retrieveBlogsByTag("Web")
+                "Web知识体系": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Web)
                 },
             };
         clr[e.target.textContent]();
@@ -130,12 +133,13 @@ export default class Blog extends React.Component {
                 <div className='blog'>
                     <div className='classify' onClick={this.handleClassifyClick}>
                         <article>Javascript</article>
+                        <article>Typescript</article>
+                        <article>Es6</article>
                         <article>React</article>
                         <article>Node</article>
-                        <article>Css</article>
                         <article>Webpack</article>
                         <article>设计模式</article>
-                        <article>Web知识</article>
+                        <article>Web知识体系</article>
                     </div>
                     <Content {...contentProps} />
                     <div style={{ textAlign: ' center' }}>
