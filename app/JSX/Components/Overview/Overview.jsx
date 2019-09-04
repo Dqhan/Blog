@@ -12,7 +12,15 @@ export default class Overview extends React.Component {
             source: [],
             pageSize: 5,
             selectedPage: 1,
-            pageCount: 0
+            pageCount: 0,
+            javascriptTotal: 0,
+            typescriptTotal: 0,
+            es6Total: 0,
+            webTotal: 0,
+            sjmoduleTotal: 0,
+            webpackTotal: 0,
+            nodeTotal: 0,
+            reactTotal: 0
         };
         err.forEach(e => {
             this[e] = this[e].bind(this);
@@ -44,7 +52,63 @@ export default class Overview extends React.Component {
 
     createEChart() {
         this.overviewEChart = echarts.init(document.getElementById('overview-chart'));
+        this.overviewEChart.on("click", this.hanldeEChartClick.bind(this));
     }
+
+    hanldeEChartClick(e) {
+        let self = this,
+            clr = {
+                "Javascript": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Javascript);
+                },
+                "React": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.React);
+                },
+                "Node": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Node);
+                },
+                "Typescript": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Typescript);
+                },
+                "Es6": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Es6);
+                },
+                "Webpack": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Webpack);
+                },
+                "设计模式": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.SJModule);
+                },
+                "Web知识体系": function () {
+                    self.retrieveBlogsByTag(Util.TAG_TYPE.Web)
+                },
+            };
+        clr[e.data.name]();
+    };
+
+    retrieveBlogsByTag(tag) {
+        let data = {
+            tag: tag
+        },
+            options = {
+                url: `./api/article/getArticlesByTag`,
+                method: 'POST',
+                data: data
+            };
+        $$.loading(true);
+        fetchUtility(options)
+            .then(res => {
+                this.setState({
+                    source: res.data.list
+                });
+                $$.loading(false);
+            })
+            .catch(e => {
+                $$.loading(false);
+                console.log(e);
+            });
+    }
+
 
     retrieveTotalBlogs() {
         $$.loading(true);
@@ -59,9 +123,35 @@ export default class Overview extends React.Component {
             };
         fetchUtility(option)
             .then(res => {
+                let javascriptTotal = 0,
+                    typescriptTotal = 0,
+                    es6Total = 0,
+                    webTotal = 0,
+                    sjmoduleTotal = 0,
+                    webpackTotal = 0,
+                    nodeTotal = 0,
+                    reactTotal = 0;
+                res.data.list.map(l => {
+                    if (l.tags.includes(Util.TAG_TYPE.Javascript)) javascriptTotal++;
+                    if (l.tags.includes(Util.TAG_TYPE.Typescript)) typescriptTotal++;
+                    if (l.tags.includes(Util.TAG_TYPE.Es6)) es6Total++;
+                    if (l.tags.includes(Util.TAG_TYPE.SJModule)) sjmoduleTotal++;
+                    if (l.tags.includes(Util.TAG_TYPE.Webpack)) webpackTotal++;
+                    if (l.tags.includes(Util.TAG_TYPE.Node)) nodeTotal++;
+                    if (l.tags.includes(Util.TAG_TYPE.React)) reactTotal++;
+                    if (l.tags.includes(Util.TAG_TYPE.Web)) webTotal++;
+                })
                 this.setState({
                     source: res.data.list,
-                    pageCount: Math.ceil(res.data.total / this.state.pageSize)
+                    pageCount: Math.ceil(res.data.total / this.state.pageSize),
+                    javascriptTotal: javascriptTotal,
+                    typescriptTotal: typescriptTotal,
+                    es6Total: es6Total,
+                    sjmoduleTotal: sjmoduleTotal,
+                    webpackTotal: webpackTotal,
+                    nodeTotal: nodeTotal,
+                    reactTotal: reactTotal,
+                    webTotal: webTotal
                 }, () => {
                     this.renderPie();
                 })
@@ -74,7 +164,7 @@ export default class Overview extends React.Component {
     }
 
     renderPie() {
-        let
+        let self = this,
             option = {
                 title: {
                     text: 'Blog分类统计',
@@ -101,15 +191,16 @@ export default class Overview extends React.Component {
                         radius: '55%',
                         center: ['50%', '60%'],
                         data: [
-                            { value: 335, name: 'Javascript' },
-                            { value: 310, name: 'React' },
-                            { value: 234, name: 'Node' },
-                            { value: 135, name: 'Typescript' },
-                            { value: 1548, name: 'Es6' },
-                            { value: 135, name: 'Webpack' },
-                            { value: 1548, name: '设计模式' },
-                            { value: 1548, name: 'Web知识体系' }
+                            { value: self.state.javascriptTotal, name: 'Javascript' },
+                            { value: self.state.reactTotal, name: 'React' },
+                            { value: self.state.nodeTotal, name: 'Node' },
+                            { value: self.state.typescriptTotal, name: 'Typescript' },
+                            { value: self.state.es6Total, name: 'Es6' },
+                            { value: self.state.webTotal, name: 'Webpack' },
+                            { value: self.state.sjmoduleTotal, name: '设计模式' },
+                            { value: self.state.webTotal, name: 'Web知识体系' }
                         ],
+                        color: ["#99CCFF","#CCCCFF","#FFCCCC","#99CC33","#99CCCC","#66CC99","#996699","#FFCC99"],
                         itemStyle: {
                             emphasis: {
                                 shadowBlur: 10,
@@ -133,7 +224,9 @@ export default class Overview extends React.Component {
     }
 
     handleRowDataChanged(e, args) {
-        var a = args;
+        let id = args.data._id,
+            path = `#/sub/article?id=${id}`;
+        window.open(path);
     }
 
     render() {
@@ -144,7 +237,7 @@ export default class Overview extends React.Component {
             >
                 <div className='overview'>
                     <div className='overview-content'>
-                        <div id="overview-chart" style={{ width: "100%", height: "400px" }}></div>
+                        <div id="overview-chart" style={{ width: "100%", height: "400px", marginBottom: '20px' }}></div>
                         <$$.Table
                             columns={this.columns}
                             items={this.state.source}
@@ -169,12 +262,12 @@ export default class Overview extends React.Component {
 class OverviewRowTempate extends $$.DataGridRow {
     constructor(props) {
         super(props);
-        this.handleTitleClick = this.handleTitleClick.bind(this);
     }
 
-    handleTitleClick(e) {
+    handleTitleClick(data, e) {
         this.trigger("rowDataChanged", e, {
-            actionType: "click"
+            actionType: "click",
+            data: data
         });
     }
 
@@ -182,12 +275,14 @@ class OverviewRowTempate extends $$.DataGridRow {
         var data = this.props.rowDate;
         return (
             <div role="table-body-row" data-part="row">
-                <div data-part="cell" className="overview-content-title" onClick={this.handleTitleClick}>
+                <div data-part="cell" className="overview-content-title" onClick={this.handleTitleClick.bind(this, data)}>
                     {data.title}
                 </div>
                 <div data-part="cell">{CommonUtil.formatDateTime(new Date(parseInt(data.time)), true)}</div>
                 <div data-part="cell">{data.author}</div>
-                <div data-part="cell">{data.tags}</div>
+                <div data-part="cell">{data.tags.map(t => {
+                    return Util.assembleTagItem(t) + ' ';
+                })}</div>
             </div>
         );
     }

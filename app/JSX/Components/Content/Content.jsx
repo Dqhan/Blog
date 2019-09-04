@@ -63,22 +63,9 @@ export default class Content extends React.Component {
     renderTag(tags) {
         return tags.map((t, index) => {
             return <div key={`tag-${index}`} className='article-tag-item fi-page-edit-a'>
-                {this.assembleTagItem(t)}
+                {Util.assembleTagItem(t)}
             </div>
         })
-    }
-
-    assembleTagItem(enumTag) {
-        let clr = {
-            [Util.TAG_TYPE.Javascript]: "Javascript",
-            [Util.TAG_TYPE.Css]: "CSS",
-            [Util.TAG_TYPE.SJModule]: "设计模式",
-            [Util.TAG_TYPE.Webpack]: "Webpack",
-            [Util.TAG_TYPE.Node]: "Node",
-            [Util.TAG_TYPE.React]: "React",
-            [Util.TAG_TYPE.Web]: "Web",
-        };
-        return clr[enumTag];
     }
 
     handleArticleLink(id) {

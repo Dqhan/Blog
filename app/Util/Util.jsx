@@ -491,5 +491,18 @@ window.Util = Util = {
         Node: 5,
         React: 6,
         Web: 7
+    },
+    assembleTagItem: function (enumTag) {
+        let clr = {
+            [Util.TAG_TYPE.Javascript]: "Javascript",
+            [Util.TAG_TYPE.Typescript]: "Typescript",
+            [Util.TAG_TYPE.Es6]: "Es6",
+            [Util.TAG_TYPE.SJModule]: "设计模式",
+            [Util.TAG_TYPE.Webpack]: "Webpack",
+            [Util.TAG_TYPE.Node]: "Node",
+            [Util.TAG_TYPE.React]: "React",
+            [Util.TAG_TYPE.Web]: "Web",
+        };
+        return clr[enumTag];
     }
 }

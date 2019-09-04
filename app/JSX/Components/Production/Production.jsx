@@ -167,12 +167,14 @@ export default class Production extends React.Component {
                                 </pre>
                             </div>
                             <button
+                                className="button"
                                 style={{ position: "relative", zIndex: "100000000" }}
                                 onClick={this.showLoadingHandler.bind(this)}
                             >
                                 show
                                 </button>
                             <button
+                                className="button"
                                 style={{ position: "relative", zIndex: "100000000" }}
                                 onClick={this.hideLoadingHanlder.bind(this)}
                             >
@@ -237,7 +239,7 @@ export default class Production extends React.Component {
                                     rowTempate={ParamseterRowTempate}
                                 />
                             </div>
-                            <button onClick={this.dialogShowHandler}>Dialog</button>
+                            <button className="button" onClick={this.dialogShowHandler}>Dialog</button>
                             <hr></hr>
                         </section>
                         <section>
@@ -689,7 +691,7 @@ class RowTempate extends $$.DataGridRow {
                         </section>
                         <section>
                             <h4>TipConform</h4>
-                            <button onClick={this.showTipBtnClick.bind(this)}>show</button>
+                            <button className="button" onClick={this.showTipBtnClick.bind(this)}>show</button>
                             <div className="production-container-cell">
                                 <pre>
                                     {
