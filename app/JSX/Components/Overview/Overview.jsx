@@ -238,7 +238,7 @@ export default class Overview extends React.Component {
                 <div className='overview'>
                     <div className='overview-content'>
                         <div id="overview-chart" style={{ width: "100%", height: "400px", marginBottom: '20px' }}></div>
-                        <$$.Table
+                        <R.Datagrid
                             columns={this.columns}
                             items={this.state.source}
                             rowTempate={OverviewRowTempate}
@@ -246,7 +246,7 @@ export default class Overview extends React.Component {
                         />
                     </div>
                     <div className='overview-pager'>
-                        <$$.Pager
+                        <R.Pager
                             pageSize={this.state.pageSize}
                             pageCount={this.state.pageCount}
                             selectedPage={this.state.selectedPage}
@@ -259,7 +259,7 @@ export default class Overview extends React.Component {
     }
 }
 
-class OverviewRowTempate extends $$.DataGridRow {
+class OverviewRowTempate extends R.DataGridRow {
     constructor(props) {
         super(props);
     }
