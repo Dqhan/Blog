@@ -3,33 +3,12 @@ const mongoose = require("mongoose");
 const config = require("../../config/config");
 const bodyParser = require("body-parser");
 const busboy = require("connect-busboy");
-// const cookieParser = require("cookie-parser");
-const session = require("express-session");
-// const MongoStore = require("connect-mongo")(session);
 const expressjwt = require("express-jwt");
-// const axios = require("axios");
 let util = require("../util");
 const app = new express();
 
-// let passport = require('./passport');
-
 app.use(busboy());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.use(cookieParser("express_react_cookie"));
-// app.use(
-//   session({
-//     secret: "express_react_cookie",
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 60 * 1000 * 30 },
-//     rolling: true,
-//     store: new MongoStore({
-//       url: "mongodb://127.0.0.1:27017/blog",
-//       collection: "sessions"
-//     })
-//   })
-// );
 
 app.use(
   expressjwt({
@@ -67,17 +46,6 @@ app.use(function (err, req, res, next) {
     util.responseClient(res, 403, 0, "invalid token...", {});
   }
 });
-
-// app.use(passport.initialize());
-// app.use(passport.session())
-
-// function authed(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     next();
-//   } else {
-//     res.redirect('/auth/github');
-//   }
-// }
 
 app.use("/article", require("./article"));
 app.use("/leavemessage", require("./leavemessage"));

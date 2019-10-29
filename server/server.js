@@ -1,25 +1,29 @@
-var express = require('express');
-var path = require('path');
-var httpProxy = require('http-proxy');
-var config = require('../config/config');
+const Koa = require("koa");
+const path = require("path");
+const static = require('koa-static');
+const config = require("../config/config");
+const proxy = require('http-proxy-middleware');
+const k2c = require('koa-connect');
 
-const app = express();
+let app = new Koa();
+app.use(static(path.join(__dirname, "..")));
 
-app.set('trust proxy', 1); 
+let targetUrl = `http://${config.apiHost}:${config.apiPort}`;
 
-const targetUrl = `http://${config.apiHost}:${config.apiPort}`;
-
-app.use('/api', (req, res) => {
-  proxy.web(req, res, { target: targetUrl })
-});
-
-const proxy = httpProxy.createProxyServer({
-  target: targetUrl
-});
-
-app.use('/', express.static(path.join(__dirname, "..")));
+app.use(async (ctx, next) => {
+  if(ctx.url.startsWith('/api')){
+    ctx.respond = false;
+    await k2c(proxy({
+      target: targetUrl
+    }))(ctx, next);
+  }else{
+    await next();
+  }
+})
 
 /*端口有上限 */
-app.listen(80, () => console.log('Example app listening on port 80!'));
+app.listen(80, () =>
+  console.log("Server is running succsessfully on 80 port.")
+);
 
 module.exports = app;
