@@ -10,6 +10,8 @@ app.use(static(path.join(__dirname, "..")));
 
 let targetUrl = `http://${config.apiHost}:${config.apiPort}`;
 
+// let targetUrl = `10.2.118.52:3030`;
+
 app.use(async (ctx, next) => {
   if(ctx.url.startsWith('/api')){
     ctx.respond = false;

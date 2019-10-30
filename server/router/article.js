@@ -1,7 +1,7 @@
 var express = require("express");
 const router = express.Router();
-var Article = require("../../models/article");
-var Comment = require("../../models/comment");
+var Article = require("./models/article");
+var Comment = require("./models/comment");
 var util = require("../util");
 
 router.post("/addArticle", function(req, res) {

@@ -38,7 +38,7 @@ export default class Blog extends React.Component {
             });
             $$.loading(false);
         }).catch(e => {
-            $$.loading(true);
+            $$.loading(false);
             console.log(e);
         })
     }

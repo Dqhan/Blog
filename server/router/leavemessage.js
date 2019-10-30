@@ -1,6 +1,6 @@
 let express = require("express");
 let router = express.Router();
-let LeaveMessage = require("../../models/leavemessage");
+let LeaveMessage = require("./models/leavemessage");
 let util = require("../util");
 
 router.post("/getLeaveMessage", (req, res) => {

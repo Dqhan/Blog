@@ -21,21 +21,7 @@ module.exports = {
     return res.status(httpCode).json(responseData);
   },
   whiteList: [
-    "/oauth/oAuthValidate",
-    "/user/userInfo",
-    "/user/login",
-    "/user/register",
-    "/user/logout",
-    "/article/addArticle",
-    "/article/updateArticle",
-    "/article/delArticle",
-    "/article/getArticleDetail",
-    "/article/getArticles",
-    "/article/getCommentsbyArticleId",
-    "/article/getComments",
-    "/article/addComment",
-    "/article/getArticlesByTag",
-    "/article/retrieveoverview",
+    '/api/user/register',
     "/document/upload"
     // "/leavemessage/getLeaveMessage",
     // "/leavemessage/addLeaveMessage"
