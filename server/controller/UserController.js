@@ -1,19 +1,6 @@
 const md5 = require('md5-node');
-const mysql = require('mysql');
-const co = require('co-mysql');
-const Koa = require('koa');
-
-let app = new Koa();
-
-let db = mysql.createPool({
-    connectionLimit: 10,
-    host: 'locahost',
-    user: 'root',
-    password: 'MAY!131415210',
-    database: 'blog'
-})
-
-let conn = co(db);
+const conn  =require('../conn');
+const jwt = require("jsonwebtoken");
 
 class UserController {
     static async login(ctx) {
@@ -23,8 +10,10 @@ class UserController {
     static async register(ctx) {
         let username = ctx.username;
         let sql = `SELECT user FROM user WHERE name = ${username}`;
-        let data = await conn.query(sql);
 
+        let data = await conn.query(sql);
+        ctx.response.type = "json";
+        ctx.response.body = data;
     }
 
     static async logout(ctx) {
