@@ -1,12 +1,11 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const busboy = require("koa-busboy");
-const router  = require('./router');
+const router = require('./router');
 const jwt = require("koa-jwt");
-const util = require("./util");
+const Util = require("./util");
 
 let app = new Koa();
-
 /**
  * app.use注册文件处理
  */
@@ -22,20 +21,23 @@ app.use(router.routes(), router.allowedMethods())
 /**
  * 验证token
  */
-// app.use((ctx, next) => {
-//   return next().catch((err) => {
-//     if (err.status === 401) {
-//       ctx.status = 401;
-//       ctx.body = 'Protected resource, use Authorization header to get access\n';
-//     } else {
-//       throw err;
-//     }
-//   })
-// })
-// app.use(jwt({
-//   secret: 'jwt_token'
-// }).unless({
-//   path: util.whiteList
-// }));
+app.use((ctx, next) => {
+    return next().catch((err) => {
+        if (err.status === 401) {
+            ctx.status = 401;
+            ctx.body = Util.responseBody(Util.RESPONSETYPE.Fail, 'Protected resource, use Authorization header to get access\n');
+        } else {
+            throw err;
+        }
+    })
+})
+app.use(jwt({
+    secret: Util.SECERT
+}).unless({
+    /**
+     * 请求白名单
+     */
+    path: Util.whiteList
+}));
 
-app.listen(3030, () => console.log("Example app listening on port 3030!"));
+app.listen(3030, () => console.log("Api server listening on port 3030."));

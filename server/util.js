@@ -25,5 +25,33 @@ module.exports = {
     "/document/upload"
     // "/leavemessage/getLeaveMessage",
     // "/leavemessage/addLeaveMessage"
-  ]
+  ],
+  USERTYPE: {
+    Normal: 0,
+    Admin: 1
+  },
+  RESPONSETYPE: {
+    Success: 0,
+    Fail: 1
+  },
+  responseBody: function (type, message, data) {
+    var clr = {
+      [this.RESPONSETYPE.Success]: function () {
+        return {
+          status: 0,
+          message: message,
+          result: data || {}
+        }
+      },
+      [this.RESPONSETYPE.Fail]: function () {
+        return {
+          status: 1,
+          message: message,
+          result: data || {}
+        }
+      }
+    }
+    return clr[type]();
+  },
+  SECERT: "MORAN1992"
 };
