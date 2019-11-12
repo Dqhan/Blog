@@ -28,12 +28,13 @@ router
   .post('/api/deliver/adddeliver', deliverCtrl.adddeliver)//增加文章评论
   .delete('/api/deliver/deldeliver', deliverCtrl.deldeliver)//删除文章评论
   .put('/api/deliver/putdeliver', deliverCtrl.putdeliver)//修改文章评论
+  .get('/api/deliver/getdelivers', deliverCtrl.getdelivers)
 
 router
   .post('/api/leavemsg/addmsg', leavemsgCtrl.addmsg) //增加留言
   .delete('/api/leavemsg/delmsg', leavemsgCtrl.delmsg)//删除留言
   .put('/api/leavemsg/putmsg', leavemsgCtrl.putmsg)//修改留言
-  .get('/api/leavemsg/getmsgs', leavemsgCtrl.getmsgs)//获取所有留言
+  .post('/api/leavemsg/getmsgs', leavemsgCtrl.getmsgs)//获取所有留言
 
 
 router

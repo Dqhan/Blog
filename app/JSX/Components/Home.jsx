@@ -26,15 +26,19 @@ export default class Home extends React.Component {
 
     retrieveBlogs() {
         $$.loading(true);
+        let request = {
+            tags: []
+        };
         let option = {
-            url: `./api/article/getArticles`,
-            method: 'GET'
+            url: `./api/article/getartciles`,
+            method: 'POST',
+            body: request
         };
         fetchUtility(option).then(res => {
-            this.state.blogs = this.convert(res.data.list);
-            this.setState(this.state, () => {
-                $$.loading(false);
+            this.setState({
+                blogs: this.convert(res.result)
             });
+            $$.loading(false);
         }).catch(e => {
             $$.loading(false);
             console.log(e);
@@ -45,13 +49,12 @@ export default class Home extends React.Component {
         let arr = []
         res.forEach(r => {
             var temp = {
-                id: r._id,
+                id: r.article_id,
                 title: r.title.replace(/[# ]/g, ''),
                 time: r.time,
                 author: r.author,
-                viewCount: r.viewCount,
-                comments: r.comments,
-                content: r.content.replace(/[# ]/, ''),
+                viewCount: r.view_count,
+                content: r.content.replace(/[# ]/g, ''),
                 tags: r.tags
             }
             arr.push(temp);

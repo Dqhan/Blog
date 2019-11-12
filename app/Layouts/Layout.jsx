@@ -27,9 +27,9 @@ export default class Layout extends React.Component {
     }
 
     handleLoginClick() {
-        this.setState({
+        this.setState(Object.assign(this.state,{
             dialogStatus: true
-        })
+        }))
     }
 
     handleCloseLoginDialogCallback() {

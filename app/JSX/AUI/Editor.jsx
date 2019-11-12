@@ -66,9 +66,9 @@ export default class Editor extends React.Component {
                 tags: this.getTags()
             },
             option = {
-                url: './api/article/addArticle',
+                url: './api/article/addarticle',
                 method: 'POST',
-                data: data
+                body: data
             }
         fetchUtility(option).then(res => {
             this.props.cancel();

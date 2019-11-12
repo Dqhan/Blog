@@ -214,7 +214,7 @@ export default class LoginDialog extends React.Component {
     }
 
     render() {
-        return <$$.Dialog
+        return <R.Dialog
             id="blog-dialog-login"
             title="Login"
             width={400}
@@ -228,6 +228,6 @@ export default class LoginDialog extends React.Component {
             ]}
         >
             <div className='login-contain'>{this.renderLoginComponent()}</div>
-        </$$.Dialog>
+        </R.Dialog>
     }
 }

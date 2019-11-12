@@ -1,6 +1,7 @@
 require('./style/article.less');
 import Layout from '../../../Layouts/Layout';
 import MarkDown from '../../AUI/MarkDown';
+import { resolve, reject } from 'q';
 
 export default class Article extends React.Component {
     constructor(props) {
@@ -10,9 +11,12 @@ export default class Article extends React.Component {
 
     initState() {
         this.state = {
-            data: {},
-            title: '',
-            comments: []
+            markdown: {
+                title: '',
+                content: ''
+            },
+            comments: [],
+            hasMount: false
         }
         return this;
     }
@@ -23,51 +27,72 @@ export default class Article extends React.Component {
     }
 
     componentDidMount() {
-        this.retrieveArticle();
-        this.retrieveComments();
+        let promiseArray = [
+            new Promise((resolve, reject) => { this.retrieveArticles(resolve, reject) }),
+            new Promise((resolve, reject) => { this.retrieveDelivers(resolve, reject) })
+        ];
+        Promise.all(promiseArray)
+            .then(res => {
+                if (res[0]) this.retrieveArticlesCallback(res[0]);
+                if (res[1]) this.retrieveDeliversCallback(res[1]);
+            })
+            .catch(e => {
+                throw new Error(e);
+            });
     }
 
-    retrieveArticle() {
+    retrieveArticles(resolve, reject) {
         let id = getUrlParamster().id;
         let option = {
-            url: `./api/article/getArticleDetail?id=${id}`,
+            url: `./api/article/getartcile?id=${id}`,
             method: 'GET'
         }
         $$.loading(true);
         fetchUtility(option).then(res => {
-            this.setState({
-                data: res.data,
-                title: res.data.title
-            }, () => {
-                $$.loading(false);
-            });
+            $$.loading(false);
+            if (toString.call(resolve) === '[object Function]') resolve(res);
+            else this.retrieveArticlesCallback(res);
         }).catch(e => {
             $$.loading(false);
-            console.log(e);
+            if (toString.call(reject) === '[object Function]') reject(e);
+            else throw new Error(e);
         })
     }
 
-    retrieveComments() {
+    retrieveArticlesCallback(res) {
+        let result = res.result[0];
+        this.setState(Object.assign(this.state, {
+            markdown: {
+                content: result.content,
+                title: result.title
+            },
+            hasMount: true
+        }));
+    }
+
+    retrieveDelivers(resolve, reject) {
         let id = getUrlParamster().id;
-        let data = {
-            articleId: id
-        }
         let option = {
-            url: `./api/article/getCommentsbyArticleId`,
-            method: 'POST',
-            data: data
+            url: `./api/deliver/getdelivers?id=${id}`,
+            method: 'GET'
         }
         $$.loading(true);
         fetchUtility(option).then(res => {
-            this.setState({
-                comments: res.data.list
-            }, () => {
-                $$.loading(false);
-            })
+            $$.loading(false);
+            if (toString.call(resolve) === '[object Function]') resolve(res);
+            else this.retrieveDeliversCallback(res);
         }).catch(e => {
             $$.loading(false);
-            console.log(e);
+            if (toString.call(reject) === '[object Function]') reject(e);
+            else throw new Error(e);
         })
+    }
+
+    retrieveDeliversCallback(res) {
+        let result = res.result;
+        this.setState(Object.assign(this.state, {
+            comments: result
+        }))
     }
 
     handleCommitChanged(e) {
@@ -80,31 +105,25 @@ export default class Article extends React.Component {
     handleCommitClick() {
         $$.loading(true);
         let id = getUrlParamster().id;
-        let data = {
-            articleId: id,
+        let request = {
+            article_id: id,
+            article_title: this.state.markdown.title,
             content: this.state.commit,
             author: CommonUtil.getCurrentUser(),
-            time: new Date().getTime(),
-            articleTitle: this.state.title,
+            time: new Date().getTime()
         };
         let option = {
-            url: `./api/article/addComment`,
+            url: `./api/deliver/adddeliver`,
             method: "POST",
-            data: data
+            body: request
         };
         fetchUtility(option)
             .then(res => {
                 this.setState({
                     commit: ""
+                }, () => {
+                    this.retrieveDelivers();
                 });
-                if (res) {
-                    this.retrieveComments();
-                } else {
-                    $$.conform({
-                        message: 'Commit Error.',
-                        status: "show"
-                    });
-                }
                 $$.loading(false);
             })
             .catch(e => {
@@ -133,9 +152,9 @@ export default class Article extends React.Component {
             >
                 <div className='article'>
                     {
-                        Object.keys(this.state.data).length != 0 && <MarkDown
+                        this.state.hasMount && <MarkDown
                             history={this.props.history}
-                            data={this.state.data}
+                            markdown={this.state.markdown}
                         />
                     }
                     <div className='comment-content'>

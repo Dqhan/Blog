@@ -21,10 +21,26 @@ module.exports = {
     return res.status(httpCode).json(responseData);
   },
   whiteList: [
+    "/document/upload",
+    '/api/user/login',
     '/api/user/register',
-    "/document/upload"
-    // "/leavemessage/getLeaveMessage",
-    // "/leavemessage/addLeaveMessage"
+    '/api/user/logout',
+    '/api/user/put',
+    '/api/user/resetpwd',
+    '/api/user/deluser',
+    '/api/article/addarticle',
+    '/api/article/delarticle',
+    '/api/article/putarticle',
+    '/api/article/getartcile',
+    '/api/article/getartciles',
+    '/api/deliver/adddeliver',
+    '/api/deliver/deldeliver',
+    '/api/deliver/putdeliver',
+    'api/deliver/getdelivers',
+    '/api/leavemsg/addmsg',
+    '/api/leavemsg/delmsg',
+    '/api/leavemsg/putmsg',
+    '/api/leavemsg/getmsgs'
   ],
   USERTYPE: {
     Normal: 0,

@@ -28,13 +28,23 @@ export default class Blog extends React.Component {
 
     retrieveBlogs() {
         $$.loading(true);
+        let args = Array.prototype.slice.call(arguments);
+        let request = {
+            tags: []
+        };
+        if (args.length > 0) {
+            args.forEach(a => {
+                request.tags.push(a);
+            })
+        };
         let option = {
-            url: `./api/article/getArticles`,
-            method: 'GET'
+            url: `./api/article/getartciles`,
+            method: 'POST',
+            body: request
         };
         fetchUtility(option).then(res => {
             this.setState({
-                blogs: this.convert(res.data.list)
+                blogs: this.convert(res.result)
             });
             $$.loading(false);
         }).catch(e => {
@@ -47,13 +57,12 @@ export default class Blog extends React.Component {
         let arr = []
         res.forEach(r => {
             var temp = {
-                id: r._id,
+                id: r.article_id,
                 title: r.title.replace(/[# ]/g, ''),
                 time: r.time,
                 author: r.author,
-                viewCount: r.viewCount,
-                commentCount: r.commentCount,
-                content: r.content.replace(/[# ]/, ''),
+                viewCount: r.view_count,
+                content: r.content.replace(/[# ]/g, ''),
                 tags: r.tags
             }
             arr.push(temp);
@@ -66,57 +75,17 @@ export default class Blog extends React.Component {
     }
 
     handleClassifyClick(e) {
-        let self = this,
-            clr = {
-                "Javascript": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Javascript);
-                },
-                "React": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.React);
-                },
-                "Node": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Node);
-                },
-                "Typescript": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Typescript);
-                },
-                "Es6": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Es6);
-                },
-                "Webpack": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Webpack);
-                },
-                "设计模式": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.SJModule);
-                },
-                "Web知识体系": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Web)
-                },
-            };
+        let clr = {
+            "Javascript": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Javascript),
+            "React": this.retrieveBlogs.bind(this, Util.TAG_TYPE.React),
+            "Node": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Node),
+            "Typescript": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Typescript),
+            "Es6": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Es6),
+            "Webpack": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Webpack),
+            "设计模式": this.retrieveBlogs.bind(this, Util.TAG_TYPE.SJModule),
+            "Web知识体系": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Web)
+        };
         clr[e.target.textContent]();
-    }
-
-    retrieveBlogsByTag(tag) {
-        let data = {
-            tag: tag
-        },
-            options = {
-                url: `./api/article/getArticlesByTag`,
-                method: 'POST',
-                data: data
-            };
-        $$.loading(true);
-        fetchUtility(options)
-            .then(res => {
-                this.setState({
-                    blogs: this.convert(res.data.list)
-                });
-                $$.loading(false);
-            })
-            .catch(e => {
-                $$.loading(false);
-                console.log(e);
-            });
     }
 
     render() {

@@ -9,7 +9,7 @@ function assemble(data) {
 }
 
 window.fetchUtility = function (options, errorFun) {
-    let request = {
+    var request = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -17,20 +17,20 @@ window.fetchUtility = function (options, errorFun) {
             'Accept': 'application/json'
         },
         cache: 'no-store',
-        body: assemble(options.data)
-        // body: JSON.stringify(options.data)
+        body: assemble(options.body)
+        // body: JSON.stringify(options.body)
     };
-    let accessToken = localStorage.getItem('access_token');
+    var accessToken = localStorage.getItem('access_token');
     if (accessToken) {
         request.headers["Authorization"] = "Bearer " + accessToken;
     }
-    //  else {
-    //     location.href = "http://10.2.118.52/#/403";
-    // }
-    Object.assign(request, options);
+    // Object.assign(request, options);
+    request.method =  options.method;
+    request.url = options.url;
     if (request.method.toLowerCase() == "get") {
         request.body = null;
     }
+    console.log(request);
     return fetch(options.url, request)
         .then(function (response) {
             if (response.ok) {
@@ -365,7 +365,7 @@ window.CommonUtil.getCurrentUser = function () {
     if (localStorage.getItem('profile_info') && JSON.parse(localStorage.getItem('profile_info')))
         return JSON.parse(localStorage.getItem('profile_info')).name;
     else
-        return "";
+        return "游客";
 }
 
 window.CommonUtil.promiseAll = function (array) {

@@ -47,7 +47,7 @@ export default class Overview extends React.Component {
 
     componentDidMount() {
         this.createEChart();
-        this.retrieveTotalBlogs()
+        this.retrieveBlogs()
     }
 
     createEChart() {
@@ -56,111 +56,73 @@ export default class Overview extends React.Component {
     }
 
     hanldeEChartClick(e) {
-        let self = this,
-            clr = {
-                "Javascript": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Javascript);
-                },
-                "React": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.React);
-                },
-                "Node": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Node);
-                },
-                "Typescript": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Typescript);
-                },
-                "Es6": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Es6);
-                },
-                "Webpack": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Webpack);
-                },
-                "设计模式": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.SJModule);
-                },
-                "Web知识体系": function () {
-                    self.retrieveBlogsByTag(Util.TAG_TYPE.Web)
-                },
-            };
+        let clr = {
+            "Javascript": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Javascript),
+            "React": this.retrieveBlogs.bind(this, Util.TAG_TYPE.React),
+            "Node": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Node),
+            "Typescript": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Typescript),
+            "Es6": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Es6),
+            "Webpack": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Webpack),
+            "设计模式": this.retrieveBlogs.bind(this, Util.TAG_TYPE.SJModule),
+            "Web知识体系": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Web)
+        };
         clr[e.data.name]();
     };
 
-    retrieveBlogsByTag(tag) {
-        let data = {
-            tag: tag
-        },
-            options = {
-                url: `./api/article/getArticlesByTag`,
-                method: 'POST',
-                data: data
-            };
+    retrieveBlogs() {
         $$.loading(true);
-        fetchUtility(options)
-            .then(res => {
-                this.setState({
-                    source: res.data.list
-                });
-                $$.loading(false);
+        let args = Array.prototype.slice.call(arguments);
+        let request = {
+            tags: []
+        };
+        if (args.length > 0) {
+            args.forEach(a => {
+                request.tags.push(a);
             })
-            .catch(e => {
-                $$.loading(false);
-                console.log(e);
-            });
-    }
-
-
-    retrieveTotalBlogs() {
-        $$.loading(true);
-        let data = {
-            limit: this.state.pageSize,
-            offset: this.state.selectedPage
-        },
-            option = {
-                url: `./api/article/retrieveoverview`,
-                method: "POST",
-                data: data
-            };
-        fetchUtility(option)
-            .then(res => {
-                let javascriptTotal = 0,
-                    typescriptTotal = 0,
-                    es6Total = 0,
-                    webTotal = 0,
-                    sjmoduleTotal = 0,
-                    webpackTotal = 0,
-                    nodeTotal = 0,
-                    reactTotal = 0;
-                res.data.list.map(l => {
-                    if (l.tags.includes(Util.TAG_TYPE.Javascript)) javascriptTotal++;
-                    if (l.tags.includes(Util.TAG_TYPE.Typescript)) typescriptTotal++;
-                    if (l.tags.includes(Util.TAG_TYPE.Es6)) es6Total++;
-                    if (l.tags.includes(Util.TAG_TYPE.SJModule)) sjmoduleTotal++;
-                    if (l.tags.includes(Util.TAG_TYPE.Webpack)) webpackTotal++;
-                    if (l.tags.includes(Util.TAG_TYPE.Node)) nodeTotal++;
-                    if (l.tags.includes(Util.TAG_TYPE.React)) reactTotal++;
-                    if (l.tags.includes(Util.TAG_TYPE.Web)) webTotal++;
-                })
-                this.setState({
-                    source: res.data.list,
-                    pageCount: Math.ceil(res.data.total / this.state.pageSize),
-                    javascriptTotal: javascriptTotal,
-                    typescriptTotal: typescriptTotal,
-                    es6Total: es6Total,
-                    sjmoduleTotal: sjmoduleTotal,
-                    webpackTotal: webpackTotal,
-                    nodeTotal: nodeTotal,
-                    reactTotal: reactTotal,
-                    webTotal: webTotal
-                }, () => {
-                    this.renderPie();
-                })
-                $$.loading(false);
+        };
+        let option = {
+            url: `./api/article/getartciles`,
+            method: 'POST',
+            body: request
+        };
+        fetchUtility(option).then(res => {
+            let javascriptTotal = 0,
+                typescriptTotal = 0,
+                es6Total = 0,
+                webTotal = 0,
+                sjmoduleTotal = 0,
+                webpackTotal = 0,
+                nodeTotal = 0,
+                reactTotal = 0;
+            res.result.source.map(l => {
+                if (l.tags.includes(Util.TAG_TYPE.Javascript)) javascriptTotal++;
+                if (l.tags.includes(Util.TAG_TYPE.Typescript)) typescriptTotal++;
+                if (l.tags.includes(Util.TAG_TYPE.Es6)) es6Total++;
+                if (l.tags.includes(Util.TAG_TYPE.SJModule)) sjmoduleTotal++;
+                if (l.tags.includes(Util.TAG_TYPE.Webpack)) webpackTotal++;
+                if (l.tags.includes(Util.TAG_TYPE.Node)) nodeTotal++;
+                if (l.tags.includes(Util.TAG_TYPE.React)) reactTotal++;
+                if (l.tags.includes(Util.TAG_TYPE.Web)) webTotal++;
             })
-            .catch(e => {
-                $$.loading(false);
-                console.log(e);
-            });
+            this.setState({
+                source:  res.result,
+                pageCount: Math.ceil(res.result.total / this.state.pageSize),
+                javascriptTotal: javascriptTotal,
+                typescriptTotal: typescriptTotal,
+                es6Total: es6Total,
+                sjmoduleTotal: sjmoduleTotal,
+                webpackTotal: webpackTotal,
+                nodeTotal: nodeTotal,
+                reactTotal: reactTotal,
+                webTotal: webTotal
+            }, () => {
+                this.renderPie();
+            })
+            $$.loading(false);
+        }).catch(e => {
+            $$.loading(false);
+            console.log(e);
+        })
     }
 
     renderPie() {
@@ -200,7 +162,7 @@ export default class Overview extends React.Component {
                             { value: self.state.sjmoduleTotal, name: '设计模式' },
                             { value: self.state.webTotal, name: 'Web知识体系' }
                         ],
-                        color: ["#99CCFF","#CCCCFF","#FFCCCC","#99CC33","#99CCCC","#66CC99","#996699","#FFCC99"],
+                        color: ["#99CCFF", "#CCCCFF", "#FFCCCC", "#99CC33", "#99CCCC", "#66CC99", "#996699", "#FFCC99"],
                         itemStyle: {
                             emphasis: {
                                 shadowBlur: 10,

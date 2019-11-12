@@ -28,20 +28,20 @@ export default class LeaveMessage extends React.Component {
 
     retrieveLeaveMessage() {
         $$.loading(true);
-        let data = {
+        let request = {
             limit: this.state.pageSize,
             offset: this.state.selectedPage
         };
         let option = {
-            url: `./api/leavemessage/getLeaveMessage`,
+            url: `./api/leavemsg/getmsgs`,
             method: "POST",
-            data: data
+            body: request
         };
         fetchUtility(option)
             .then(res => {
                 this.setState({
-                    source: res.data.list,
-                    pageCount: Math.ceil(res.data.total / this.state.pageSize)
+                    source: res.result.source,
+                    pageCount: Math.ceil(res.result.total / this.state.pageSize)
                 })
                 $$.loading(false);
             })
@@ -54,15 +54,15 @@ export default class LeaveMessage extends React.Component {
 
     handleCommitClick() {
         $$.loading(true);
-        let data = {
+        let request = {
             content: this.state.commit,
             author: CommonUtil.getCurrentUser(),
             time: new Date().getTime()
         };
         let option = {
-            url: `./api/leavemessage/addLeaveMessage`,
+            url: `./api/leavemsg/addmsg`,
             method: "POST",
-            data: data
+            body: request
         };
         fetchUtility(option)
             .then(res => {

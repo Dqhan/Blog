@@ -1,9 +1,6 @@
 export default class MarkDown extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            data: props.data
-        }
     }
 
     componentDidMount() {
@@ -13,7 +10,7 @@ export default class MarkDown extends React.Component {
     initEditer() {
         var testEditor;
         testEditor = editormd.markdownToHTML("read-editormd", {
-            markdown: this.state.data.content,
+            markdown: this.props.markdown.content,
             htmlDecode: "style,script,iframe",  // you can filter tags decode
             emoji: true,
             taskList: true,
