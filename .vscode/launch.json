@@ -20,7 +20,7 @@
             "type": "node",
             "request": "launch",
             "name": "attach api",
-            "program": "${workspaceRoot}/server/api/api.js",
+            "program": "${workspaceRoot}/server/api.js",
         },
         // {
         //     "type": "node",

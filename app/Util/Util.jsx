@@ -464,10 +464,10 @@ window.CommonUtil.throttle = function (fn, context, delay, time) {
 window.CommonUtil.Config = {
     github: {
         client_id: "5f2b3eb585cd289ca088",
-        redirect_uri: escape("http://10.2.118.52/#/oAuthPromisition"),
+        redirect_uri: escape("http://www.dqhanblog.cn/#/oAuthPromisition"),
         client_secret: "281abd4850f451b536416ddede3e3a61ccce07fe"
     },
-    HOST: "10.2.118.52"
+    HOST: "www.dqhanblog.cn/#/"
 }
 
 var Util = {};

@@ -5,7 +5,8 @@ const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-  mode: "development",
+  // mode: "development",
+  mode:"production",
   entry: { index: "./app/Index.js" },
   output: {
     path: path.resolve(__dirname, "./build/"),

@@ -57,17 +57,28 @@ class ArticleController {
     }
 
     static async getartciles(ctx) {
-        let { tags } = ctx.request.body;
-        if (tags.length !== 0) tags = tags.split(',');
-        let result = await ArticleService.getartciles(tags);
-        let total = result.length;
+        let { tags, limit, offset } = ctx.request.body;
+        let result = await ArticleService.getartciles();
         result.forEach(r => {
-            r.tags = tags.split(',');
+            r.tags = r.tags.split(',').map(r => parseInt(r));
         });
-        if (result.length !== 0 && tags.length !== 0)
-            result = result.filter(d => {
-                return tags.filter(t => d.tags.contains(t)).length > 0;
-            })
+        if (toString.call(tags) !== '[object Undefined]') {
+            if (tags.length !== 0) tags = tags.split(',').map(r => parseInt(r));
+            if (result.length !== 0 && tags.length !== 0) {
+                result = result.filter(d => {
+                    return tags.filter(t => d.tags.includes(t)).length > 0;
+                })
+            }
+        }
+        let total = result.length;
+        result.sort((pre, next) => {
+            return parseInt(next.time) - parseInt(pre.time);
+        });
+        if (toString.call(offset) !== '[object Undefined]' && toString.call(limit) !== '[object Undefined]') {
+            let startIndex = (offset - 1) * limit,
+                endIndex = offset * limit;
+            result = result.slice(startIndex, endIndex);
+        }
         ctx.response.type = "json";
         ctx.response.body = Util.responseBody(Util.RESPONSETYPE.Success, 'retrieve articiles success.', {
             source: result,

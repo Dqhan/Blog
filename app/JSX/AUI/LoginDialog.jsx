@@ -42,13 +42,13 @@ export default class LoginDialog extends React.Component {
     }
 
     registerHandler() {
-        let data = {
-            name: this.state.userName,
+        let request = {
+            username: this.state.userName,
             password: this.state.password
         }, option = {
             url: "./api/user/register",
             method: "POST",
-            data: data
+            body: request
         };
         $$.loading(true);
         fetchUtility(option)
@@ -88,21 +88,22 @@ export default class LoginDialog extends React.Component {
     }
 
     loginHandler() {
-        let data = {
-            name: this.state.userName,
+        let request = {
+            username: this.state.userName,
             password: this.state.password
         }, option = {
             url: "./api/user/login",
             method: "POST",
-            data: data
+            body: request
         };
         $$.loading(true);
         fetchUtility(option)
             .then(res => {
                 $$.loading(false);
-                if (res.data.status == 0) {
-                    localStorage.setItem('access_token', res.data.accessToken);
-                    localStorage.setItem('profile_info', JSON.stringify(res.data.profileInfo));
+                if (res.status === 0) {
+                    localStorage.setItem('access_token', res.result.accessToken);
+                    res.result.profileInfo.name = res.result.profileInfo.username;
+                    localStorage.setItem('profile_info', JSON.stringify(res.result.profileInfo));
                     localStorage.setItem('login_type', Util.LOGIN_TYPE.Account);
                     location.href = `http://${CommonUtil.Config.HOST}`;
                 }

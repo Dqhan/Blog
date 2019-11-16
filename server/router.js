@@ -3,6 +3,7 @@ const articleCtrl = require("./controller/ArticleController");
 const deliverCtrl = require("./controller/DeliverController");
 const leavemsgCtrl = require("./controller/LeaveMsgController");
 const oauthCtrl = require("./controller/OAuthContoller");
+const documentCtrl = require("./controller/DocumentController");
 const Router = require("koa-router");
 
 let router = new Router();
@@ -35,6 +36,9 @@ router
   .delete('/api/leavemsg/delmsg', leavemsgCtrl.delmsg)//删除留言
   .put('/api/leavemsg/putmsg', leavemsgCtrl.putmsg)//修改留言
   .post('/api/leavemsg/getmsgs', leavemsgCtrl.getmsgs)//获取所有留言
+
+router
+  .post('/api/document/upload', documentCtrl.upload)
 
 
 router

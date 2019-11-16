@@ -27,7 +27,7 @@ export default class Layout extends React.Component {
     }
 
     handleLoginClick() {
-        this.setState(Object.assign(this.state,{
+        this.setState(Object.assign(this.state, {
             dialogStatus: true
         }))
     }
@@ -39,12 +39,20 @@ export default class Layout extends React.Component {
     }
 
     renderInfo() {
-        let profile = localStorage.getItem('profile_info'),
-            loginType = localStorage.getItem('login_type');
+        let profile = localStorage.getItem('profile_info');
+        if (profile === null) {
+            return <React.Fragment>
+                <span className="fi-page-arrow-right-b"></span>
+                <RButton text="Login" className="layout-user-info-login-btn" onClick={this.handleLoginClick} />
+            </React.Fragment>
+        }
         profile = JSON.parse(profile);
-        if (profile) return <React.Fragment>
-            {
-                loginType == Util.LOGIN_TYPE.GitHub && <React.Fragment>
+        let loginType;
+        if (toString.call(loginType) !== '[object Undefined]')
+            loginType = parseInt(localStorage.getItem('login_type'));
+        switch (loginType) {
+            case Util.LOGIN_TYPE.GitHub:
+                return <React.Fragment>
                     <img onClick={this.handleLogout} className="layout-user-info-pic" src={`${profile.avatar_url}`}></img>
                     <ul className="layout-user-info-desc">
                         <li>{profile.name}</li>
@@ -52,23 +60,21 @@ export default class Layout extends React.Component {
                         <li>{profile.location}</li>
                     </ul>
                 </React.Fragment>
-            }
-            {
-                loginType == Util.LOGIN_TYPE.WeChat && <React.Fragment>
+            case Util.LOGIN_TYPE.WeChat:
+                return <React.Fragment>
 
                 </React.Fragment>
-            }
-            {
-                loginType == Util.LOGIN_TYPE.Account && <React.Fragment>
+            case Util.LOGIN_TYPE.Account:
+                return <React.Fragment>
                     <span onClick={this.handleLogout} className="fi-page-user-a layout-user-info-pic"></span>
-                    <span className="layout-user-info-desc account">{profile.name}</span>
+                    <span className="layout-user-info-desc account">{profile.username}</span>
                 </React.Fragment>
-            }
-        </React.Fragment>
-        else return <React.Fragment>
-            <span className="fi-page-arrow-right-b"></span>
-            <RButton text="Login" className="layout-user-info-login-btn" onClick={this.handleLoginClick} />
-        </React.Fragment>
+            default:
+                return <React.Fragment>
+                    <span className="fi-page-arrow-right-b"></span>
+                    <RButton text="Login" className="layout-user-info-login-btn" onClick={this.handleLoginClick} />
+                </React.Fragment>
+        }
     }
 
     handleLogout() {
@@ -148,7 +154,15 @@ export default class Layout extends React.Component {
                 </div>
             </div>
             <footer>
-                <div>no footer</div>
+                <div className='footer-content'>
+                    <p><a href="https://github.com/Dqhan" target="_blank">Github</a>·
+                    <a href="/#/">Home</a>·
+                                                                                                    管理·
+                    <a href="/#/sub/about">关于</a>
+                        |署名·非商业用途·保持一致</p>
+                    <p>Copyright © 2019-2022 Dqhan.</p>
+                    <p>辽ICP备19017890号</p>
+                </div>
             </footer>
             {
                 this.state.dialogStatus && <LoginDialog

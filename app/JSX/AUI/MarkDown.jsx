@@ -19,7 +19,7 @@ export default class MarkDown extends React.Component {
             sequenceDiagram: true,  // 默认不解析
             imageUpload : true,
             imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            // imageUploadURL : "../src/",//注意你后端的上传图片服务地址
+            // imageUploadURL : "./picSrc/",//注意你后端的上传图片服务地址
             
             //editorTheme: "pastel-on-dark",//编辑器的主题颜色
             theme: "gray",//顶部的主题

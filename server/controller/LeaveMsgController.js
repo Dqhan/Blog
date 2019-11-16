@@ -33,6 +33,9 @@ class LeaveMsgController {
   static async getmsgs(ctx) {
     let { limit, offset } = ctx.request.body;
     let result = await LeaveMsgService.getMsgs();
+    result.sort((pre, next) => {
+      return parseInt(next.time) - parseInt(pre.time);
+    });
     let total = result.length,
       startIndex = (offset - 1) * limit,
       endIndex = offset * limit - 1;

@@ -36,7 +36,7 @@ export default class Home extends React.Component {
         };
         fetchUtility(option).then(res => {
             this.setState({
-                blogs: this.convert(res.result)
+                blogs: this.convert(res.result.source)
             });
             $$.loading(false);
         }).catch(e => {
@@ -71,9 +71,9 @@ export default class Home extends React.Component {
             <Header isHome={true} />
             <$$.Banner
                 bannerList={[
-                    { leftText: "成熟的人", rightText: "谦虚、低调、柔和" },
-                    { leftText: "为人处世", rightText: "真诚、善良、正直" },
-                    { leftText: "不忘初心", rightText: "方得始终" }
+                    { leftText: "Hello World", rightText: "程序员牛逼" },
+                    { leftText: "React", rightText: "天下第一" },
+                    { leftText: "Nodejs", rightText: "天下第一" }
                 ]}
             />
             <Layout isHome={true}>

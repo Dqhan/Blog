@@ -46,8 +46,21 @@ export default class Overview extends React.Component {
     }
 
     componentDidMount() {
-        this.createEChart();
-        this.retrieveBlogs()
+        // this.createEChart();
+        let array = [
+            // this.retrieveBlogsForPie(),
+            this.retrieveBlogs()
+        ];
+        Promise.all(array)
+            .then(res => {
+                // let preSource = res[0],
+                let datagridSource = res[0];
+                // this.retrieveBlogsForPieCallback(preSource);
+                this.retrieveBlogsCallback(datagridSource);
+            })
+            .catch(e => {
+                throw new Error(e);
+            })
     }
 
     createEChart() {
@@ -57,72 +70,93 @@ export default class Overview extends React.Component {
 
     hanldeEChartClick(e) {
         let clr = {
-            "Javascript": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Javascript),
-            "React": this.retrieveBlogs.bind(this, Util.TAG_TYPE.React),
-            "Node": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Node),
-            "Typescript": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Typescript),
-            "Es6": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Es6),
-            "Webpack": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Webpack),
-            "设计模式": this.retrieveBlogs.bind(this, Util.TAG_TYPE.SJModule),
-            "Web知识体系": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Web)
+            "Javascript": this.hanldeEChartClickRetrieveBlogs.bind(this, Util.TAG_TYPE.Javascript),
+            "React": this.hanldeEChartClickRetrieveBlogs.bind(this, Util.TAG_TYPE.React),
+            "Node": this.hanldeEChartClickRetrieveBlogs.bind(this, Util.TAG_TYPE.Node),
+            "Typescript": this.hanldeEChartClickRetrieveBlogs.bind(this, Util.TAG_TYPE.Typescript),
+            "Es6": this.hanldeEChartClickRetrieveBlogs.bind(this, Util.TAG_TYPE.Es6),
+            "Webpack": this.hanldeEChartClickRetrieveBlogs.bind(this, Util.TAG_TYPE.Webpack),
+            "设计模式": this.hanldeEChartClickRetrieveBlogs.bind(this, Util.TAG_TYPE.SJModule),
+            "Web知识体系": this.hanldeEChartClickRetrieveBlogs.bind(this, Util.TAG_TYPE.Web)
         };
         clr[e.data.name]();
     };
 
-    retrieveBlogs() {
-        $$.loading(true);
-        let args = Array.prototype.slice.call(arguments);
-        let request = {
-            tags: []
-        };
-        if (args.length > 0) {
-            args.forEach(a => {
-                request.tags.push(a);
-            })
-        };
+    retrieveBlogsForPie() {
+        let request = {};
         let option = {
             url: `./api/article/getartciles`,
             method: 'POST',
             body: request
         };
-        fetchUtility(option).then(res => {
-            let javascriptTotal = 0,
-                typescriptTotal = 0,
-                es6Total = 0,
-                webTotal = 0,
-                sjmoduleTotal = 0,
-                webpackTotal = 0,
-                nodeTotal = 0,
-                reactTotal = 0;
-            res.result.source.map(l => {
-                if (l.tags.includes(Util.TAG_TYPE.Javascript)) javascriptTotal++;
-                if (l.tags.includes(Util.TAG_TYPE.Typescript)) typescriptTotal++;
-                if (l.tags.includes(Util.TAG_TYPE.Es6)) es6Total++;
-                if (l.tags.includes(Util.TAG_TYPE.SJModule)) sjmoduleTotal++;
-                if (l.tags.includes(Util.TAG_TYPE.Webpack)) webpackTotal++;
-                if (l.tags.includes(Util.TAG_TYPE.Node)) nodeTotal++;
-                if (l.tags.includes(Util.TAG_TYPE.React)) reactTotal++;
-                if (l.tags.includes(Util.TAG_TYPE.Web)) webTotal++;
-            })
-            this.setState({
-                source:  res.result,
-                pageCount: Math.ceil(res.result.total / this.state.pageSize),
-                javascriptTotal: javascriptTotal,
-                typescriptTotal: typescriptTotal,
-                es6Total: es6Total,
-                sjmoduleTotal: sjmoduleTotal,
-                webpackTotal: webpackTotal,
-                nodeTotal: nodeTotal,
-                reactTotal: reactTotal,
-                webTotal: webTotal
-            }, () => {
-                this.renderPie();
-            })
-            $$.loading(false);
-        }).catch(e => {
-            $$.loading(false);
-            console.log(e);
+        return fetchUtility(option);
+    }
+
+    retrieveBlogsForPieCallback(res) {
+        let javascriptTotal = 0,
+            typescriptTotal = 0,
+            es6Total = 0,
+            webTotal = 0,
+            sjmoduleTotal = 0,
+            webpackTotal = 0,
+            nodeTotal = 0,
+            reactTotal = 0;
+        res.result.source.map(l => {
+            if (l.tags.includes(Util.TAG_TYPE.Javascript)) javascriptTotal++;
+            if (l.tags.includes(Util.TAG_TYPE.Typescript)) typescriptTotal++;
+            if (l.tags.includes(Util.TAG_TYPE.Es6)) es6Total++;
+            if (l.tags.includes(Util.TAG_TYPE.SJModule)) sjmoduleTotal++;
+            if (l.tags.includes(Util.TAG_TYPE.Webpack)) webpackTotal++;
+            if (l.tags.includes(Util.TAG_TYPE.Node)) nodeTotal++;
+            if (l.tags.includes(Util.TAG_TYPE.React)) reactTotal++;
+            if (l.tags.includes(Util.TAG_TYPE.Web)) webTotal++;
         })
+        this.setState({
+            javascriptTotal: javascriptTotal,
+            typescriptTotal: typescriptTotal,
+            es6Total: es6Total,
+            sjmoduleTotal: sjmoduleTotal,
+            webpackTotal: webpackTotal,
+            nodeTotal: nodeTotal,
+            reactTotal: reactTotal,
+            webTotal: webTotal
+        }, () => {
+            this.renderPie();
+        });
+    }
+
+    hanldeEChartClickRetrieveBlogs(tag) {
+        this.retrieveBlogs(tag)
+            .then(res => {
+                this.retrieveBlogsCallback(res);
+            })
+            .catch(e => {
+                throw new Error(e);
+            });
+    }
+
+    retrieveBlogs() {
+        $$.loading(true);
+        let args = Array.prototype.slice.call(arguments);
+        let request = {
+            offset: this.state.selectedPage,
+            limit: this.state.pageSize
+        };
+        if (args.length > 0) request['tags'] = [].concat(args);
+        let option = {
+            url: `./api/article/getartciles`,
+            method: 'POST',
+            body: request
+        };
+        return fetchUtility(option);
+    }
+
+    retrieveBlogsCallback(res) {
+        this.setState({
+            source: res.result.source,
+            pageCount: Math.ceil(res.result.total / this.state.pageSize),
+        })
+        $$.loading(false);
     }
 
     renderPie() {
@@ -178,11 +212,14 @@ export default class Overview extends React.Component {
     }
 
     pagerChangedHandler(e, args) {
-        this.setState({
-            selectedPage: args.newValue
-        }, () => {
-            this.retrieveTotalBlogs();
-        })
+        this.state.selectedPage = args.newValue;
+        this.retrieveBlogs()
+            .then(res => {
+                this.retrieveBlogsCallback(res);
+            })
+            .catch(e => {
+                throw new Error(e);
+            });
     }
 
     handleRowDataChanged(e, args) {
@@ -199,7 +236,7 @@ export default class Overview extends React.Component {
             >
                 <div className='overview'>
                     <div className='overview-content'>
-                        <div id="overview-chart" style={{ width: "100%", height: "400px", marginBottom: '20px' }}></div>
+                        {/* <div id="overview-chart" style={{ width: "100%", height: "400px", marginBottom: '20px' }}></div> */}
                         <R.Datagrid
                             columns={this.columns}
                             items={this.state.source}

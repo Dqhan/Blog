@@ -71,7 +71,8 @@ export default class Editor extends React.Component {
                 body: data
             }
         fetchUtility(option).then(res => {
-            this.props.cancel();
+            // this.props.cancel();
+            console.dir(res);
         }).catch(e => {
             console.log(e);
         })
@@ -81,7 +82,7 @@ export default class Editor extends React.Component {
         var result = [];
         if (this.state.checkType.Javascript) result.push(Util.TAG_TYPE.Javascript);
         if (this.state.checkType.Typescript) result.push(Util.TAG_TYPE.Typescript);
-        if (this.state.checkType.Es6) result.push(Util.TAG_TYPE.Es6);
+        // if (this.state.checkType.Es6) result.push(Util.TAG_TYPE.Es6);
         if (this.state.checkType.SJModule) result.push(Util.TAG_TYPE.SJModule);
         if (this.state.checkType.Webpack) result.push(Util.TAG_TYPE.Webpack);
         if (this.state.checkType.Node) result.push(Util.TAG_TYPE.Node);
@@ -102,10 +103,10 @@ export default class Editor extends React.Component {
                     self.state.checkType.Typescript = e.target.checked;
                     self.setState(self.state);
                 },
-                "Es6": function (e) {
-                    self.state.checkType.Es6 = e.target.checked;
-                    self.setState(self.state);
-                },
+                // "Es6": function (e) {
+                //     self.state.checkType.Es6 = e.target.checked;
+                //     self.setState(self.state);
+                // },
                 "SJModule": function (e) {
                     self.state.checkType.SJModule = e.target.checked;
                     self.setState(self.state);
@@ -143,13 +144,13 @@ export default class Editor extends React.Component {
                     Javascript
                 </label>
                 <label>
-                    <input type="checkbox" name="Css" checked={this.state.checkType.TypescriptCss} onChange={this.handleTagChecked} />
+                    <input type="checkbox" name="Typescript" checked={this.state.checkType.TypescriptCss} onChange={this.handleTagChecked} />
                     Typescript
                 </label>
-                <label>
+                {/* <label>
                     <input type="checkbox" name="Css" checked={this.state.checkType.Es6} onChange={this.handleTagChecked} />
                     Es6
-                </label>
+                </label> */}
                 <label>
                     <input type="checkbox" name="SJModule" checked={this.state.checkType.SJModule} onChange={this.handleTagChecked} />
                     设计模式

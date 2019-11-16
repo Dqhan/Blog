@@ -44,7 +44,7 @@ export default class Blog extends React.Component {
         };
         fetchUtility(option).then(res => {
             this.setState({
-                blogs: this.convert(res.result)
+                blogs: this.convert(res.result.source)
             });
             $$.loading(false);
         }).catch(e => {
@@ -54,7 +54,7 @@ export default class Blog extends React.Component {
     }
 
     convert(res) {
-        let arr = []
+        let arr = [];
         res.forEach(r => {
             var temp = {
                 id: r.article_id,
@@ -80,10 +80,10 @@ export default class Blog extends React.Component {
             "React": this.retrieveBlogs.bind(this, Util.TAG_TYPE.React),
             "Node": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Node),
             "Typescript": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Typescript),
-            "Es6": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Es6),
+            // "Es6": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Es6),
             "Webpack": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Webpack),
             "设计模式": this.retrieveBlogs.bind(this, Util.TAG_TYPE.SJModule),
-            "Web知识体系": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Web)
+            "Web": this.retrieveBlogs.bind(this, Util.TAG_TYPE.Web)
         };
         clr[e.target.textContent]();
     }
@@ -103,17 +103,17 @@ export default class Blog extends React.Component {
                     <div className='classify' onClick={this.handleClassifyClick}>
                         <article>Javascript</article>
                         <article>Typescript</article>
-                        <article>Es6</article>
+                        {/* <article>Es6</article> */}
                         <article>React</article>
                         <article>Node</article>
                         <article>Webpack</article>
                         <article>设计模式</article>
-                        <article>Web知识体系</article>
+                        <article>Web</article>
                     </div>
                     <Content {...contentProps} />
-                    <div style={{ textAlign: ' center' }}>
+                    {/* <div style={{ textAlign: ' center' }}>
                         <RButton text="写博客" style={{ width: '200px' }} onClick={this.handleWriteBlog}></RButton>
-                    </div>
+                    </div> */}
                 </div>
             </Layout>
         </React.Fragment>

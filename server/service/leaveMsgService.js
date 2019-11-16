@@ -2,6 +2,7 @@ const conn = require('../conn');
 
 class LeaveMsgService {
     static async addMsg(model) {
+        model.content = model.content;
         let sql = `INSERT INTO leavemessage ( leavemsg_id, content, time, author) VALUES ('${model.leavemsg_id}','${model.content}','${model.time}','${model.author}')`;
         return await conn.query(sql);
     }

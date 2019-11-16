@@ -17,22 +17,26 @@ export default class oAuthPromisition extends React.Component {
 
     getAccessToken() {
         let { client_id, client_secret } = CommonUtil.Config.github,
-            data = {
+            body = {
                 code: this.code,
                 clientId: client_id,
                 clientSecret: client_secret
             },
             option = {
-                url: '/api/oauth/oAuthValidate',
+                url: '/api/oauth/getgithubtoken',
                 method: "POST",
-                data: data
+                body: body
             };
         fetchUtility(option)
             .then(res => {
-                localStorage.setItem('access_token', res.data.accessToken);
-                localStorage.setItem('profile_info', JSON.stringify(res.data.profileInfo));
-                localStorage.setItem('login_type', Util.LOGIN_TYPE.GitHub);
-                location.href = `http://${CommonUtil.Config.HOST}`;
+                if(res.status === 1){
+                    location.href = "https://github.com/login/oauth/authorize?response_type=code&redirect_uri=http%3A//www.dqhanblog.cn/%23/oAuthPromisition&scope=user%2Crepo&client_id=5f2b3eb585cd289ca088"
+                }else{
+                    localStorage.setItem('access_token', res.result.accessToken);
+                    localStorage.setItem('profile_info', JSON.stringify(res.result.profileInfo));
+                    localStorage.setItem('login_type', Util.LOGIN_TYPE.GitHub);
+                    location.href = `http://${CommonUtil.Config.HOST}`;
+                }
             })
             .catch(e => {
                 $$.conform({

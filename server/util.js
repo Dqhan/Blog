@@ -21,7 +21,8 @@ module.exports = {
     return res.status(httpCode).json(responseData);
   },
   whiteList: [
-    "/document/upload",
+    '/api/oauth/getgithubtoken',
+    "/api/document/upload",
     '/api/user/login',
     '/api/user/register',
     '/api/user/logout',

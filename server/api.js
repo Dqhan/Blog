@@ -9,7 +9,12 @@ let app = new Koa();
 /**
  * app.use注册文件处理
  */
-app.use(busboy());
+app.use(busboy({
+    multipart: true,
+    formidable: {
+        maxFileSize: 200 * 1024 * 1024    // 设置上传文件大小最大限制，默认2M
+    }
+}));
 /**
  * app.use注册post请求参数解析
  */
