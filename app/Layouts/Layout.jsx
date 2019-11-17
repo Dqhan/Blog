@@ -102,7 +102,7 @@ export default class Layout extends React.Component {
             [Util.LOGIN_TYPE.GitHub]: function () {
 
             },
-            [Util.LOGIN_TYPE.WeChart]: function () {
+            [Util.LOGIN_TYPE.WeChat]: function () {
 
             }
         };

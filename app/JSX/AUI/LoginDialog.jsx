@@ -24,7 +24,7 @@ export default class LoginDialog extends React.Component {
             loginType: type
         }, () => {
             localStorage.setItem('login_type', type);
-            if (this.state.loginType == Util.LOGIN_TYPE.WeChart) this.initWeChat();
+            if (this.state.loginType == Util.LOGIN_TYPE.WeChat) this.initWeChat();
             if (this.state.loginType == Util.LOGIN_TYPE.GitHub) this.handleGitHubLogin();
         });
     }
@@ -186,7 +186,7 @@ export default class LoginDialog extends React.Component {
                         <RButton text="登录" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)} />
                     </div>
                 </div>
-            case Util.LOGIN_TYPE.WeChart:
+            case Util.LOGIN_TYPE.WeChat:
                 return <div id="wechat_login_container">
                     <div></div>
                 </div>
@@ -204,7 +204,7 @@ export default class LoginDialog extends React.Component {
                             <div>GitHub</div>
                             <i className="light"></i>
                         </div>
-                        <div onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.WeChart)}>
+                        <div onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.WeChat)}>
                             <div className="font-icon iconfont icon-weixin"></div>
                             <div>WeChat</div>
                             <i className="light"></i>

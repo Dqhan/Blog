@@ -83,7 +83,7 @@ export default class About extends React.Component {
                             <ul>
                                 <li className="fi-page-hand-over-packed-bags-a">
                                     <div>工作上</div>
-                                    <div>成为一名前端架构师</div>
+                                    <div>打酱油</div>
                                 </li>
                                 <li className="fi-page-hand-over-packed-bags-a">
                                     <div>生活上</div>

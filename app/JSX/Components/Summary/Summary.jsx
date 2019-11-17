@@ -1,6 +1,6 @@
 const Util.LOGIN_TYPE = {
     Account: 0,
-    WeChart: 1,
+    WeChat: 1,
     GitHub: 2,
     Default: 3,
     Login: 4,
