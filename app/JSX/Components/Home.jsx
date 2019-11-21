@@ -71,7 +71,7 @@ export default class Home extends React.Component {
             <Header isHome={true} />
             <$$.Banner
                 bannerList={[
-                    { leftText: "Hello World", rightText: "程序员牛逼" },
+                    { leftText: "Webpack", rightText: "你太牛逼啦" },
                     { leftText: "React", rightText: "天下第一" },
                     { leftText: "Nodejs", rightText: "天下第一" }
                 ]}

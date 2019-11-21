@@ -6,7 +6,7 @@ const proxy = require('http-proxy-middleware');
 const k2c = require('koa-connect');
 
 let app = new Koa();
-app.use(static(path.join(__dirname, "..")));
+app.use(static(path.join(__dirname, "../public/")));
 /**
  * 代理转发目标Url
  */

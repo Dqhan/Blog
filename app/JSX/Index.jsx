@@ -22,8 +22,8 @@ export default class Index extends React.Component {
     }
 
     render() {
-        return <HashRouter>
+        return <React.Fragment>
             <Router userInfo={this.state.userInfo} />
-        </HashRouter>
+        </React.Fragment>
     }
 }

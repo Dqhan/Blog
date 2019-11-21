@@ -2,15 +2,20 @@ const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: "development",
   // mode:"production",
-  entry: { index: "./app/Index.js" },
+  entry: {
+    index: "./app/Index.js"
+  },
   output: {
-    path: path.resolve(__dirname, "./build/"),
-    filename: "Index.js"
+    path: path.resolve(__dirname, "./public/"),
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].module.js', //非入口文件命名规则
   },
   watchOptions: {
     aggregateTimeout: 800
@@ -21,9 +26,9 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        },
+        use: [
+          "babel-loader"
+        ],
         exclude: /node_modules/
       },
       {
@@ -90,12 +95,39 @@ module.exports = {
       filename: "bundle.css",
       chunkFilename: "[id].css"
     }),
+
+    /**
+     * html plugin
+     */
+
+    new HtmlWebpackPlugin({
+      template: 'Index.html',
+      filename: 'index.html',
+      chunks: [
+        'index'
+      ]
+    }),
+    /**
+     * copy src to public
+     */
+    new CopyWebpackPlugin([
+      {
+        from: __dirname + '/Lib/editor',
+        to: __dirname + '/public/editor',
+        // toType: 'directory', //file 或者 dir  可选，默认是文件
+        // ignore: ['.*']
+      },{
+        from: __dirname + '/picSrc',
+        to: __dirname + '/public/picSrc',
+      }
+    ]),
+
     /**
      * 缓存策略
      */
     new HardSourceWebpackPlugin({
       cacheDirectory: "node_modules/.cache/hard-source/[confighash]",
-      configHash: function(webpackConfig) {
+      configHash: function (webpackConfig) {
         // node-object-hash on npm can be used to build this.
         return require("node-object-hash")({ sort: false }).hash(webpackConfig);
       },

@@ -47,9 +47,9 @@ export default class Layout extends React.Component {
             </React.Fragment>
         }
         profile = JSON.parse(profile);
-        let loginType;
+        let loginType = localStorage.getItem('login_type');
         if (toString.call(loginType) !== '[object Undefined]')
-            loginType = parseInt(localStorage.getItem('login_type'));
+            loginType = parseInt(loginType);
         switch (loginType) {
             case Util.LOGIN_TYPE.GitHub:
                 return <React.Fragment>
@@ -127,7 +127,7 @@ export default class Layout extends React.Component {
                             <div className="layout-header-info-main">{this.props.logo}</div>
                             <div className="layout-header-info-sub">Welcome to Dqhan's Blog</div>
                             <div className="layout-header-info-link">
-                                <ui>
+                                <ul>
                                     <li>
                                         <a className="font-icon iconfont icon-github" href="https://github.com/Dqhan" target="_blank"></a>
                                     </li>
@@ -137,7 +137,7 @@ export default class Layout extends React.Component {
                                     <li>
                                         <a className="font-icon iconfont icon-weixin" href="https://www.dqhanhouse.com" target="_blank"></a>
                                     </li>
-                                </ui>
+                                </ul>
                             </div>
                             <div className="layout-user-info">
                                 {
