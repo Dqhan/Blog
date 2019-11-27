@@ -11,14 +11,13 @@ import ModuleRouter from './ModuleRouter';
 
 const RootRouter = () => {
     return <HashRouter>
-        <React.Suspense fallback={<div>loading</div>}>
+        <React.Suspense fallback={<div>loading...</div>}>
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/oAuthPromisition" component={oAuthPromisition} />
                 <Route path="/WeChatPromisitionCheck" component={WeChatPromisitionCheck} />
                 <Route path="/403" component={Forbidden} />
                 <Route path="/sub" component={ModuleRouter} />
-
             </Switch>
         </React.Suspense>
     </HashRouter>

@@ -3,22 +3,35 @@ import {
     Switch
 } from 'react-router-dom';
 
-function ModuleHTML(factory) {
-    var Component = React.lazy(factory);
+function lazyWithPreload(factory) {
+    const Component = React.lazy(factory);
+    Component.preload = factory;
     return Component;
+}
+
+
+const LeaveMsg = lazyWithPreload(() => { return import(/* webpackChunkName: "leavemessage" */ '../JSX/Components/LeaveMessage/LeaveMessage') });
+const Blog = lazyWithPreload(() => { return import(/* webpackChunkName: "blog" */ '../JSX/Components/Blog/Blog') });
+const Article = lazyWithPreload(() => { return import(/* webpackChunkName: "article" */ '../JSX/Components/Blog/Article') });
+const Production = lazyWithPreload(() => { return import(/* webpackChunkName: "production" */ '../JSX/Components/Production/index') });
+const About = lazyWithPreload(() => { return import(/* webpackChunkName: "about" */ '../JSX/Components/About/About') });
+const Write = lazyWithPreload(() => { return import(/* webpackChunkName: "write" */ '../JSX/Components/Blog/Write') });
+const Overview = lazyWithPreload(() => { return import(/* webpackChunkName: "overview" */ '../JSX/Components/Overview/Overview') });
+
+function moduleHtml(component) {
+    component.preload()
+    return component;
 }
 
 const SubRouter = () => {
     return <Switch>
-        <Route path="/sub/leavemessage" component={ModuleHTML(() => { return import(/* webpackChunkName: "leavemessage" */ '../JSX/Components/LeaveMessage/LeaveMessage') })} />
-        <Route path="/sub/blog" component={ModuleHTML(() => { return import(/* webpackChunkName: "blog" */ '../JSX/Components/Blog/Blog') })} />
-        <Route path="/sub/article" component={ModuleHTML(() => { return import(/* webpackChunkName: "article" */ '../JSX/Components/Blog/Article') })} />
-        <Route path="/sub/production" component={ModuleHTML(() => { return import(/* webpackChunkName: "production" */ '../JSX/Components/LeaveMessage/LeaveMessage') })} />
-        <Route path="/sub/about" component={ModuleHTML(() => { return import(/* webpackChunkName: "about" */ '../JSX/Components/About/About') })} />
-        <Route path="/sub/write" component={ModuleHTML(() => { return import(/* webpackChunkName: "write" */ '../JSX/Components/Blog/Write') })} />
-        <Route path="/sub/overview" component={ModuleHTML(() => { return import(/* webpackChunkName: "overview" */ '../JSX/Components/Overview/Overview') })} />
+        <Route path="/sub/leavemessage" component={moduleHtml(LeaveMsg)} />
+        <Route path="/sub/blog" component={moduleHtml(Blog)} />
+        <Route path="/sub/article" component={moduleHtml(Article)} />
+        <Route path="/sub/production" component={moduleHtml(Production)} />
+        <Route path="/sub/about" component={moduleHtml(About)} />
+        <Route path="/sub/write" component={moduleHtml(Write)} />
+        <Route path="/sub/overview" component={moduleHtml(Overview)} />
     </Switch>
 }
 export default SubRouter;
-
-

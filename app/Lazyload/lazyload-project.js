@@ -27,23 +27,38 @@ class LazyLoader extends React.Component {
         if (!this.state.module) return null;
         else this.props.children(this.state.module);
     }
-
-
 }
 
-const HTMLModule = (name, path) => {
+const HTMLModule = ({ name, path }) => {
+    let param = location.param;
+    location.param = null;
     let ModuleComponent = Modules[name];
-    return <React.Fragment>
-        {
-            ModuleComponent ? <ModuleComponent param={param} /> :
-                <LazyLoader>
-                    {
-                        (Item) => <Item param={param} />
-                    }
-                </LazyLoader>
-        }
-    </React.Fragment>
+    return (
+        <React.Fragment>
+            {
+                ModuleComponent ?
+                    <ModuleComponent param={param} /> :
+                    <LazyLoader path={path} module={name}>
+                        {(Item) => <Item param={param} />}
+                    </LazyLoader>
+            }           
+        </React.Fragment>
+    );
+};
+
+
+class ModulesRouter extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <Switch>
+                <Route path={'/Module/Target'} render={() => <HTMLModule name='Target' path={'./Module/Target'} />} />
+                <Redirect from='*' to='/403' />
+            </Switch>
+        );
+    }
 }
 
-
-export default HTMLModule;
+export default ModulesRouter;
