@@ -7,7 +7,9 @@ export default class LoginDialog extends React.Component {
 
     initState() {
         this.state = {
-            loginType: Util.LOGIN_TYPE.Default
+            loginType: Util.LOGIN_TYPE.Default,
+            password: '',
+            conformPwd: ''
         }
         return this;
     };
@@ -15,6 +17,7 @@ export default class LoginDialog extends React.Component {
     initBind() {
         this.handleUserNameChanged = this.handleUserNameChanged.bind(this);
         this.handlePasswordChanged = this.handlePasswordChanged.bind(this);
+        this.handleConformPwdChanged = this.handleConformPwdChanged.bind(this);
         this.registerHandler = this.registerHandler.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
     };
@@ -29,19 +32,43 @@ export default class LoginDialog extends React.Component {
         });
     }
 
-    initWeChat() {
-        this.weChart = new WxLogin({
-            id: "wechat_login_container", // 需要显示的容器id
-            appid: "wx65df7a4974221854",  // 公众号appid wx*******
-            scope: "snsapi_base ",  // 网页默认即可
-            redirect_uri: "http://10.2.118.52/#/oAuthPromisition", // 授权成功后回调的url
-            state: "", // 可设置为简单的随机数加session用来校验
-            style: "black", // 提供"black"、"white"可选。二维码的样式
-            href: "" // 外部css文件url，需要https
-        });
+    handleGitHubLogin() {
+        let path = `https://github.com/login/oauth/authorize?response_type=code&redirect_uri=${CommonUtil.Config.github.redirect_uri}&scope=user%2Crepo&client_id=${CommonUtil.Config.github.client_id}`;
+        location.href = path;
+    }
+
+    handleUserNameChanged(e) {
+        this.setState(
+            Object.assign(this.state, {
+                userName: e.target.value
+            })
+        );
+    }
+
+    handlePasswordChanged(e) {
+        this.setState(
+            Object.assign(this.state, {
+                password: e.target.value
+            })
+        );
+    }
+
+    handleConformPwdChanged(e) {
+        this.setState(
+            Object.assign(this.state, {
+                conformPwd: e.target.value
+            })
+        );
     }
 
     registerHandler() {
+        if (this.state.password != this.state.conformPwd) {
+            R.conform({
+                message: "The two passwords you entered did not match.",
+                footer: true
+            });
+            return;
+        }
         let request = {
             username: this.state.userName,
             password: this.state.password
@@ -64,27 +91,6 @@ export default class LoginDialog extends React.Component {
                     message: e
                 });
             });
-    }
-
-    handleGitHubLogin() {
-        let path = `https://github.com/login/oauth/authorize?response_type=code&redirect_uri=${CommonUtil.Config.github.redirect_uri}&scope=user%2Crepo&client_id=${CommonUtil.Config.github.client_id}`;
-        location.href = path;
-    }
-
-    handleUserNameChanged(e) {
-        this.setState(
-            Object.assign(this.state, {
-                userName: e.target.value
-            })
-        );
-    }
-
-    handlePasswordChanged(e) {
-        this.setState(
-            Object.assign(this.state, {
-                password: e.target.value
-            })
-        );
     }
 
     loginHandler() {
@@ -122,68 +128,85 @@ export default class LoginDialog extends React.Component {
     renderLoginComponent() {
         switch (this.state.loginType) {
             case Util.LOGIN_TYPE.Login:
-                return <React.Fragment>
-                    <div className="">
-                        <label>账号：</label>
+                return <div className='login-content'>
+                    <div className="login-content-item">
+                        <label>Account:</label>
                         <input
                             type="text"
                             value={this.state.userName}
                             onChange={this.handleUserNameChanged}
                         />
                     </div>
-                    <div className="">
-                        <label>密码：</label>
+                    <div className="login-content-item">
+                        <label>Password:</label>
                         <input
                             type="text"
                             value={this.state.password}
                             onChange={this.handlePasswordChanged}
                         />
                     </div>
-                    <RButton text="登录" onClick={this.loginHandler} />
-                </React.Fragment>
+                    <div className="login-content-item">
+                        <button className="login-content-item-btn" onClick={this.loginHandler}>Login</button>
+                    </div>
+                </div>
             case Util.LOGIN_TYPE.Register:
-                return <React.Fragment>
-                    <div className="">
-                        <label>账号：</label>
+                return <div className='register-content'>
+                    <div className="register-content-item">
+                        <label>Account:</label>
                         <input
                             type="text"
                             value={this.state.userName}
                             onChange={this.handleUserNameChanged}
                         />
                     </div>
-                    <div className="">
-                        <label>密码：</label>
+                    <div className="register-content-item">
+                        <label>Password:</label>
                         <input
-                            type="text"
+                            type="password"
                             value={this.state.password}
                             onChange={this.handlePasswordChanged}
                         />
                     </div>
-                    <div className="">
-                        <RButton text="注册" onClick={this.registerHandler} />
-                        <RButton
-                            text="返回"
-                            onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)}
+                    <div className="register-content-item">
+                        <label>Conform:</label>
+                        <input
+                            type="password"
+                            value={this.state.conformPwd}
+                            onChange={this.handleConformPwdChanged}
                         />
                     </div>
-                </React.Fragment>
+                    <div className="register-content-item">
+                        <button className='register-content-item-btn' onClick={this.registerHandler}>Register</button>
+                        <button className='register-content-item-btn' onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)}>Return</button>
+                    </div>
+                </div>
             case Util.LOGIN_TYPE.Account:
-                return (
-                    <React.Fragment>
-                        <div className="">
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="登录" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)} />
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="注册" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Register)} />
-                            <RButton style={{ padding: '25px', borderRadius: '30px' }} text="返回" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)} />
+                return <React.Fragment>
+                    <div className="login-account-content">
+                        <div className='login-action-content-item' onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)}>
+                            <div className="font-icon iconfont icon-user"></div>
+                            <div>Login</div>
+                            <i className="light"></i>
                         </div>
-                    </React.Fragment>
-                );
+                        <div className='login-action-content-item' onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Register)}>
+                            <div className="font-icon fi-page-enroll-a"></div>
+                            <div>Register</div>
+                            <i className="light"></i>
+                        </div>
+                        <div className='login-action-content-item' onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Default)}>
+                            <div className="font-icon fi-page-submit-a"></div>
+                            <div>Return</div>
+                            <i className="light"></i>
+                        </div>
+                    </div>
+                </React.Fragment>
             case Util.LOGIN_TYPE.RegisterSuccessfully:
                 return <div className=''>
                     <div>
                         Register Successfully!
                     </div>
                     <div>
-                        <RButton text="登录" onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)} />
+                        <button onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Login)}>Login</button>
                     </div>
                 </div>
             case Util.LOGIN_TYPE.WeChat:
@@ -193,20 +216,15 @@ export default class LoginDialog extends React.Component {
             case Util.LOGIN_TYPE.Default:
                 return <React.Fragment>
                     <label>选择登陆方式</label>
-                    <div>
-                        <div onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Account)}>
+                    <div className='login-action-content'>
+                        <div className='login-action-content-item' onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.Account)}>
                             <div className="font-icon iconfont icon-user"></div>
                             <div>Account</div>
                             <i className="light"></i>
                         </div>
-                        <div onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.GitHub)}>
+                        <div className='login-action-content-item' onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.GitHub)}>
                             <div className="font-icon iconfont icon-github"></div>
                             <div>GitHub</div>
-                            <i className="light"></i>
-                        </div>
-                        <div onClick={this.changeLogin.bind(this, Util.LOGIN_TYPE.WeChat)}>
-                            <div className="font-icon iconfont icon-weixin"></div>
-                            <div>WeChat</div>
                             <i className="light"></i>
                         </div>
                     </div>

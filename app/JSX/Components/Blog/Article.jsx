@@ -57,6 +57,27 @@ export default class Article extends React.Component {
             if (toString.call(reject) === '[object Function]') reject(e);
             else throw new Error(e);
         })
+
+
+        // var myHeaders = new Headers();
+        // myHeaders.append('Content-Type','application/x-www-form-urlencoded');
+        // myHeaders.append('','');
+        // var myInit = {
+        //     method: 'GET',
+        //     headers: myHeaders,
+        //     mode: 'cors',
+        //     cache: 'default'
+        // };
+        // var myRequest = new Request(`./api/article/getartcile?id=${id}`, myInit);
+        // myRequest.then(res => {
+        //     $$.loading(false);
+        //     if (toString.call(resolve) === '[object Function]') resolve(res);
+        //     else this.retrieveArticlesCallback(res);
+        // }).catch(e => {
+        //     $$.loading(false);
+        //     if (toString.call(reject) === '[object Function]') reject(e);
+        //     else throw new Error(e);
+        // })
     }
 
     retrieveArticlesCallback(res) {

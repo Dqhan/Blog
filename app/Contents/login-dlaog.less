@@ -1,5 +1,7 @@
 .login-contain {
     font-size: 1.0rem;
+    height   : 240px;
+    width    : 340px;
 
     .font-icon {
         font-size: 1.7rem;
@@ -51,10 +53,51 @@
                 color : #5B5B5B;
 
                 &:nth-child(1) {
-                    color: #70c3ff !important;
+                    color: #ff9900 !important;
                 }
 
             }
         }
     }
+
+    .login-action-content,
+    .login-account-content {
+        display: flex;
+
+        .login-action-content-item {
+            flex      : 1;
+            text-align: center;
+        }
+    }
+
+    .register-content {
+        .register-content-item {
+            margin-bottom: 15px;
+
+            & input {
+                height: 22px;
+                width : 225px;
+            }
+
+            .register-content-item-btn {
+                margin: 0 10px;
+            }
+        }
+    }
+
+    .login-content {
+        .login-content-item {
+            margin-bottom: 15px;
+
+            & input {
+                height: 22px;
+                width : 225px;
+            }
+
+            .login-content-item-btn {
+                margin: 0 0 0 145px;    
+            }
+        }
+    }
+
 }

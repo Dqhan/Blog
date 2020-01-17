@@ -5,8 +5,8 @@ const leavemsgCtrl = require("./controller/LeaveMsgController");
 const oauthCtrl = require("./controller/OAuthContoller");
 const documentCtrl = require("./controller/DocumentController");
 const Router = require("koa-router");
-
 let router = new Router();
+
 /**
  * 二级路由分发
  */
@@ -39,6 +39,7 @@ router
 
 router
   .post('/api/document/upload', documentCtrl.upload)
+  .get('/api/document/peoplepickermetadata', documentCtrl.peoplepickermetadata)
 
 
 router

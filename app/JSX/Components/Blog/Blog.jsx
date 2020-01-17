@@ -116,6 +116,41 @@ export default class Blog extends React.Component {
                     </div> */}
                 </div>
             </Layout>
+            <More />
         </React.Fragment>
+    }
+}
+
+
+
+class More extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            status: true
+        }
+    }
+
+    componentWillMount() {
+    }
+
+    handleChangeStatus() {
+        this.setState({
+            status: !this.state.status
+        })
+    }
+
+    render() {
+        return <div className='know-more'>
+            <div className={this.state.status ? 'know-more-body' : 'know-more-body active'}>
+                <div className='know-more-btn' onClick={this.handleChangeStatus.bind(this)}>
+                    <div className={this.state.status ? 'fi-page-arrow-left-double-as' : 'fi-page-arrow-right-double-as'}></div>
+                </div>
+                <div className='know-more-content'>
+                    <div className='know-more-content-blog-pic'></div>
+                    <div className='know-more-content-blog-desc'>感谢打赏,您的肯定是对我最大的帮助！</div>
+                </div>
+            </div>
+        </div>
     }
 }

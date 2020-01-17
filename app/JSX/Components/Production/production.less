@@ -1,0 +1,91 @@
+﻿.production-content {
+    .ui-tabcontrol-container-item {
+        position     : relative;
+        border       : 0 !important;
+        color        : #222;
+        border-radius: 1px;
+        margin       : 5px;
+
+        &::after {
+            height          : calc(50% - 10px);
+            position        : absolute;
+            left            : 11px;
+            content         : "";
+            display         : inline-block;
+            width           : 2px;
+            top             : 0px;
+            background-color: #ccc;
+        }
+
+        &::before {
+            height          : calc(50% - 10px);
+            position        : absolute;
+            left            : 11px;
+            content         : "";
+            display         : inline-block;
+            width           : 2px;
+            bottom          : 0px;
+            background-color: #ccc;
+        }
+
+        .step {
+            position        : absolute;
+            top             : 50%;
+            left            : 2px;
+            margin-top      : -10px;
+            display         : inline-block;
+            height          : 20px;
+            width           : 20px;
+            line-height     : 20px;
+            text-align      : center;
+            border-radius   : 2px;
+            font-weight     : bold;
+            background-color: #ccc;
+            color           : #fff;
+        }
+    }
+
+    .active {
+        background: #ff9900 !important;
+    }
+
+    pre {
+        background: #444;
+        color     : #eeeeee;
+    }
+
+    .stackpanel {
+        .stackpanel-title {
+            background-color: #ccc;
+            padding         : 10px 0;
+        }
+
+        .stackpanel-content {
+            padding: 13px;
+        }
+    }
+
+    .handler-callback-content {
+        .handler-callback-content-title {
+            font-weight: 500;
+            font-size  : 17px;
+            margin     : 5px 0;
+        }
+
+        .handler-callback-content-desc {
+            margin: 5px 0;
+        }
+
+        .handler-callback-content-params-content {
+            margin-left: 30px;
+
+            .handler-callback-content-item {
+                margin: 5px 0;
+
+                .handler-callback-content-item-title {}
+
+                .handler-callback-content-item-desc {}
+            }
+        }
+    }
+}

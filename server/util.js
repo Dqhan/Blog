@@ -22,7 +22,8 @@ module.exports = {
   },
   whiteList: [
     '/api/oauth/getgithubtoken',
-    "/api/document/upload",
+    '/api/document/upload',
+    '/api/document/peoplepickermetadata',
     '/api/user/login',
     '/api/user/register',
     '/api/user/logout',

@@ -102,16 +102,8 @@ export default class About extends React.Component {
                         <div className="about-item-contain">
                             <ul>
                                 <li className="fi-page-hand-over-packed-bags-a">
-                                    <div>电话</div>
-                                    <div>18640926184</div>
-                                </li>
-                                <li className="fi-page-hand-over-packed-bags-a">
                                     <div>邮箱</div>
-                                    <div>291927006@qq.com</div>
-                                </li>
-                                <li className="fi-page-hand-over-packed-bags-a">
-                                    <div>微信</div>
-                                    <div>18640926184</div>
+                                    <div>1195209924@qq.com</div>
                                 </li>
                             </ul>
                         </div>
@@ -139,6 +131,60 @@ export default class About extends React.Component {
                     </section>
                 </div>
             </Layout>
+            <More />
         </React.Fragment>
+    }
+}
+
+class More extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            status: true
+        }
+    }
+
+    componentWillMount() {
+        // this.preload();
+    }
+
+    // preload() {
+    //     let imgs = [{ name: 'pic', url: 'https://www.dqhanblog.cn:4335/%E5%A4%B4%E5%83%8F.png' }],
+    //         count = 0;
+    //     for (let img of imgs) {
+    //         var image = new Image();
+    //         image.src = img.url;
+    //         image.onload = function () {
+    //             count++;
+    //             if (count === imgs.length) {
+    //                 console.log('over');
+    //             } else {
+    //                 console.log('loading...');
+    //             }
+    //         }
+    //     }
+    // }
+
+    handleChangeStatus() {
+        this.setState({
+            status: !this.state.status
+        })
+    }
+
+    render() {
+        return <div className='know-more'>
+            <div className={this.state.status ? 'know-more-body' : 'know-more-body active'}>
+                <div className='know-more-btn' onClick={this.handleChangeStatus.bind(this)}>
+                    <div className={this.state.status ? 'fi-page-arrow-left-double-as' : 'fi-page-arrow-right-double-as'}></div>
+                </div>
+                <div className='know-more-content'>
+                    <div className='know-more-content-pic'></div>
+                    <ul>
+                        <li><a href='' target='_blank'>在线简历</a></li>
+                        <li><a href='' target='_blank'>关于站点</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     }
 }
