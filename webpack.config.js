@@ -14,7 +14,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "./public/"),
-    filename: '[name].bundle.js',
+    filename: '[name].[chunkhash:8].js',
     chunkFilename: '[name].module.js', //非入口文件命名规则
   },
   watchOptions: {
@@ -35,7 +35,6 @@ module.exports = {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'style-loader',// 与 MiniCssExtractPlugin.loader 冲突
           "css-loader"
         ],
         exclude: /node_modules/
@@ -44,7 +43,6 @@ module.exports = {
         test: /\.less$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // "style-loader",  // creates style nodes from JS strings
           "css-loader", // translates CSS into CommonJS
           "less-loader" // compiles Less to CSS
         ],
@@ -87,19 +85,11 @@ module.exports = {
     ]
   },
   plugins: [
-    /**
-     *  剥离CSS文件
-     */
     new MiniCssExtractPlugin({
       // filename: "[name].[chunkhash:8].css",
       filename: "bundle.css",
       chunkFilename: "[id].css"
     }),
-
-    /**
-     * html plugin
-     */
-
     new HtmlWebpackPlugin({
       template: 'Index.html',
       filename: 'index.html',
@@ -107,63 +97,32 @@ module.exports = {
         'index'
       ]
     }),
-    /**
-     * copy src to public
-     */
     new CopyWebpackPlugin([
       {
         from: __dirname + '/Lib/editor',
         to: __dirname + '/public/editor',
-        // toType: 'directory', //file 或者 dir  可选，默认是文件
-        // ignore: ['.*']
-      },{
+      },
+      {
         from: __dirname + '/picSrc',
         to: __dirname + '/public/picSrc',
+      },
+      {
+        from: __dirname + '/musicSrc',
+        to: __dirname + '/public/musicSrc',
       }
     ]),
-
-    /**
-     * 缓存策略
-     */
-    new HardSourceWebpackPlugin({
-      cacheDirectory: "node_modules/.cache/hard-source/[confighash]",
-      configHash: function (webpackConfig) {
-        // node-object-hash on npm can be used to build this.
-        return require("node-object-hash")({ sort: false }).hash(webpackConfig);
-      },
-      environmentHash: {
-        root: process.cwd(),
-        directories: [],
-        files: ["package-lock.json", "yarn.lock"]
-      },
-      info: {
-        // 'none' or 'test'.
-        mode: "none",
-        // 'debug', 'log', 'info', 'warn', or 'error'.
-        level: "debug"
-      },
-      cachePrune: {
-        maxAge: 2 * 24 * 60 * 60 * 1000,
-        sizeThreshold: 50 * 1024 * 1024
-      }
-    }),
-    /**
-     * 开启 Scope Hoisting
-     */
     new webpack.optimize.ModuleConcatenationPlugin(),
-    /**
-     * 动态删除多余的js css less等等
-     */
-    // new CleanWebpackPlugin()
+    // new webpack.DllReferencePlugin({
+    //   context: __dirname,
+    //   manifest: require('./dist_vendor/react.manifest.json')
+    // }),
+    new webpack.ProvidePlugin({
+      'React': 'react',
+      'ReactDOM': 'react-dom'
+    }),
+    new CleanWebpackPlugin(),
   ],
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".css"],
-    mainFields: ["jsnext:main", "browser", "main"]
-  },
-  externals: {
-    // react: " window.__lib.React",
-    // "react-dom": " window.__lib.ReactDOM"
-    react: "React",
-    "react-dom": "ReactDOM"
+    extensions: [".js", ".jsx", ".json", ".css"]
   }
 };

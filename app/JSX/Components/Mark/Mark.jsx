@@ -11,49 +11,149 @@ export default class Mark extends React.Component {
         this.state = {
             pics: [
                 {
-                    src: 'https://www.dqhanblog.cn:4335/2020年第一顿.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/2020年第一顿.jpg',
                     name: '2020年第一顿'
                 },
                 {
-                    src: 'https://www.dqhanblog.cn:4335/长白山小团队.jpg',
-                    name: '长白山小分队'
-                },
-                {
-                    src: 'https://www.dqhanblog.cn:4335/sa1.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/sa1.jpg',
                     name: 'sa1'
                 },
                 {
-                    src: 'https://www.dqhanblog.cn:4335/sa2.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/sa2.jpg',
                     name: 'sa2'
                 },
                 {
-                    src: 'https://www.dqhanblog.cn:4335/sa3.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/sa3.jpg',
                     name: 'sa3'
                 },
                 {
-                    src: 'https://www.dqhanblog.cn:4335/sa4.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/sa4.jpg',
                     name: 'sa4'
                 },
                 {
-                    src: 'https://www.dqhanblog.cn:4335/sa5.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/sa5.jpg',
                     name: 'sa5'
                 },
                 {
-                    src: 'https://www.dqhanblog.cn:4335/sa6.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/sa6.jpg',
                     name: 'sa6'
                 },
                 {
-                    src: 'https://www.dqhanblog.cn:4335/sa7.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/sa7.jpg',
                     name: 'sa7'
                 },
                 {
-                    src: 'https://www.dqhanblog.cn:4335/sa8.jpg',
+                    src: 'https://www.dqhanblog.cn:4335/content/sa8.jpg',
                     name: 'sa8'
-                }               
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS1.jpg',
+                    name: 'CBS1'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS2.jpg',
+                    name: 'CBS2'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS3.jpg',
+                    name: 'CBS3'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS4.jpg',
+                    name: 'CBS4'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS5.jpg',
+                    name: 'CBS5'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS6.jpg',
+                    name: 'CBS6'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS7.jpg',
+                    name: 'CBS7'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS8.jpg',
+                    name: 'CBS8'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/CBS9.jpg',
+                    name: 'CBS9'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/JD1.jpg',
+                    name: 'JD1'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/JD2.jpg',
+                    name: 'JD2'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/JD3.jpg',
+                    name: 'JD3'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/JD4.jpg',
+                    name: 'JD4'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/JD5.jpg',
+                    name: 'JD5'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/出差1.jpg',
+                    name: '出差1'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/梦工厂1.jpg',
+                    name: '梦工厂1'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/梦工厂2.jpg',
+                    name: '梦工厂2'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊1.jpg',
+                    name: '烤全羊1'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊2.jpg',
+                    name: '烤全羊2'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊3.jpg',
+                    name: '烤全羊3'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊4.jpg',
+                    name: '烤全羊4'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊5.jpg',
+                    name: '烤全羊5'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊6.jpg',
+                    name: '烤全羊6'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊7.jpg',
+                    name: '烤全羊7'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊8.jpg',
+                    name: '烤全羊8'
+                },
+                {
+                    src: 'https://www.dqhanblog.cn:4335/content/烤全羊9.jpg',
+                    name: '烤全羊9'
+                }
             ],
             status: false,
             pictureName: '2020年第一顿',
-            pictureSrc: 'https://www.dqhanblog.cn:4335/2020年第一顿.jpg',
+            pictureSrc: 'https://www.dqhanblog.cn:4335/content/2020年第一顿.jpg',
             currentIndex: 0
         };
         err.forEach(e => {
@@ -65,23 +165,36 @@ export default class Mark extends React.Component {
         this.initEvent();
     }
     initEvent() {
+        var self = this;
         function lazyload() {
             let imgs = $('.mark-content-item-pic');
             for (var img of imgs) {
-                loadImg(img);
+                if (isShow($(img))) loadImg(img);
             }
+        }
+
+        function isShow($node) {
+            return $node.offset().top <= $(window).height() + $(window).scrollTop();
         }
 
         function loadImg(img) {
             img.src = img.getAttribute('data-src');
-            img.onload = function () {
-                console.log(`load finished.`);
+            img.loaded = false;
+            if (img.loaded === false) {
+                img.onload = function (e) {
+                    img.loaded = true;
+                    var index = self.getCurrentIndex(e.target.dataset.name);
+                    if (index % 2 === 0) {
+                        img.classList.add('active');
+                    } else {
+                        img.classList.add('active');
+                    }
+                }
             }
         }
-
+        lazyload();
         window.onscroll = CommonUtil.throttle(lazyload, this, 300, 600);
     }
-
 
     renderContent() {
         return this.state.pics.map(pic => {

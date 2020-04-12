@@ -4,6 +4,7 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
+    "vendor": "webpack --config webpack.dll.js",
     "watch": "webpack --watch",
     "server": "node ./server/server.js && node ./Server/server.js",
     "api": "node ./server/api.js && node --inspect ./Server/api.js",
@@ -54,7 +55,9 @@
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-busboy": "^1.2.0",
+    "koa-conditional-get": "^2.0.0",
     "koa-connect": "^2.0.1",
+    "koa-etag": "^3.0.0",
     "koa-jwt": "^3.6.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",

@@ -11,31 +11,38 @@ export default class Content extends React.Component {
     initBind() {
     }
 
-    componentWillReceiveProps() {
-
-    }
 
     componentDidMount() {
         this.initEvent();
     }
 
+    componentDidUpdate() {
+        this.lazyload();
+    }
+
     initEvent() {
-        function lazyload() {
-            let i = 0,
-                articles_els = $('.article-item'),
-                len = articles_els.length,
-                scollTop = document.body.scrollTop || document.documentElement.scrollTop,
-                winTop = window.innerHeight;
-            for (; i < len; i++) {
-                if (articles_els[i].offsetTop < scollTop + winTop) {
-                    if (articles_els[i].classList.contains('article-item-visible'))
-                        continue;
-                    else
-                        articles_els[i].classList.add('article-item-visible');
-                }
-            }
+        window.onscroll = CommonUtil.throttle(this.lazyload, this, 300, 600);
+    }
+
+    lazyload() {
+        let i = 0,
+            articles_els = $('.article-item'),
+            len = articles_els.length;
+        for (; i < len; i++) {
+            if (this.isShow($(articles_els[i]))) this.loadSection(articles_els[i]);
         }
-        window.onscroll = CommonUtil.throttle(lazyload, this, 300, 600);
+    }
+
+    isShow($node) {
+        return $node.offset().top <= $(window).height() + $(window).scrollTop();
+    }
+
+    loadSection(article_el) {
+        article_el.classList.add('article-item-visible');
+    }
+
+    limitContent(content) {
+        return content.substr(0, 400) + '...';
     }
 
     renderSource() {
@@ -52,7 +59,7 @@ export default class Content extends React.Component {
                         </div>
                         {this.renderTag(s.tags)}
                     </div>
-                    <p className='article-item-description'>{s.content}</p>
+                    <p className='article-item-description'>{this.limitContent(s.content)}</p>
                     <RButton text="Read More" target="_blank" onClick={this.handleArticleLink.bind(this, s.id)}></RButton>
                 </div>
                 <hr></hr>

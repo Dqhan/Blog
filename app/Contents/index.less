@@ -1,7 +1,9 @@
 body {
-    padding  : 0px;
-    margin   : 0px;
-    font-size: 15px;
+    padding       : 0px;
+    margin        : 0px;
+    font-size     : 15px;
+    position      : relative;
+    padding-bottom: 150px;
 }
 
 .block {
@@ -75,7 +77,7 @@ p {
     }
 
     25% {
-        background             : #ff9800;
+        background             : #f37327;
         -webkit-background-clip: text;
     }
 
@@ -85,7 +87,7 @@ p {
     }
 
     75% {
-        background             : #ff9800;
+        background             : #f37327;
         -webkit-background-clip: text;
     }
 
@@ -99,7 +101,7 @@ hr {
     position  : relative;
     height    : 1px;
     border    : none;
-    border-top: 2px dashed #ff9900;
+    border-top: 2px dashed #26272b;
     overflow  : visible;
     margin    : 20px 0;
 
@@ -108,7 +110,7 @@ hr {
         top               : -10px;
         left              : 3%;
         z-index           : 1;
-        color             : #ff9900;
+        color             : #26272b;
         content           : "\f0c4";
         font              : normal normal normal 14px/1 FontAwesome;
         font-size         : 20px;
@@ -125,10 +127,65 @@ hr {
             top      : -10px;
             left     : 97%;
             z-index  : 1;
-            color    : #ff9900;
+            color    : #26272b;
             content  : "\f0c4";
             font     : normal normal normal 14px/1 FontAwesome;
             font-size: 20px;
+        }
+    }
+}
+
+.other-link {
+    margin: 10px 0 0 0;
+
+    .other-link-item {
+        display            : inline-block;
+        margin             : 3px;
+        padding            : 0 12px;
+        height             : 60px;
+        line-height        : 60px;
+        text-align         : center;
+        width              : 200px;
+        background-color   : #333333;
+        background-repeat  : no-repeat;
+        background-position: bottom left;
+        background-size    : auto;
+        opacity            : .7;
+        color              : #ffffff;
+        font-weight        : 500;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .other-link-item:nth-child(1) {
+        background: url('https://www.dqhanblog.cn:4335/link/qihuan.png');
+    }
+
+}
+
+footer {
+    padding   : 30px 0;
+    background: #26272b;
+    margin-top: 20px;
+    text-align: center;
+    color     : #ffffff;
+    position  : absolute;
+    bottom    : 0;
+    width     : 100%;
+
+    .footer-content {
+        p {
+            font-size  : 0.9em;
+            display    : block;
+            height     : 20px;
+            line-height: 20px;
+
+            a {
+                color          : #ffffff;
+                text-decoration: underline;
+            }
         }
     }
 }
@@ -142,3 +199,4 @@ hr {
 @import "../JSX//Promisition/forbidden.less";
 @import "./login-dlaog.less";
 @import "./know-more.less";
+@import "./player.less";

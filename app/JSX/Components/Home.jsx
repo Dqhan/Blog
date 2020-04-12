@@ -77,6 +77,9 @@ export default class Home extends React.Component {
                 ]}
             />
             <Layout isHome={true}>
+                <section className='other-link'>
+                    <a className='other-link-item' target='_blank' href='https://nap7.com/'>Hendry's Blog</a>
+                </section>
                 <Content {...contentProps} />
             </Layout>
         </div>

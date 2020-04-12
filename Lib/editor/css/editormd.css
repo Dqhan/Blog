@@ -3921,7 +3921,7 @@
 
   /* string content */
   .kwd {
-    color: #ff9900;
+    color: #26272b;
   }
 
   /* a keyword */
@@ -3978,7 +3978,7 @@
   }
 
   .kwd {
-    color: #ff9900;
+    color: #26272b;
     font-weight: bold;
   }
 
@@ -4296,7 +4296,7 @@ hr.editormd-page-break {
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
-  background: #ff9900;
+  background: #26272b;
 }
 .editormd-preview-theme-dark .editormd-preview-container code {
   color: #fff;
@@ -4379,7 +4379,7 @@ hr.editormd-page-break {
     color: #080;
   }
   .editormd-preview-theme-dark .kwd {
-    color: #ff9900;
+    color: #26272b;
   }
   .editormd-preview-theme-dark .com {
     color: #444444;
@@ -4394,7 +4394,7 @@ hr.editormd-page-break {
     color: #660;
   }
   .editormd-preview-theme-dark .tag {
-    color: #ff9900;
+    color: #26272b;
   }
   .editormd-preview-theme-dark .atn {
     color: #6C95F5;

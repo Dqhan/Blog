@@ -24,7 +24,7 @@
             color: #fff;
             padding: 1px 3px;
             @include border-radius(3px); 
-            background:#ff9900;
+            background:#26272b;
         }
 
         code {
@@ -115,13 +115,13 @@
     
     #{$prefix}preview-theme-dark {
         .str { color: #080 }  /* string content */
-        .kwd { color: #ff9900; }  /* a keyword */
+        .kwd { color: #26272b; }  /* a keyword */
         .com { color: #444444; }  /* a comment */
         .typ { color: #606 }  /* a type name */
         .lit { color: #066 }  /* a literal value */
         /* punctuation, lisp open bracket, lisp close bracket */
         .pun, .opn, .clo { color: #660 }
-        .tag { color: #ff9900; }  /* a markup tag name */
+        .tag { color: #26272b; }  /* a markup tag name */
         .atn { color: #6C95F5; }  /* a markup attribute name */
         .atv { color: #080 }  /* a markup attribute value */
         .dec, .var { color: #008BA7; }  /* a declaration; a variable name */

@@ -17,7 +17,8 @@ const Production = lazyWithPreload(() => { return import(/* webpackChunkName: "p
 const About = lazyWithPreload(() => { return import(/* webpackChunkName: "about" */ '../JSX/Components/About/About') });
 const Write = lazyWithPreload(() => { return import(/* webpackChunkName: "write" */ '../JSX/Components/Blog/Write') });
 const Overview = lazyWithPreload(() => { return import(/* webpackChunkName: "overview" */ '../JSX/Components/Overview/Overview') });
-const Mark = lazyWithPreload(() => { return import(/* webpackChunkName: "overview" */ '../JSX/Components/Mark/Mark') });
+const Mark = lazyWithPreload(() => { return import(/* webpackChunkName: "mark" */ '../JSX/Components/Mark/Mark') });
+const Verse = lazyWithPreload(() => { return import(/* webpackChunkName: "verse" */ '../JSX/Components/Verse/Verse') });
 
 function moduleHtml(component) {
     component.preload()
@@ -34,6 +35,7 @@ const SubRouter = () => {
         <Route path="/sub/write" component={moduleHtml(Write)} />
         <Route path="/sub/overview" component={moduleHtml(Overview)} />
         <Route path="/sub/mark" component={moduleHtml(Mark)} />
+        <Route path="/sub/verse" component={moduleHtml(Verse)} />
     </Switch>
 }
 export default SubRouter;

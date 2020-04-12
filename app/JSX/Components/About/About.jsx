@@ -67,7 +67,7 @@ export default class About extends React.Component {
                                     熟悉HTTP协议
                                 </li>
                                 <li className="fi-page-hand-over-packed-bags-a">
-                                    服务器端熟练使用Nodejs、MongoDB、C#、SQLServer等
+                                    服务器端熟练使用Nginx、Nodejs、MongoDB、C#、SQLServer等
                                 </li>
                             </ul>
                         </div>

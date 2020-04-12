@@ -4,8 +4,12 @@ const busboy = require("koa-busboy");
 const router = require('./router');
 const jwt = require("koa-jwt");
 const Util = require("./util");
+// const conditional = require('koa-conditional-get');
+// const etag = require('koa-etag');
 
 let app = new Koa();
+// app.use(conditional());
+// app.use(etag());
 /**
  * app.use注册文件处理
  */
