@@ -1,0 +1,44 @@
+.verse .verse-section {
+  display: flex;
+  flex-direction: row;
+}
+.verse .verse-section .verse-section-desc {
+  flex-grow: 1;
+  width: 400px;
+  background: #4F4F4F;
+  height: auto;
+  color: #ffffff;
+  border-radius: 7px;
+  padding: 13px;
+  transform: translate3d(-1368px, 0, 0);
+  transition: transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  margin: 5px;
+}
+.verse .verse-section .verse-section-autor {
+  flex-grow: 0;
+  min-width: 100px;
+  background: #4F4F4F;
+  height: auto;
+  color: #ffffff;
+  border-radius: 7px;
+  padding: 13px;
+  transform: translate3d(1368px, 0, 0);
+  transition: transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  margin: 5px;
+}
+.verse .active .verse-section-desc {
+  transform: translate3d(0, 0, 0);
+}
+.verse .active .verse-section-autor {
+  transform: translate3d(0, 0, 0);
+}
+.player {
+  position: absolute;
+  top: 200px;
+  left: 10px;
+}
+
+
+/*# sourceMappingURL=bundle.css.map*/
