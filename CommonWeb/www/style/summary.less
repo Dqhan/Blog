@@ -1,0 +1,169 @@
+.summary {
+    flex       : 0 0 auto;
+    width      : 300px;
+    margin-left: 30px;
+
+    &>img {
+        margin-top: 30px;
+    }
+
+    h3 {
+        padding   : 3px;
+        text-align: center;
+        font-size : 15px;
+    }
+
+    .tags {
+        span {
+            display      : inline-block;
+            border-radius: 3px;
+            padding      : 5px;
+            font-size    : 12px;
+            color        : #ffffff;
+            margin       : 5px;
+            cursor       : pointer;
+        }
+    }
+
+    .summary-login {
+        font-size: 15px;
+
+        .summary-login-content {
+            display       : -webkit-flex;
+            display       : flex;
+            flex-basis    : 100%;
+            flex-direction: row;
+
+            .summary-login-item {
+                flex-basis: inherit;
+                margin-top: 5px;
+                text-align: center;
+
+                .summary-login-item-font {
+                    font-size: 12px;
+                }
+
+                .summary-login-item-icon {
+                    margin-left    : auto;
+                    margin-right   : auto;
+                    width          : 32px;
+                    height         : 32px;
+                    background-size: cover;
+                    cursor         : pointer;
+                }
+            }
+        }
+
+        .btn-group {
+            display        : flex;
+            flex-basis     : 100%;
+            flex-direction : row;
+            justify-content: space-between;
+        }
+
+        .display-userInfo,
+        .summary-login-timeout,
+        .register-successfully {
+            text-align: center;
+
+            div {
+                margin: 10px 0;
+            }
+        }
+
+        .display-userInfo {
+            &>div {
+                padding      : 10px;
+                box-shadow   : 0px 20px 20px -15px #aaa;
+                margin       : 10px 0;
+                border-radius: 10px;
+                color        : #4F4F4F;
+            }
+
+            label {
+                margin-right: 15px;
+            }
+        }
+    }
+
+    .summary-search {
+        input {
+            box-shadow: 0px 20px 20px -15px #aaa;
+        }
+
+        .summary-search-input {
+            padding      : 10px;
+            box-shadow   : 0px 20px 20px -15px #aaa;
+            margin       : 10px 0;
+            border-radius: 10px;
+            color        : #4F4F4F;
+        }
+
+        .summary-search-btn-group {
+            padding      : 10px;
+            box-shadow   : 0px 20px 20px -15px #aaa;
+            margin       : 10px 0;
+            border-radius: 10px;
+            color        : #4F4F4F;
+        }
+    }
+
+    .about-me {
+        p {
+            font-size     : 15px;
+            padding       : 2px;
+            padding-bottom: 5px;
+            padding       : 10px;
+            box-shadow    : 0px 20px 20px -15px #aaa;
+            margin        : 10px 0;
+            border-radius : 10px;
+            color         : #4F4F4F;
+        }
+
+        ul {
+            padding       : 0;
+            display       : flex;
+            flex-basis    : 100%;
+            flex-direction: row;
+
+            li {
+                flex-basis: inherit;
+                text-align: center;
+
+                &>a>span {
+                    width          : 32px;
+                    height         : 32px;
+                    display        : inline-block;
+                    background-size: cover;
+                }
+            }
+        }
+
+        .know-more {
+            font-size    : 15px;
+            border-bottom: 1px solid #bbb;
+            margin-bottom: 10px;
+            padding      : 5px;
+        }
+    }
+
+    .new-leave-message,
+    .new-comments {
+        ul {
+            padding: 5px;
+
+            li {
+                word-wrap  : break-word;
+                font-size  : 12px;
+                line-height: 24px;
+                margin     : 10px 0;
+                padding    : 10px;
+                box-shadow : 0 0 5px #aaa;
+
+                &>div:nth-child(2) {
+                    float: right;
+                }
+            }
+        }
+    }
+}
