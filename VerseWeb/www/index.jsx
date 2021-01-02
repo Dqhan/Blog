@@ -1,5 +1,5 @@
 import Verse from './JSX/Verse';
-require('./Less/index.less');
+require('./style/index.less');
 class VerseIndex extends React.Component {
     render() {
         return <Verse />

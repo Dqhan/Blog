@@ -50,7 +50,7 @@ class LazyLoader extends React.Component {
         // }
         var
             cssPath = path + '/dist/bundle.css',
-        jsPath = path + '/dist/bundle.js';
+            jsPath = path + '/dist/bundle.js';
         LazyLoad.css(cssPath);
         LazyLoad.js(jsPath, () => {
             this.setState({

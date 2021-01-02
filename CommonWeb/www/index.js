@@ -1,15 +1,22 @@
-require('./JSX/CommonUI/index');
-require('./Less/index.less');
-require('./Util/Util');
-require("./Util/Scope");
+import singleSpaReact from 'single-spa-react';
+import RootComponent from './JSX/root.component';
 
-import RootRouter from './JSX/Router/RootRouter';
+const reactLifecycles = singleSpaReact({
+    React,
+    ReactDOM,
+    rootComponent: RootComponent,
+    domElementGetter: () => document.getElementById('common-root')
+})
 
-function render() {
-    ReactDOM.render(
-        (<RootRouter />),
-        document.getElementById('app')
-    );
-}
 
-render();
+export const bootstrap = [
+    reactLifecycles.bootstrap,
+]
+
+export const mount = [
+    reactLifecycles.mount,
+]
+
+export const unmount = [
+    reactLifecycles.unmount,
+]

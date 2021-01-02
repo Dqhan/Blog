@@ -2803,7 +2803,7 @@ var Overview = function (_React$Component) {
         value: function retrieveBlogsForPie() {
             var request = {};
             var option = {
-                url: './article/api/getartciles',
+                url: './blog/api/getartciles',
                 method: 'POST',
                 body: request
             };
@@ -2867,7 +2867,7 @@ var Overview = function (_React$Component) {
             };
             if (args.length > 0) request['tags'] = [].concat(args);
             var option = {
-                url: './article/api/getartciles',
+                url: './blog/api/getartciles',
                 method: 'POST',
                 body: request
             };
@@ -2940,7 +2940,7 @@ var Overview = function (_React$Component) {
         key: 'handleRowDataChanged',
         value: function handleRowDataChanged(e, args) {
             var id = args.data._id,
-                path = '#/sub/article?id=' + id;
+                path = '#/blog/article?id=' + id;
             window.open(path);
         }
     }, {

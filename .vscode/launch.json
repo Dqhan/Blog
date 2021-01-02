@@ -14,13 +14,13 @@
             "type": "node",
             "request": "launch",
             "name": "attach server",
-            "program": "${workspaceRoot}/server/server.js",
+            "program": "${workspaceRoot}/Commonweb/server/index.js",
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "attach api",
-            "program": "${workspaceRoot}/server/api.js",
+            "name": "attach blog",
+            "program": "${workspaceRoot}/BlogWeb/server/server.js",
         },
         // {
         //     "type": "node",

@@ -1,4 +1,4 @@
-require('../Less/index.less');
+require('../style/index.less');
 let err = [
     'handleRowDataChanged',
     'pagerChangedHandler'
@@ -84,7 +84,7 @@ export default class Overview extends React.Component {
     retrieveBlogsForPie() {
         let request = {};
         let option = {
-            url: `./article/api/getartciles`,
+            url: `./blog/api/getartciles`,
             method: 'POST',
             body: request
         };
@@ -143,7 +143,7 @@ export default class Overview extends React.Component {
         };
         if (args.length > 0) request['tags'] = [].concat(args);
         let option = {
-            url: `./article/api/getartciles`,
+            url: `./blog/api/getartciles`,
             method: 'POST',
             body: request
         };
@@ -223,7 +223,7 @@ export default class Overview extends React.Component {
 
     handleRowDataChanged(e, args) {
         let id = args.data._id,
-            path = `#/sub/article?id=${id}`;
+            path = `#/blog/article?id=${id}`;
         window.open(path);
     }
 

@@ -41,6 +41,6 @@ app.use(async (ctx, next) => {
     }
 })
 
-app.listen(1000, () =>
+app.listen(3002, () =>
     console.log("common web server is running succsessfully on 1000 port.")
 );

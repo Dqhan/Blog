@@ -36,7 +36,7 @@ module.exports = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     "css-loader", // translates CSS into CommonJS
-                    "less-loader" // compiles Less to CSS
+                    "less-loader" // compiles style to CSS
                 ],
                 exclude: /node_modules/
             },

@@ -1,5 +1,5 @@
 import Overview from "./JSX/Overview";
-require('./Less/index.less')
+require('./style/index.less')
 class OverViewIndex extends React.Component {
     render() {
         return <React.Fragment>

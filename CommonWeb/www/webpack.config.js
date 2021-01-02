@@ -41,7 +41,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader", // translates CSS into CommonJS
-          "less-loader" // compiles Less to CSS
+          "less-loader" // compiles style to CSS
         ],
         exclude: /node_modules/
       },
@@ -90,12 +90,12 @@ module.exports = {
         'index'
       ]
     }),
-    new CopyWebpackPlugin([
-      {
-        from: __dirname + '/Lib/editor',
-        to: __dirname + '/dist/editor',
-      }
-    ]),
+    // new CopyWebpackPlugin([
+    //   {
+    //     from: __dirname + '/Lib/editor',
+    //     to: __dirname + '/dist/editor',
+    //   }
+    // ]),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.ProvidePlugin({
       'React': 'react',

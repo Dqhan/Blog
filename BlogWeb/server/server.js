@@ -10,4 +10,4 @@ app.use(bodyParser());
 
 app.use(router.routes(), router.allowedMethods())
 
-app.listen(3032, () => console.log("Blog server is running successfully listening on port 3032."));
+app.listen(3033, () => console.log("Blog server is running successfully listening on port 3032."));

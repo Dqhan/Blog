@@ -40,7 +40,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader", // translates CSS into CommonJS
-          "less-loader" // compiles Less to CSS
+          "less-loader" // compiles style to CSS
         ],
         exclude: /node_modules/
       },
@@ -87,7 +87,11 @@ module.exports = {
       'React': 'react',
       'ReactDOM': 'react-dom'
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html'
+    })
   ],
   resolve: {
     extensions: [".js", ".jsx", ".json", ".css"]

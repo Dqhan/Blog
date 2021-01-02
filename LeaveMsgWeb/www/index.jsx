@@ -1,4 +1,4 @@
-require('./Less/index.less');
+require('./style/index.less');
 import LeaveMessage from './JSX/Component/LeaveMessage';
 
 

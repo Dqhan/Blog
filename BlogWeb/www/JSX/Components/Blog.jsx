@@ -1,5 +1,6 @@
 export default class Blog extends React.Component {
     constructor(props) {
+        var a = require.context('../../style/', true, /\.less$/);
         super(props);
         this
             .initState()
