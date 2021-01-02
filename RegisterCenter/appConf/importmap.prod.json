@@ -1,0 +1,8 @@
+{
+    "imports": {
+      "demo-commmon-proj": "http://localhost:9000",
+      "demo-react-proj": "http://localhost:9001",
+      "demo-vue-proj": "http://localhost:9002"
+    }
+  }
+  

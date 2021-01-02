@@ -1,11 +1,11 @@
 import singleSpaReact from 'single-spa-react';
-import RootComponent from './JSX/root.component';
+import RootComponent from './root.component';
 
 const reactLifecycles = singleSpaReact({
     React,
     ReactDOM,
     rootComponent: RootComponent,
-    domElementGetter: () => document.getElementById('common-root')
+    domElementGetter: () => document.getElementById('root')
 })
 
 

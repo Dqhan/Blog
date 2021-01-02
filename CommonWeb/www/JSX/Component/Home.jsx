@@ -21,7 +21,7 @@ export default class Home extends React.Component {
             tags: []
         };
         let option = {
-            url: `./blog/api/getartciles`,
+            url: `./api/blog/getartciles`,
             method: 'POST',
             body: request
         };
@@ -59,9 +59,6 @@ export default class Home extends React.Component {
             source: this.state.blogs
         }
         return <R.Layout isHome={true}>
-            <section className='other-link'>
-                <a className='other-link-item' target='_blank' href='https://nap7.com/'>Hendry's Blog</a>
-            </section>
             <R.Content {...contentProps} />
         </R.Layout>
     }

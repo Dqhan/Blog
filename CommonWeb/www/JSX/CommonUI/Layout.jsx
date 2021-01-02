@@ -118,16 +118,16 @@ class Layout extends React.Component {
         return <div id={this.props.id} className='layout'>
             <div className='layout-container'>
                 {
-                    this.props.isHome && <React.Fragment>
-                        <Header isHome={true} />
-                        <$$.Banner
-                            bannerList={[
-                                { leftText: "Webpack", rightText: "你太牛逼啦" },
-                                { leftText: "React", rightText: "天下第一" },
-                                { leftText: "Nodejs", rightText: "天下第一" }
-                            ]}
-                        />
-                    </React.Fragment>
+                    // this.props.isHome && <React.Fragment>
+                    //     <Header isHome={true} />
+                    //     <$$.Banner
+                    //         bannerList={[
+                    //             { leftText: "Webpack", rightText: "你太牛逼啦" },
+                    //             { leftText: "React", rightText: "天下第一" },
+                    //             { leftText: "Nodejs", rightText: "天下第一" }
+                    //         ]}
+                    //     />
+                    // </React.Fragment>
                 }
                 {
                     !this.props.isHome && <React.Fragment>

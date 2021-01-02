@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "demo-commmon-proj": "http://localhost:9000/manifest.json",
+    "demo-react-proj": "http://localhost:9001/manifest.json",
+    "demo-vue-proj": "http://localhost:9002/manifest.json"
+  }
+}

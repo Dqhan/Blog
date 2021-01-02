@@ -1,47 +1,34 @@
-const webpack = require("webpack");
+const StatsPlugin = require("stats-webpack-plugin");
 const path = require("path");
+const webpack = require("webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { readFileSync: read } = require('fs');
 
 module.exports = {
-  mode: "development",
   entry: {
-    index: "./index.js"
+    app: path.resolve(__dirname, "../index.js")
   },
   output: {
-    path: path.resolve(__dirname, "./dist/"),
-    filename: 'bundle.js'
-    // filename: '[name].[chunkhash:8].js',
-    // chunkFilename: '[name].module.js', //非入口文件命名规则
+    path: path.resolve(__dirname, "../dist/"),
+    filename: "[name].js",
+    libraryTarget: "umd",
+    publicPath: "//localhost:3000/",
+    library: "COMMON"
   },
-  devtool: "source-map",
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: [
-          "babel-loader"
-        ],
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader"
-        ],
+        loader: "babel-loader",
         exclude: /node_modules/
       },
       {
         test: /\.less$/,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader", // translates CSS into CommonJS
-          "less-loader" // compiles style to CSS
+          "css-loader",
+          "less-loader"
+          // 'postcss-loader'
         ],
         exclude: /node_modules/
       },
@@ -79,25 +66,23 @@ module.exports = {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: "bundle.css",
-      chunkFilename: "[id].css"
-    }),
-    new HtmlWebpackPlugin({
-      template: 'Index.html',
-      filename: 'index.html',
-      chunks: [
-        'index'
-      ]
-    }),
-    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.ProvidePlugin({
-      'React': 'react',
-      'ReactDOM': 'react-dom'
+      React: "react",
+      ReactDOM: "react-dom"
     }),
     new CleanWebpackPlugin(),
-    new webpack.DefinePlugin({
-      root_path: path.resolve(__dirname, "../../")
+    new StatsPlugin("manifest.json", {
+      chunkModules: false,
+      chunks: true,
+      assets: false,
+      modules: false,
+      children: false,
+      chunksSort: false,
+      assetsSort: false,
+      exclude: [/node_modules/]
+    }),
+    new MiniCssExtractPlugin({
+      filename: "common.css"
     })
   ],
   resolve: {

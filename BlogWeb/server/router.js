@@ -8,17 +8,17 @@ let router = new Router();
  */
 
 router
-  .post('/blog/api/addarticle', articleCtrl.addarticle)// 增加文章
-  .delete('/blog/api/delarticle', articleCtrl.delarticle)//删除文章
-  .put('/blog/api/putarticle', articleCtrl.putarticle)//修改文章
-  .get('/blog/api/getartcile', articleCtrl.getartciledetail)//查看文章内容
-  .post('/blog/api/getartciles', articleCtrl.getartciles)//获取所有文章
+  .post('/blog/addarticle', articleCtrl.addarticle)// 增加文章
+  .delete('/blog/delarticle', articleCtrl.delarticle)//删除文章
+  .put('/blog/putarticle', articleCtrl.putarticle)//修改文章
+  .get('/blog/getartcile', articleCtrl.getartciledetail)//查看文章内容
+  .post('/blog/getartciles', articleCtrl.getartciles)//获取所有文章
 
 router
-  .post('/blog/api/adddeliver', deliverCtrl.adddeliver)//增加文章评论
-  .delete('/blog/api/deldeliver', deliverCtrl.deldeliver)//删除文章评论
-  .put('/blog/api/putdeliver', deliverCtrl.putdeliver)//修改文章评论
-  .get('/blog/api/getdelivers', deliverCtrl.getdelivers)
+  .post('/blog/adddeliver', deliverCtrl.adddeliver)//增加文章评论
+  .delete('/blog/deldeliver', deliverCtrl.deldeliver)//删除文章评论
+  .put('/blog/putdeliver', deliverCtrl.putdeliver)//修改文章评论
+  .get('/blog/getdelivers', deliverCtrl.getdelivers)
 
 
 module.exports = router;
