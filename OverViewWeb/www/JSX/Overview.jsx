@@ -1,4 +1,3 @@
-require('../style/index.less');
 let err = [
     'handleRowDataChanged',
     'pagerChangedHandler'

@@ -48,11 +48,11 @@ export default class Header extends React.Component {
                     <ul>
                         <li className='nav-item'><Link to='/'>首页</Link></li>
                         <li className='nav-item'><Link to='/blog'>博客</Link></li>
-                        <li className='nav-item'><Link to='/overview'>总览</Link></li>
+                        {/* <li className='nav-item'><Link to='/overview'>总览</Link></li>
                         <li className='nav-item'><Link to='/production'>UI Framework</Link></li>
                         <li className='nav-item'><Link to='/leavemessage'>留言板</Link></li>
                         <li className='nav-item'><Link to='/mark'>点滴</Link></li>
-                        <li className='nav-item'><Link to='/verse'>心灵鸡汤</Link></li>
+                        <li className='nav-item'><Link to='/verse'>心灵鸡汤</Link></li> */}
                         <li className='nav-item'><Link to='/about'>关于我</Link></li>
                     </ul>
                 </nav>

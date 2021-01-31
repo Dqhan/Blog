@@ -32,19 +32,11 @@ module.exports = {
       template: "index.html",
       chunks: ["register"]
     }),
-    // new webpack.ProvidePlugin({
-    //   React: "react",
-    //   ReactDOM: "react-dom",
-    // }),
+    new webpack.ProvidePlugin({
+      React: "react",
+      ReactDOM: "react-dom"
+    }),
     new CleanWebpackPlugin()
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: "./system.js",
-    //       to:  "./",
-    //     },
-    //   ],
-    // }),
   ],
   resolve: {
     extensions: [".js", ".jsx", ".json", ".css", ".less"]

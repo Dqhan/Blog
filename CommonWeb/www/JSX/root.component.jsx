@@ -1,4 +1,3 @@
-require('./CommonUI/index');
 require('../style/index.less');
 require('../Util/Util');
 require("../Util/Scope");
